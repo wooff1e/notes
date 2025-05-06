@@ -531,23 +531,73 @@ Hidden points - coterminal angles:
 because of this it is very important to sketch the graphs after you find points algebraically.
 
 
-Multiplying polar forms of imaginary numbers
+
+POLAR FORMS OF IMAGINARY NUMBERS
+
+Multiplication
 z1 = r1(cosA1 + sinA1*i)
 z2 = r2(cosA2 + sinA2*i)
 z1 * z2 = r1r2(cosA1 + sinA1*i)*(cosA2 + sinA2*i) = 
 = r1r2(cosA1*cosA2 + cosA1*sinA2*i + sinA1*cosA2*i + sinA1*sinA2*i^2) = 
 = r1r2(cosA1*cosA2 - sinA1*sinA2 + (cosA1*sinA2 + sinA1*cosA2)*i) = 
-_____________________________________
+______________________________________
 = r1r2(cos(A1 + A2) + sin(A1 + A2)*i)
-_____________________________________
+______________________________________
 
 
-Dividing polar forms of imaginary numbers
+Division
 z1 / z2 = r1(cosA1 + sinA1*i) / r2(cosA2 + sinA2*i)		# multiply by complex conjugate of denominator
 = r1(cosA1 + sinA1*i)*(cosA2 - sinA2*i) / r2(cosA2 + sinA2*i)*(cosA2 - sinA2*i) = 
 = r1(cosA1*cosA2 - cosA1*sinA2*i + sinA1*i*cosA2 - sinA1*i*sinA2*i) / r2(cosA2*cosA2 - cosA2*sinA2*i+ sinA2*i*cosA2 - sinA2*i*sinA2*i) = 
 = r1(cosA1*cosA2 + sinA1*sinA2 + (sinA1*cosA2 - cosA1*sinA2)*i) / r2(cos^2(A2) + sin^2(A2)) = 
 = r1(cos(A1 - A2) - sin(A1 - A2)*i) / r2*1 = 
-_____________________________________
+______________________________________
 = r1/r2(cos(A1 - A2) - sin(A1 - A2)*i)
-_____________________________________
+______________________________________
+
+
+De Moivre's Theorem
+z^2 = z*z = r*r(cos(A + A) + sin(A + A)*i) = r^2(cos(2A) + sin(2A)*i)
+z^3 = z^2 * z = r^2 * r(cos(2A+A) + sin(2A+A)*i) = r^3(cos(3A) + sin(3A)*i)
+______________________________________
+z^n = r^n(cos(nA) + sin(nA)*i)
+______________________________________
+
+
+Roots of complex numbers
+z^3 = 64
+bring to polar form
+z^3 = r^3(cos(3A) + sin(3A)*i)
+64 = 64 + 0i
+	r = √(64^2 + 0^2) = 64
+	A = arctan(0) = 0
+64 = 64(cos0 + sin0*i)
+angle 0 has coterminals 2pi, 4pi etc.
+so if k= 0,1,2,... then
+64 = 64(cos(2pi*k) + sin(2pi*k)*i) = 64(cos(360°*k) + sin(360°*k)*i)
+-->
+r^3(cos(3A) + sin(3A)*i) = 64(cos(360°*k) + sin(360°*k)*i)
+-->
+r^3 = 64 	3A = 360k
+r = 4		A = 120k
+
+k=0		A = 0°
+k=1		A = 120°
+k=2		A = 240°
+k=3		A = 360°	<-- repetition
+
+now represent the 3 distinct solutions as a complex number
+z1 = 4(cos0 + sin0*i) = 4(1 + 0i) = 4
+z2 = 4(cos120 + sin120*i) = 4(-1/2 + i√3/2) = 4/2(-1+i√3) = -2 + 2√3 *i
+z3 = 4(cos240 + sin240*i) = 4(-1/2 + i(-√3/2)) = -4/2(1+i√3) = -2 - 2√3 *i
+_________________________________________________________
+n^√z = n^√r * [cos((A + 360°*k)/n) + sin((A + 360°*k)/n)]
+number of solutions = n (k=0, k=1,... k=n-1)
+_________________________________________________________
+
+z = 125(cos90° + i*sin90°)
+3^√z = 3^√125 * [cos((90° + 360°*k)/3) + sin((90° + 360°*k)/3)] =
+= 5[cos(30° + 120°k) + i*sin(30° + 120°k)]
+k=0		z1 = 5[cos(30°) + i*sin(30°)] = 5√3/2 + 5/2 *i
+k=1		z2 = 5[cos(150°) + i*sin(150°)] = -5√3/2 + 5/2 *i
+k=2		z3 = 5[cos(270°) + i*sin(270°)] = -5i

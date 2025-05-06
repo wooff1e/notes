@@ -416,9 +416,10 @@ class Bookshelf:
     def __init__(self, *books):
         self.books = books                          
 
-shelf = Bookshelf(book1, book2, book3)
+shelf = Bookshelf('book1', 'book2', 'book3')
  
 # all paths where python searches for imports (the $PATH in linux)
+import sys
 print(sys.path)
  
 
@@ -518,6 +519,9 @@ x = "hello"
 
 if not type(x) is int:
     raise TypeError("Only integers are allowed")
+
+def smth_unreliable():
+    pass
 
 try:
     x = int(x)
