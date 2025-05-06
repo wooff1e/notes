@@ -1,0 +1,108 @@
+# HOME setup
+BIOS Mode - Legacy, MBR
+
+F2 -->
+A unsupported display has been detected: this will prevent the system from entering BIOS setup menu. 
+Please verify your display and the display cable connections. Press F1 to continue.
+
+Graphics cards larger than 4GB in size are not supported by the BIOS. 
+when having problem entering bios setup, unplug one of the disks so that number of disks doesn't match with expected --> 
+error --> for some reason u can enter bios now
+
+1) Windows 10 Pro
+2) 22.04.1-Ubuntu
+NVidia Driver Version: 550.120
+CUDA Version: 12.4 
+________________________
+
+# Dual-boot
+If the value is UEFI, Windows boots in UEFI/GPT mode. 
+If the value is Legacy, Windows boots in BIOS/MBR mode
+
+Windows forces type of partitioning depending on the firmware mode used, i.e. if Windows is booted in UEFI mode, it can be installed only to a GPT disk. If Windows is booted in Legacy BIOS mode, it can be installed only to an MBR disk.
+Such a limitation is not enforced by the Linux kernel
+
+Legacy Boot, often referred to as BIOS (Basic Input/Output System) boot
+
+UEFI (Unified Extensible Firmware Interface) is a modern substitute for Legacy BIOS firmware. It was designed to overcome the limitations of BIOS and provide a more robust and flexible interface for booting computers.
+
+## Check IP
+linux: 		ifconfig
+Windows: 	ipconfig
+
+# Check the available drivers for your hardware
+sudo ubuntu-drivers list
+# auto-install:
+sudo ubuntu-drivers install
+# choose manually:
+sudo ubuntu-drivers install nvidia:535
+
+### Check versions
+uname -a    # ubuntu
+python --version
+nvidia-smi
+________________________
+
+HP printer not working on ubuntu:
+sudo hp-setup -i
+
+center background:
+sudo apt install gnome-tweaks
+
+Remove default linux folders (Downloads, Documents, Music, Pictures, Videos)
+cd ~/.config
+sudo nano user-dirs.dirs	
+sudo nano /etc/xdg/user-dirs.defaults
+// comment unwanted lines
+
+## Conda:
+https://docs.anaconda.com/miniconda
+conda create -n my
+conda activate my
+conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia
+conda install conda-forge::opencv
+conda install matplotlib
+
+conda uninstall libsqlite
+conda install cctbx202211::libsqlite 
+
+### Conda + tkinter + linux fonts problem ###
+# solution: build the Tcl/Tk libraries with Freetype support yourself, 
+# and then using them in your Conda environment.
+sudo apt-get install build-essential
+sudo apt-get install libx11-dev libxft-dev
+
+# Download Tcl and Tk source code (http://www.tcl.tk/software/tcltk/download.html).
+wget http://downloads.sourceforge.net/tcl/tcl8.6.13-src.tar.gz
+wget http://downloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz
+
+# In the next steps, make sure you use the text associated with your downloaded tk version.
+tar xzf tcl8.6.13-src.tar.gz
+tar xzf tk8.6.13-src.tar.gz
+conda activate <your-env-name>
+echo $CONDA_PREFIX
+
+# ===== for each environment =====
+cd tcl8.6.13/unix
+./configure --prefix=$CONDA_PREFIX
+make
+make install
+cd ../../tk8.6.13/unix
+./configure --prefix=$CONDA_PREFIX --with-tcl=$CONDA_PREFIX/lib
+make
+make install
+
+
+## C++
+sudo apt install build-essential g++
+sudo apt install make
+// openGL
+sudo apt install libgl-dev
+sudo apt install libglfw3-dev
+sudo apt install libglew-dev
+sudo apt install libglm-dev
+
+SQLITE3 problem:
+ImportError: /home/hamster/miniconda3/envs/my/lib/python3.13/lib-dynload/_sqlite3.cpython-313-x86_64-linux-gnu.so: undefined symbol: sqlite3_deserialize
+sudo apt update
+sudo apt install sqlite3 libsqlite3-dev

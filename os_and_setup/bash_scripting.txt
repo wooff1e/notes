@@ -1,0 +1,295 @@
+#!/bin/bash  # default shell if not specified
+echo "text"
+VARIABLE="value" # no spaces
+echo "some text $VARIABLE"
+
+all vars are strings except true/false
+
+# LOGIC
+-d FILE true if is a dir
+-e FILE true if exists
+-f FILE true if exists and a regular file
+-r FILE true if readable by you
+-s FILE true if exists and not empty
+-w FILE true if writable by you
+-x FILE true if executable by you
+
+-z STRING 			true if empty
+-n STRING 			true if not empty
+STRING1 = STRING2	true if equal
+STRING1 != STRING2	true if not equal
+
+arg1 -eq arg2	# ==
+arg1 -ne arg2	# !=
+arg1 -lt arg2	# <
+arg1 -le arg2	# <=
+arg1 -gt arg2	# > 
+arg1 -ge arg2	# >=
+
+if [ condition ]
+then
+	commands
+elif []
+then
+	commands
+else
+	commands
+fi
+
+
+for VAR in ITEM1 ITEM2 ...
+do
+	commands
+done
+
+LIST="smth smth2 smth3"
+for VAR in $LIST
+do
+	commands
+done
+
+
+PICTURES=$(ls *jpg)
+DATE=$(date +%F)
+
+
+case "$VAR" in
+	pattern_1)
+		commands
+			;;
+	pattern_2)
+		commands
+		;;
+esac
+
+
+read -p "enter y or n: ANSWER
+case "$ANSWER" in
+	[yY] | [yY][eE][sS])
+		echo "you answered yes"
+		;;
+	[nN] | [nN][oO])
+		echo "you answered no"
+		;;
+	*)
+		echo "invalid answer"
+		;;
+esac
+
+
+INDEX=1
+while [ $INDEX -lt 6 ]
+do
+	commands
+	break
+	continue
+	((INDEX++))
+done
+
+
+# POSITIONAL PARAMS
+$0	# "script.sh"
+$1	# parameter1
+$2	# parameter2
+...
+$@ 	# list of all parameters
+
+shift	# $@ now contains elements without the first
+
+# STDIN
+# read -p "PROMPT" VARIABLE
+read -p "Enter your user name: " USER
+
+passwd -l $USER
+
+
+# EXIT STATUS [0, 255]
+ls /not/here
+echo "$?"
+
+HOST="google.com"
+ping -c 1 -w 2 $HOST	# send 1 packet, timeout 2 sec
+if [ "$?" -eq "0" ]
+then
+	...
+fi
+
+# (and) 2nd command will only run if the 1st succeeds and returns "0"
+mkdir /tmp/bak && cp test.txt /tmp/bak/  	
+
+# (or) 2nd command will only run if the 1st fails
+cp test.txt /tmp/bak/ || cp test.txt /tmp
+
+# both commands will be executed
+cp test.txt /tmp/bak/ ; cp test.txt /tmp
+
+# setting exit status explicitly
+if [...]
+then
+	exit 1
+fi
+exit 0
+
+
+# FUNCTIONS
+# parameters: #1, $2.. 
+# but $0 is still the script itself, not function
+function hello() {
+	echo "Hello $1"
+}
+hello Jason 	# function call
+
+# loop through all parameters and apply the function
+function hello() {
+	echo "Hello $@"		
+}
+hello Jason Dan Ryan
+## output: ##
+# Hello Jason 
+# Hello Dan 
+# Hello Ryan
+
+# by default all variables are global
+# variables defined in functions become available when the function is CALLED
+# use "local" keyword inside the functions
+
+# functions also have exit codes just like any command
+return 1
+
+
+# WILDCARDS
+*.txt
+a*.txt
+a?.txt
+ca[nt]		# can, cat,
+ca[nt]*		# can, cat, candy, catch
+[!aeiou]*	# exclude words starting with any of these
+[a-d]*		# words starting with a,b,c,d
+
+# predefined ranges
+[[:alpha:]]
+[[:alnum:]]
+[[:digit:]]	
+[[:lower:]]
+[[:space:]]
+[[:upper:]]
+
+# escape character \
+&\?		# matches words that end up with "?"
+
+
+# LOGS
+________________
+syslog standard:
+
+facilities:	kern, user, mail, daemon, auth, local0, local7
+user - universal
+local0, local7 - custom logs
+
+severities:	emerg, alert, crit, err, warning, notice, info, debug
+
+default: user.notice
+
+default locations:
+/var/log/messages
+/var/log/syslog
+________________
+
+logger "message"
+logger -p local0.info "Message"
+logger -t myscript -p local0.info "Message"
+logger -i -t myscript "Message"
+
+-s	# additionally print on the screen
+-t	# tag
+-i	# includ PID
+
+
+# FILES
+LINE_NUM=1
+while read LINE
+do
+	echo "${LINE_NUM}: ${LINE}"
+	((LINE_NUM++))
+done < /etc/fstab
+
+# reading from output of a command:
+grep xfs /etc/fstab | while read LINE
+do
+	echo "xfs: ${LINE}"
+done
+
+
+# X-TRACING
+-x prints commands as they are executed
+-e exit on error
+-v prints shell input lines as they are read
+
+# in script:
+#!/bin/bash -x
+#!/bin/bash -xe
+#!/bin/bash -x -e
+
+
+# in cmd:
+set -x
+set +x
+# you can use these 2 lines also in the script to debug a portion of the script
+
+
+# SED (Stream EDitor)
+# sed [OPTIONS] {SED_SCRIPT} [INPUT_FILE]
+
+man sed
+echo 'Dwight is the assistant regional manager.' > manager.txt
+echo 'this is line 2' >> manager.txt							# >> means append
+cat manager.txt
+
+# substitute (you can use patterns too)
+# this will output altered text on the screen, but the original file will NOT change
+sed 's/assistant/assistant to the/' manager.txt
+# save the result to a new file
+sed 's/assistant/assistant to the/' manager.txt > new_manager.txt
+# create backup (manager.txt.bak) and save in-place
+sed -i.bak 's/assistant/assistant to the/' manager.txt
+
+# Flags
+# i == case insensitive
+sed 's/ASSISTANT/assistant to the/i' manager.txt	
+
+# by default, the sed will replace the FIRST found substring in EACH line
+sed 's/.../.../g' manager.txt	# (global) to replace all occurances
+sed 's/.../.../2' manager.txt	# replace second occurance
+# replace all occurances and save only changed lines:
+sed 's/.../.../gw replaced.txt' manager.txt	
+
+# escape char:
+echo '/home/jason' | sed 's/\/home\/jason/\/export\/users\/jason/'
+# instead you can change delimeter / to something else (eg. #)
+echo '/home/jason' | sed 's#/home/jason#/export/users/jason#'
+
+# delete lines
+sed '/This/d' manager.txt
+# delete all comments on a separate line, but not the trailing ones
+sed '/^#/d' config
+# delete all empty lines (^ == begining of the line, followed by $ == end of the line)
+sed '/^$/d' config
+
+# multiple sed commands:
+sed '/^#/d' ; '/^$/d' config
+# same:
+sed -e '/^#/d' -e '/^$/d' config
+
+# sed scripts
+echo '/^#/d' > script.sed
+echo '/^$/d' >> script.sed
+echo 's/apache/httpd/' >> script.sed
+cat script.sed
+sed -f script.sed config
+
+# address (eg. line number)
+sed '2 s/apache/httpd/' config				# change only second line
+sed '2s/apache/httpd/' config				# also ok
+sed '1,3 s/apache/httpd/' config			# change lines 1-3
+sed '/Group/ s/apache/httpd/' config		# change lines that also contain "Group"
+sed '/#User/,/^$/ s/apache/httpd/' config	# change lines btw #User.. and the next blank line

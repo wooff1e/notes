@@ -1,0 +1,13 @@
+https://dev.epicgames.com/documentation/en-us/unreal-engine/linux-quick-start?application_version=4.27
+
+- register epic games acc
+- Go to your Epic Games account with your git acc: https://github.com/EpicGames
+- download and unpack EU code from repo
+cd PATH_TO/UnrealEngine
+./Setup
+.GenerateProjectFiles.sh
+make
+cd Engine/Binaries/Linux/
+./UnrealEditor
+
+/home/user/UnrealEngine/Engine/Binaries/Linux/UnrealEditor

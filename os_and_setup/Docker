@@ -1,0 +1,43 @@
+### DOCKER ###
+
+Docker registry 
+- 10GB space limit per project (for both code and docker images)
+- Create 'personal access token' in your gitlab profile
+- From CLI login to the registry:
+docker login registry.gitlab.com -u user@tcl.com -p sFBjuvAp1gQGBKfFo_rW
+In case you have problems (e.g. after enabling 2FA):
+docker logout registry.gitlab.com
+
+_________________________________
+
+docker image ls
+docker image ls -a
+docker image rm bc25732d6048
+# forced:
+docker rmi -f bc25732d6048
+docker container ls
+
+cd code/aanet
+docker build --rm -t registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/aanet:maj18 .
+docker build --rm -t registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/gans:sandbox .
+
+docker build --rm -t aanet .
+docker login registry.gitlab.com -u you@tcl.com -p 7zQ8JdoxZB2rMubsca9H
+docker tag aanet:latest registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/aanet:maj18
+
+
+docker push registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/gans:sandbox 
+
+# change existing:
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+docker commit 603ee50a87f0 registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/utilities:sandbox
+
+
+docker pull registry.gitlab.com/tcl-research/depth-estimation/miscellaneous/aanet:maj18
+docker pull registry.gitlab.com/tcl-research/depth-estimation/du2net/trainer:tfx1
+
+
+docker run --interactive --tty --rm 
+docker run -it --rm --entrypoint=bash aanet
+
+

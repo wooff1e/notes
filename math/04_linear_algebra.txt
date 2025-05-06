@@ -1,0 +1,289 @@
+VECTOR
+- defined by length and direction 
+- initial and terminal points don't matter
+- multiplying by a negative scalar will reverse direction
+- number of elements = dimensionality of the vector
+- in mathematics (unlike physics) a vector almost always starts at the origin (0)
+
+DOT PRODUCT
+sum(element-wise * of 2 vectors)
+
+
+
+MATRIX
+rows X columns
+
+non-augmented   augmented
+[[3 5 2]        [[3 5 | 2]
+ [5 7 4]]        [5 7 | 4]]
+
+Simple row operations:
+- switch rows
+- scale row
+- add rows
+
+Pivot entry: first non-zero entry in the row
+
+Row-echelon form: 
+    - pivots = 1
+    - staircase pivots (all elements to the left and bellow each pivot are 0)
+    - zero rows at the bottom
+[[1 4 2 2]
+ [0 0 1 3]
+ [0 0 0 1]
+ [0 0 0 0]]
+
+Reduced row-echelon form: the row-echelon form but all elements above or below a pivot = 0
+[[1 4 0 0]
+ [0 0 1 0]
+ [0 0 0 1]
+ [0 0 0 0]]
+
+GAUSS-JORDAN ELIMINATION
+system of equations represented by matrix --> reduced row-echelon form through basic row operations
+[[1 0 0 | c1]
+ [0 1 0 | c2]
+ [0 0 1 | c3]]
+which is basically the solution bc. it says x=c1, y=c2, z=c3
+
+| x - y + z = -6        [[1 -1  1 | -6]
+| 3x - 4y - z = -4       [3 -4 -1 | -4]
+| -2x +3y + 4z = 14      [-2 3  4 | 14]]
+
+1) start with the first column and go row by row. Swap if pivot = 0
+r2 - 3r1 --> r2     r3 + 2r1 --> r3
+[[1 -1  1 | -6]     [[1 -1  1 | -6]
+ [0 -1 -4 | 14]      [0 -1 -4 | 14]
+ [-2 3  4 | 14]]     [0  1  6 |  2]]
+
+2) second column
+r2 <--> r1          r1 + r2 --> r1      r2 + r3 --> r3
+[[1 -1  1 | -6]     [[1  0  7 | -4]     [[1 0 7 | -4]
+ [0  1  6 |  2]      [0  1  6 |  2]      [0 1 6 |  2]
+ [0 -1 -4 | 14]]     [0 -1 -4 | 14]]     [0 0 2 | 16]]
+
+2) third column
+1/2*r3 --> r3       r1 - 7r3 --> r1     r2 - 6r3 --> r2
+[[1 0 7 | -4]       [[1 0 0 | -60]      [[1 0 0 | -60]
+ [0 1 6 |  2]        [0 1 6 |  2 ]       [0 1 0 | -46]
+ [0 0 1 |  8]]       [0 0 1 |  8 ]]      [0 0 1 |  8 ]]
+
+Solutions:
+1 solution      no solution     infinitely many solutions
+[[1 0 0 | c1]   [[1 0 0 | c1]   [[1 0 0 | c1]
+ [0 1 0 | c2]    [0 1 0 | c2]    [0 1 0 | c2]
+ [0 0 1 | c3]]   [0 0 0 | c3]]   [0 0 0 | 0 ]]
+
+
+
+MATRIX MULTIPLICATION
+result[i][j] = dot_product(m1_rows[i], m2_columns[j])
+--> element_num in m1 row (num of col) must match element_num in m2 column (num of rows)
+resulting matrix dimensions = [m1_rows_num x m2_columns_num]
+eg. 4x3 @ 3x6 = 4x6
+
+Note that m1 @ m2 is NOT the same as m2 @ m1, it might even be impossible to multiply due to dimensions
+(m1 @ m2) @ m3 IS the same as m1 @ (m2 @ m3)
+m1 @ (m2 + m3) = m1 @ m2 + m1 @ m3
+
+You can see dot product of vectors in terms of matrix multiplication,
+in that case you make sure to represent first vector as a 1xN matrix and second as Nx1 matrix
+[a1, b3, ...] * [a1,
+                 b2,
+                ...]
+which will get you a single scalar result.
+
+
+IDENTITY MATRIX 
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
+
+I @ M = M
+M @ I = M
+
+Note that if you have non-square matrix then depending on multiplication order you will need a differently sized identity matrix
+eg. I[2x2] @ M[2x3]     or  M[2x3] @ I[3x3]
+
+
+MATRIX DETERMINATE
+matrix M    determinate |M|
+[[a b]      |a b| = a*b - c*d
+ [c d]]     |c d|
+
+
+
+TRANSFORMATIONS
+
+Basis vectors 
+i(1,0) and j(0,1)
+any point can be represented as the sum of scaled basis vectors ("linear combination"):
+point (3, -2) = 3*i + -2*j
+
+or dot product:
+point (3, -2) = [dot(i, point), dot(j, point)]
+
+or via matrix multiplication (representing basis vectors as a matrix):
+U = [[1 0]
+     [0 1]]
+basically an identity matrix: U @ point = point
+
+span of two vectors is the set of all their linear combinations 
+(all the points you can reach combining those 2 vectors), 
+for most it would be all vectors of a 2D space (in 3D system that would mean a plane going through the origin).
+When we have 2 vectors sitting on the same line, one of them is redundant and the vectors are called “linearly dependent” 
+(second vector doesn’t add new dimension to the span).
+--> The basis of a vector space is a set of linearly independent vector that span through the full space.
+
+A transformation is a function that transforms the whole space.
+Linerar transformation:
+•	all lines remain straight
+•	the origin remains at the same location
+•	grid lines remain parallel and evenly spaced
+
+v = -1i + 2j, this would still be true after transformation, 
+which means we only keep track of where the basis vectors land!
+
+if i basis vector now points at (-3, 1) and j at (2, 0), then we get a transformation matrix
+T [[-3 2]
+   [ 1 0]]
+which we can use to transform any point:
+[[-3 2]  @  [x,  = [-3*x + 2y,  = x * [-3   + y * [2
+ [ 1 0]]     y]      1x  + 0y]         1]          0]
+
+rectangle R described by points [[0 0 1 1]
+                                 [0 3 3 0]]
+T @ R = [[0 6 3 -3]
+         [0 6 7  1]]
+
+If the vectors on which basis vectors have landed are linearly dependent (in straight line), 
+it means that the linear transformation squishes all of 2D space onto that line,
+also known as 1-dimensional span (all the points they can reach by linear combinations) of those 2 vectors
+
+Subsequent transformations
+we put them in reverse order but start multiplying from the end:
+                              i  j
+[[1 1]  @   [[0 -1] [x  =   [[1 -1] [x
+ [0 1]]      [1 0]]  y]      [1  0]] y]
+ shear      rotation        composition
+(first you rotate then shear)
+Order in which you put matrices does matter, 
+but the order in which you do the multiplications themselves does not matter.
+
+You can see transformation as to separate operations:
+[[0 2]  @   [[1 -2] =   [[2  0]
+ [1 0]]      [1  0]]     [1 -2]]
+
+[[0 2]  @   [1  = 1* [0  + 1* [2    =   [2  (where i ends up,
+ [1 0]]      1]       1]       0]        1]  the 1st column of result)
+
+[[0 2]  @   [-2  = -2* [0  + 0* [2    = [0  (where j ends up,
+ [1 0]]       0]        1]       0]     -2]  the 2nd column of result)
+
+
+UNIT VECTORS
+(u, v)
+vectors that have length = 1 and thus have only info about the direction
+v = (4, -3)
+||v|| = length = √(4^2 + (-3)^2) = √25 = 5
+Now to find v's unit vector we look a the similar tr:
+4 | -3 | 5      4/5 = x/1,  -3/5 = y/1
+x | y  | 1      x = 4/5,    y = -3/5
+
+--> u = (4/5, -3/5)
+
+We can also use a formula:
+u = 1/||v|| * v     in our case: u = 1/5 * [4 -3]
+
+
+
+INVERSE MATRIX
+when dealing with numbers:
+x + x^-1 = x * 1/x = 1
+with matrices:
+M @ M^-1 = M * 1/M = I    # I is 1 represented by matrix
+
+normally we would perform row operations on M to get I:
+[[a b]      R1/a and R2/d will give us pivots 1
+ [c d]]     substucting previous row*d will get us 0 at d etc.
+we would like to combine these operations into 1 matrix instead
+
+We can start by representing each row operation as a matrix:
+[[2  4]
+ [0 -3]] 
+
+1) 1/2 * r1 --> r1:
+the output we want for this operation: 
+[[1/2r1 & 0r2, 2nd spot doesn't matter]
+ [r2 unchanged: 0r1 and 1r2]]    this is our transformation matrix:
+
+[[1/2 0]  @  [[2  4]        --> [[1  2]
+ [0   1]]     [0 -3]]            [0 -3]]
+
+2) -1/3 * r2 --> r2:
+[[1   0 ]   @   [[1  2]     --> [[1 2]
+ [0 -1/3]]       [0 -3]]         [0 1]]
+
+3) r1 - 2r2 --> r1:
+[[1 -2]     @   [[1 2]      --> [[1 0]
+ [0  1]]         [0 1]]          [0 1]]
+
+Now to combine these 3 transformations, we multiply them.
+[[1 -2]     @   [[1   0 ]   @   [[1/2 0]     -->     [[1/2 2/3]
+ [0   1]]        [0 -1/3]]       [0  1]]              [0  -1/3]]
+
+This is our inverse matrix M^-1
+There is a formula to find this matrix much faster:
+__________________________
+M^-1 = 1/|M| @ [[d -b]
+                [-c a]]
+__________________________
+note that this formula won't work if |M| = 0 --> M is singular (non-invertable)
+
+eg. L = [[ 3 0]
+         [-4 6]]
+         
+|L| = 3*6 - 0*-4 = 18         
+L^-1 = 1/18 *   [[6 0]  =   [[1/3  0 ]
+                 [4 3]]      [2/9 1/6]]
+
+L*L^-1 should give us I:
+[[ 3 0]  *  [[1/3  0 ]  =   [[1 0]
+ [-4 6]]     [2/9 1/6]]      [0 1]]
+
+
+Solving systems with inverse matrices
+| 11x - 7y = 60
+| -3x + 16y = 40
+
+[[11 -7] [x  = [60      # we can rewrite as: Ma = b
+ [-3 16]] y]    40]
+
+M^-1*Ma = M-1*b
+Ia = M-1*b
+a = M-1*b
+
+[x  =   M-1* [60
+ y]           40]
+
+Determinant (D) = 11*16 -(-7)(-3) = 155
+
+M-1 = 1/155 * [[11 -7]  = [[16/155 7/155]
+               [-3 16]]    [3/155 11/155]]
+
+[[16/155 7/155] * [60   =   [8
+ [3/155 11/155]]   40]       4]
+
+x = 8, y = 4
+
+
+Cramer's Rule
+For the above system of equations:
+we take determinants but subsitute x column with output vector and then same for y:
+[[60 -7]    Dx = 1240
+ [40 16]]   
+[[11 60]    Dy = 620
+ [-3 40]]
+
+ x = Dx/D = 1240/155 = 8
+ y = Dy/D = 620/155 = 4

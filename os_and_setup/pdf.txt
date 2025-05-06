@@ -1,0 +1,26 @@
+sudo apt-get install imagemagick
+convert ubuntuhandbook.png ubuntuhandbook.jpg
+convert ubuntuhandbook.png -quality 90 ubuntuhandbook.jpg
+for file in *.png; do convert $file -quality 90 jpg/${file%.png}.jpg; done
+
+// note, existing file with the same name will be over-written:
+mogrify -format jpg *.png
+
+convert *.jpg screens.pdf
+
+// ImageMagick security policy 'PDF' blocking conversion
+    Make sure you have Ghostscript ≥9.24:
+
+    gs --version
+
+    If yes, just remove this whole following section from /etc/ImageMagick-6/policy.xml:
+
+    <!-- disable ghostscript format types -->
+    <policy domain="coder" rights="none" pattern="PS" />
+    <policy domain="coder" rights="none" pattern="PS2" />
+    <policy domain="coder" rights="none" pattern="PS3" />
+    <policy domain="coder" rights="none" pattern="EPS" />
+    <policy domain="coder" rights="none" pattern="PDF" />
+    <policy domain="coder" rights="none" pattern="XPS" />
+
+

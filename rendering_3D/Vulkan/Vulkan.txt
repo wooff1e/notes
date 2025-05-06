@@ -1,0 +1,124 @@
+GLEW (or OpenGL Extension Wrangler) is pretty much a loader, that helps you to manage OpenGl in an "easy" way. In general, functions of the OpenGL library are already on your computer, contained in binary form (.dll) inside your graphics drivers, and GLEW is a portal between you and OpenGl that already lives there. It provides the functionality of OpenGL in such a way, that is convenient for you to use. 
+
+GLFW (or Graphics Library Framework) is a library that helps you to manage such things as window, its size, params, basic input and events-stuff. GLEW needs a window and a valid OpenGL context to be setup, and that's exactly where GLFW comes in handy.
+
+GLUT and GLFW are basically the same, but what you need to know is that the original GLUT has been unsupported for 20 years, and there is a free open-source alternative for it called freeglut. 
+
+GLM - math
+
+- when allocating memory, it must be handled through the physical device (reference to the GPU itself
+- process commands submitted to GPU in FIFO order. Different queues can be used for dif. types of command
+
+Creating logical device:
+- define queue families and number of queues to assign from Physical Device
+- define features to enable (geometry shader, anisotropy, etc.)
+- define extensions to use
+- used to define validation layers, but now depricated
+
+windows are not part of the Vulkan's world (cross-platform), we need extensions (but they come pre-packed with vulkan anyway)
+can choose these extensions manually but GLFW has function to choose them for us:
+glfwGetRequiredInstanceExtensions() --> retuens a list which can be passed to Vulkan Instance creation
+
+## Validation layers
+by default Vulkan does not validate code - it just crashes without explanation :) 
+(to avoid massive overhead of error-checking in release code)
+
+each layer can check different functions (3rd party code, more like extensions)
+VK_LAYER_LUNARG_standard_validation is a common all-around layer
+REPORTING validation errors also needs extension
+
+
+Swap chains and surfaces are extensions
+surfaces are interface btw window and swapchain images. (GLFW)
+ImageView is an interface with an image (2D, 3D, format etc.) how to read and what part to read
+swapchains are procedures for rendering and timing img presentation
+4 modes, but 2 of them risk tearing, so we use only mailbox and fifo.
+
+Pipelines are static - cannot be changed at runtime (unless specified in dynamic stages --> small overhead). 
+Manual setting for each stage:
+- vertex input (layout and format)
+- input assembly (how to assemble into primitives - lines/tri)
+- viewport & Scissor (fit & crop output to image)
+- dynamic states
+- rasterizer (compute fragments from primitives)
+- multisampling (e.g. clever antialiasing)
+- blending (e.g. transparancy)
+- depth stencil (object behind are not drawn on front objects)
+
+Pipeline layout - the layout of data being given directly to the pipeline for a single draw operation (as opposed to for each vertex/fragment). It defines:
+- "sescriptor sets" == "uniform buffers" in OpenGL
+- "push constants" ~ simpler, smaller descriptor sets that pass values directly instead of holding them in dedicated memory
+pipeline needs a "render pass" - the larger operation that handles execution and outputs of a pipeline. Inside it, you can have smaller Subpasses that use different pipelines. These subpasses can be switched
+
+Render Passes contain multiple "attachments" to all possible framebuffer outputs (e.g. color output, depth output etc.) Each subpass doesn't have to use them all for its pipeline
+
+Subpasses rely on strict ordering to ensure data is in the right format at the right time.
+Subpass Dependencies define stages in a pipeline where transitions need to occur
+
+Render Pass for an Attachment: Initial Layout -->(implied transition to..)--> Subpass 1 Layout 
+-->(implied transition to..)--> Subpass 2 Layout -->(implied transition to..)--> Final Layout
+
+Shaders are compiled to SPIR-V format and loaded into modules
+
+Framebuffer - connection btw images & Render Pass- we attach images to framebuffer
+- Render Pass outputs fragment data from pipeline's execution to the images bound to the framebuffer's attachments
+Note that the images line up 1-to-1 with the attachments in the Render Pass, make sure the order is right!
+
+Unlike OpenGL (where we submit 1 command to GPU at a time) pre-record a group of commands --> submit to queue:
+1. start Render Pass
+2. bind a pipeline
+3. bind vertex/index data
+4. bind descriptor sets and push constants
+5. draw
+
+Synchronization
+In case of Vulkan semaphores are used solely on the GPU itself --> only sync GPU functions.
+Fences are similar to semaphores but we can block on CPU side. The GPU will sygnal when resourse is awailable
+___________________________
+
+
+### SETUP ###
+
+// LINUX
+sudo apt-get essential
+sudo apt install vulkan-tools
+vkcube  # to check if ok
+sudo apt install libvulkan-dev
+sudo apt install vulkan-validationlayers--dev spirv-tools
+sudo apt install libglfw3-dev
+sudo apt install libglm-dev
+
+download from github.com/google/shaderc/blob/main/downloads.md:
+Release --> Linux --> gcc
+inpack "install.tgz"
+from install/bin copy glslc to /usr/local/bin
+
+in terminal:
+glslc
+should be "glslc: error: no input files"
+
+
+// WINDOWS, Visual Studio
+https://www.glfw.org/download --> pre-compiled binaries 64 bit (glfw-3.4.bin.WIN64.zip)
+unpack, rename to GLFW, put int new "External Libs" folder, move it to 
+C:\Users\hamster\Documents\Visual Studio 2022
+(or where your projects are)
+-----------------------------------------------------
+create C++ windows console app
+right-click on project name --> properties --> 
+
+All Configurations, All platforms
+--> C/C++ --> precompiled headers --> not using
+--> C/C++ --> general --> additional include directories --> 
+	$(SolutionDir)/../externals/GLFW/include
+	$(SolutionDir)/../externals/GLM // <preinstalled by vulkan tools
+	C:/VulkanSDK/1.3.290.0/Include
+	
+--> linker --> general --> additional library directories --> 
+	$(SolutionDir)/../externals/GLFW/lib-vc2022
+	C:/VulkanSDK/1.3.290.0/Lib	// <---- x64 platform
+	C:/VulkanSDK/1.3.290.0/Lib32	// <---- x84 platform
+	
+--> linker --> input --> additional dependencies --> Edit -->
+glfw3.lib
+vulkan-1.lib

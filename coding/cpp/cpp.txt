@@ -1,0 +1,937 @@
+### COMPILING PROCESS ###
+1) PreProcessor (treats code as plain text)
+
+// just copy-pastes everything from that file into this one
+#include <file> 	// for compiler include paths. the ".h" is missing to differentiate C std and C++ std
+#include "file.h" 	// for everything but usually used for relative paths
+
+			
+// replaces a peace of code with whatever you specify
+#define	SEARCH_FOR REPLACE_WITH	
+
+#if 1
+...
+#endif
+
+// prevents multiple inclusions into the same translation unit
+#pragma once
+
+//this used to look like this:
+
+#ifndef _LOG_H
+#define _LOG_H
+// ... contents of the file
+#endif
+
+--------------------------
+
+2) Compiler (--> constants + instructions)
+only cpp files get compiled (header files are already copy-pasted into cpp at this point)
+every cpp file is compiled separately into a obj file
+
+constant folding: 5 * 2 will become just 10 at compile time
+properties --> C/C++ --> optimization --> optimisation --> disabled (Debug) / max speed (release)
+
+// to make obj files human-readable:
+Project config --> C/C++ --> Output files --> Assembler output (No listing-> Assembly-only listing)
+.asm
+--------------------------
+
+3) Linker
+all of obj files are linked by a Linker into 1 exe file
+search for main() or custom entry point // if building to an exe
+
+Config --> General --> Configuration type --> exe/dll/lib
+
+Ctrl+F7 	-- only compilation
+F5 		-- compile+ link
+
+you can define function in a cpp and then declare it in another cpp where it will be used
+The linker will find the definition and link it to the place where we use it (not its declaration!)
+Declaration is there to inform this file that the function exists. We need to declare it in every file where we use the function. 
+To make life easier we can use header files for that.
+If we declare a function but don't use it there won't be problems even if definition contains errors.
+if this fails, the compilation will be ok, but build will have errors
+
+if we have two definitions of the same function, the linker won't know which one to link --> error
+--> definitions cannot be placed in .h files that are copy-pasted in multiple places
+
+// static means the function will not be visible outside this file. 
+// This way duplicates can exist without linker error
+static int Multiply(int a, int b) {
+...
+}
+// inline will replace function call with its body --> can be duplicates 
+inline int Multiply(int a, int b) {
+...
+}
+
+
+// LIBRARIES
+1) static - the library is inserted into executable. usually preferable
+headers + .LIB files
+include the headers which declare the functions and link against .LIB with definitions
+--> compile into a single executable
+
+2) dynamic - the library gets linked at runtime.
+headers (could be the same ones) + .DLL (binaries)
+you need to copy the .DLL file alongside your .EXE
+=====================================================================
+
+
+using namespace std;
+using String = std::string;
+
+# VARIABLES
+// size depends on the compiler (use sizeof(int) to check
+char			// usually 1 byte
+unsigned char
+short			// 2 bytes
+int			// 4 bytes ~[-2b, 2b]
+unsigned int		// 4 bytes ~[0, 4b]
+long			// 4
+long long		// 8
+float			// 4
+double			// 8
+long double
+bool			// 1 byte 
+
+the actual value can be represented with 1 bit, 
+but we can't access individual bits so byte is a min for a variable
+the only possibility for optimisation is to store 8 "bools" in 1 byte
+
+int x = 5, y = 6, z = 50;
+int x, y, z;
+x = y = z = 50;
+
+const int myNum = 15;
+myNum = 10;  // error
+
+float var = 5.5;	// actually double
+float var = 5.5f;	// float
+double var = 5.5;
+
+#include <iostream>
+cout << rand() << endl;
+cin.get();
+
+
+double a = 3.1415926534;
+double b = 2006.0;
+double c = 1.0e-10;
+
+std::cout.precision(5);
+
+std::cout << "default:\n";
+std::cout << a << '\n' << b << '\n' << c << '\n';
+/*
+default:
+3.1416
+2006
+1e-010
+*/
+
+std::cout << std::fixed;
+std::cout << a << '\n' << b << '\n' << c << '\n';
+/*
+fixed:
+3.14159
+2006.00000
+0.00000
+*/
+
+std::cout << "scientific:\n" << std::scientific;
+std::cout << a << '\n' << b << '\n' << c << '\n';
+/*
+scientific:
+3.14159e+000
+2.00600e+003
+1.00000e-010
+*/
+
+printf("%0.2lf", a);
+printf("%02d", a);
+// %[flags][width][.precision][length]specifier
+
+char buff[100];
+snprintf(buff, sizeof(buff), "%s", "Hello");
+std::string buffAsStdStr = buff;
+
+
+# C ARRAYS
+int myNum[3] = {10, 20, 30};
+string cars[] = {"Volvo", "BMW", "Ford"}; // don't have to specify the size, although it's a good practice
+string letters[2][4] = {
+  { "A", "B", "C", "D" },
+  { "E", "F", "G", "H" }
+};
+cout << myNum[0];
+cout << letters[0][2]; 
+cout << sizeof(myNumbers); 		// bytes
+cout << sizeof(myNumbers / sizeof(int);	// num of elements
+
+
+# C STRINGS
+char myLetter = 'A';		// ' means a special kind of int-type
+char* myText = "Hello"; 	// " means a pointer to an array of chars
+// c-strings are immutable, this way of declaring is more readable
+const char* name = "Name";
+// even if you ommit const you shouldn't change values --> undefined behavior
+// string literals are stored in a read-only section of memory
+myText[0] = 'h'; // this will compile in release mode but would not work
+
+// ASCII gives as a 256 character set of 1byte chars
+char number = 65;		// cout will still printed out as 'A'
+char greeting[] = "Hello"; 
+
+// wide  chars
+const char* s = u8"..."		// u8 is optional
+const wchar_t* s = L"...";	// 2 bytes (depends on compiler)
+const char16_t* s = u"...";	// 2 bytes (always)
+const char32_t* s = U"...";	// 4 bytes
+
+// c-strings have 0-termination character at the end, behind the scenes:
+char name[5] = {'N', 'a', 'm', 'e', '\0'};
+// if you forget the 0 and try to cout this string, 
+// it will just keep printing everything in memory untill it hits a zero
+
+// raw string
+static const char* vShader = R"END(
+#version 460
+...
+)END"
+
+
+# INPUT/OUTPUT
+int x; 
+cout << "Type a number: ";
+cin >> x;
+cout << "Your number is: " << x;
+// note that cin can only store a single word (white space == termination)
+string fullName;
+cout << "Type your full name: ";
+getline (cin, fullName);
+cout << "Your name is: " << fullName;
+
+
+# LOGIC FLOW
+// note that optimizing code often includes avoiding branching the code which creates a bit of overhead
+&& || !
+int time = 22;
+if (time < 10) {
+  cout << "Good morning.";
+} else if (time < 20) {
+  cout << "Good day.";
+} else {
+  cout << "Good evening.";
+}
+
+string result = (time < 18) ? "Good day." : "Good evening.";
+// you can nest but it gets less readable:
+string result = (time < 18) ? (time < 12) "Good morning." : "Good day." : "Good evening.";
+
+switch(expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+
+int i = 0;
+while (i < 5) {
+  cout << i << "\n";
+  i++;
+  
+  break;
+  continue;
+}
+
+int i = 0;
+do {
+  cout << i << "\n";
+  i++;
+}
+while (i < 5);
+
+for (int i = 0; i < 5; i++) {}
+
+// all elements in for definition are optionsl, you can write something like:
+for ( ; condition; ) {}		// same as: while (condition) {}
+for ( ; ; ) {}				// same as for ( ; true; ) {}
+
+int myNumbers[5] = {10, 20, 30, 40, 50};
+for (int i : myNumbers) {
+  cout << i << "\n";
+}
+
+for (int count=0; Cell c : board) {...}
+
+# ENUMS
+// way to group values and give them names. 
+// If not specified the values will be 32bit integers 0,1,2...
+enum Level { LOW, MEDIUM, HIGH }; 
+Level myVar = MEDIUM; 	
+cout << myVar; 	// 1
+// if this enum were a class member, you'd have to access it outside of the class as:
+log.setLevel(MyClass::MEDIUM); 
+
+enum Level : unsigned char { LOW, MEDIUM, HIGH }; 
+// cannot be floats though (enumeration does not use floating points)
+
+enum Level {
+  LOW = 5,
+  MEDIUM, 	// Now 6
+  HIGH 		// Now 7
+}; 
+
+// enums are good with switch statement
+
+
+# FUNCTIONS
+// function overloading
+int myFunction(int x)
+float myFunction(float x)
+double myFunction(double x, double y)
+
+
+# FILES
+#include <fstream>
+
+ofstream MyFile("filename.txt");
+MyFile << "Files can be tricky, but it is fun enough!";
+MyFile.close();
+
+string myText;
+ifstream MyReadFile("filename.txt");
+while (getline (MyReadFile, myText)) {
+  cout << myText;
+}
+MyReadFile.close(); 
+
+
+# EXCEPTIONS
+try {
+  int age = 15;
+  if (age >= 18) {
+    cout << "Access granted - you are old enough.";
+  } else {
+    throw (age);
+    throw 505; // throw keyword to output a reference number
+  }
+}
+catch (int myNum) {
+  cout << "Access denied - You must be at least 18 years old.\n";
+  cout << "Error number: " << myNum;
+} 
+
+
+# POINTERS
+int* x, y; 	// x is a pointer but y is an int!
+int* x, *y;	// both pointers
+
+// pointer is an integer variable that stores a memory address
+string food = "Pizza"; 
+string* ptr = &food;
+cout << ptr << "\n";	// 0x6dfed4
+cout << *ptr << "\n"; 	// Pizza (dereferencing)
+*ptr = "burger";
+
+// typeless pointer. 0 is not a valid memory address. Same as NULL or nullptr
+void* ptr = 0; 
+
+*ptr++;	// this will increment the pointer and then dereference!!
+(*ptr)++;
+
+// pointer to a pointer (e.g. array of c-strings)
+char** ptr
+
+
+# REFERENCES
+// reference is not a variable, it does not occupy space in memory, it's an alias
+// it cannot be changed to reference a different variable
+string& ref = food; 
+ref = "apple"; // now variable food has a value "apple"
+
+int a = 5;
+int b = 4;
+
+void swapNums(int& x, int& y) {
+  int z = x;
+  x = y;
+  y = z;
+}
+swapNums(a, b)
+
+//if we didn't have references we would have to write this function like this (which is ugly):
+void swapNums(int* x, int* y) {
+  int z = *x;
+  *x = *y;
+  *y = z;
+}
+swapNums(&a, &b);
+// internally these 2 versions will be compiled into the same thing
+
+
+# MEMORY MANAGEMENT: STACK vs HEAP
+// use new to allocate on the heap
+int* a = new int;
+MyClass* obj = new MyClass();
+char* buffer = new char[8];
+
+// fill 8 bytes of memory with zeros starting at buffer
+memset(buffer, 0, 8);
+char** ptr = &buffer;
+
+delete a;
+delete obj;
+delete[] buffer;
+
+// 
+disadvantages:
+- unlike stack, variables on the heap are not destroyed automatically
+- creating vars/classes on the heap always give you a pointer to the memory
+- takes more steps of memory allocation on the heap: 
+	- determine size in bytes
+	- request OS (std lib) for that memory
+	- find contiguous block of that amount (there is a list with free memory to speed up, but still slower)
+	- return pointer
+- when using that pointer --> jumping around memory
+- you can't check size like with arrays on the stack
+sizeof(buffer) // 4 bytes, the size of a pointer!
+int size = 5;		// error bc. has to be known constant at compile time
+static const int exampleSize = 5;
+int example[exampleSize];
+
+//
+when to use heap:
+- if you want your object to survive the function it was created in
+- if the object is too large or there are too many of them (stack has a limited memory depending on platform and compiler)
+
+// usally underneath the new will call malloc() like
+Entity* e = (Entity*)malloc(sizeof(Entity));
+// the difference btw malloc() and new is that new will also call the constructor of the class
+// delete calls free(e) underneath. But if you used new you HAVE TO use delete
+
+// you can also initiate in a specific address of memory
+int* b = new int[50];
+Entity* e = new(b) Entity() // make sure Entity is less than b
+
+// note you can create empty scopes to setup a stach in a random place
+{
+	...
+}
+
+
+# SMART POINTERS
+wrapper, don't have to call delete
+1. scope pointer, cannot copy ptr
+std::unique_ptr<MyClass> obj(new MyClass()); // no implicit constructor! can't do .. = new MyClass()
+// preferred way (if constructor throws exception, you won't end up with a dangling pointer)
+std::unique_ptr<MyClass> obj = std::make_unique<MyClass>()); 
+obj->Method();
+
+2. reference counting (only if you can't use unique pointer):
+allocates a block of memory - "control block" to store reference count 
+so if you construct an object and then pass it to constructor => 2 allocations instead of 1
+so even more important to do it this way:
+
+std::shared_ptr<MyClass> obj = std::make_shared<MyClass>();
+
+when all stack-allocated pointers are gone, that's when the underlying object is deleted and memory is deallocated
+
+3. doesn't affect the reference count (you can check if it points to a valid object, but you don't want to keep it alive)
+std::weak_ptr
+=====================================================================
+
+### OOP ###
+
+# STRUCTURES
+// members of a struct are PUBLIC by default
+struct {             // Structure declaration
+  int myNum;
+  string myString;
+} myStructure;       // Structure variable 
+
+myStructure.myNum = 1;
+
+struct {
+  ...
+} myStruct1, myStruct2, myStruct3; // Multiple structure variables
+
+struct myDataType {
+  int myNum;
+  string myString;
+};
+myDataType myVar;
+myVar.myNum = 1;
+myDataType myVar2 = { 5, "blabla" };
+
+note: structures exist basically for backward compatibility with C wich doesn't have classes
+but it is convenient to use struct as a simple group of variables, 
+and use classes for OOP and generally more complex functionality
+
+
+# CLASSES
+// members of a class are PRIVATE by default
+class MyClass {
+public:             
+    int myNum;			// Attribute
+    string myString;  
+
+    void myMethod();		// Method
+
+    MyClass(int a, string b) {	// Constructor
+	myNum = a;
+	myString = b;
+    } 
+    ~MyClass();			// Destructor (deallocate anything on the heap)
+
+    // deleting default constructor
+    MyClass() = delete;	
+
+// cannot be accessed from outside the class (except for friend classes)
+private:
+    // another way to forbid instantiating without initializing atributes
+    MyClass() {}
+
+// can be accessed in inherited classes
+protected:
+    ...
+};
+
+void MyClass::myMethod() {
+  cout << "Hello World!";
+}
+
+// the members are NOT initialized automatically 
+// but if you have a default constructor, this is where it would be called
+MyClass instance; 	
+sizeof(MyClass) 	// will be sum of attributes
+
+// both OK
+MyClass instance(param);
+MyClass instance = MyClass(param);
+
+
+# DEFAULT ARGUMENTS
+// myfile.h
+void myfunc(int blah, int mode = 0);  	// <--- here
+
+// myfile.cpp
+void myfunc(int blah, int mode) {	// not here
+    if (mode == 0)
+        do_something();
+     else
+        do_something_else();
+}
+
+
+# ARROW OPERATOR
+Entity e;
+e.print();
+
+Entity* ptr = &e;
+ptr->print(); // cleaner than:
+(*ptr).print();
+
+// getting offset:
+struct Vector {
+	float x, y, z;
+};
+...
+int offset = (int)&((Vector*)nullptr)->y; // or 0 instead of nullptr
+cout << offset; // 4
+
+
+# STATIC
+1) static outside of a class/struct 
+the variable will only be visible inside current translation unit == global for this file only
+static int s_Var = 10;	// linker will not look for this symbol outside of this file
+
+the opposite of this is "extern":
+extern int s_Var;	// the linker will look for this variable in external translation unit
+
+2) static inside of a class/struct 
+the variable/method will be shared btw all instances of this class
+struct entity {
+    static int x,y;
+};
+
+int main() {
+    Entity e = {5, 8 }; // error, since x and y are no longer struct members
+    Entity e;
+    e.x = 2;		// unresolved external symbols
+}
+
+int Entity::x;
+int Entity::y;
+int main() {
+    Entity e;
+    Entity e2;
+    e.x = 2;		// now x is 2 across all instances
+    Entity::x = 5;	// same result but semantically makes more sense
+}
+
+static methods cannot access non-static member variables! 
+this is because behind the scenes methods get the class instance as a parameter (like "self" in python).
+static methods do not get that, they behave as if regular functions outside the class
+
+3) local static - lifetime of entire program but local scope 
+void Function() {
+	static int i = 0;	// this will be executed only once
+	i++;			// this will be executed every time the function is called
+}
+// same as if i was declared outside the function but this way it can't be change from other places
+
+# INHERITANCE
+class myClass {
+public:
+	void myMethod();
+};
+class DerivedClass: public MyClass, public MyOtherClass {
+	void myMethod();
+};
+sizeof(DerivedClass)	// will be sum of DerivedClass attributes + inherited attributes
+
+// Virtual functions
+DerivedClass* child = new DerivedClas();
+instance->myMethod();	// method of DerivedClass is called
+
+MyClass* child2 = child;
+child2->myMethod();	// method of myClass is called even though it's an instance of DerivedClass
+
+again, this happens bc. of the "self" parameter passed to methods
+virtual functions work with dynamic dispatch
+v-table is a mapping for all virtual functions. If you want to truly override a base function you need to use keyword "virtual" for it:
+class myClass {
+public:
+	virtual void myMethod();
+};
+class DerivedClass: public MyClass {
+	void override myMethod();
+};
+
+override keyword is not required, but it will sygnal error if base function doesn't exist or isn't virtual
+that virtual functions add minor overhead (storing v-tables, member pointers, going through v-tables every time the method is called)
+
+
+# INTERFACES 
+// cannot be instantiated
+class myInterface {
+public:
+	virtual void myMethod() = 0;	// pure virtual function (MUST BE overriden)
+};
+class DerivedClass: public MyClass {
+	void override myMethod();
+};
+
+
+# CONST & MUTABLE
+doesn't change generated code, but imposes restrictions on coder
+
+// constant pointer
+const int* a = new int;
+int const* a = new int;
+*a = 2;		// error
+a = &b;		// OK
+
+// constant value
+int* const a = new int;
+*a = 2;		// OK
+a = &b;		// error
+
+// both
+const int* const a = new int;
+
+class MyClass {
+	int X, Y;
+	mutable int var;	// except this variable from the const rule
+public:
+	int getX() const {
+		// this method cannot modify class attributes unless they are mutable
+		var = 2;
+	}
+	const int* const int getY() const {}
+	void setX() {}
+	void setX() const {}
+};
+
+void print(const MyClass& obj) {	// avoid copying
+	// cannot call non-const methods now
+	// solution is to make 2 versions of the method - const and non-const
+	obj.setX();	// error
+}
+
+// 2nd case to use mutable are lambdas
+int x = 8;
+auto f = [&]() {};	// lambda with params passed by reference
+auto f = [=]() {};	// lambda with params passed by value (parameter behaves as const)
+
+// if we want the [=] lambda bu still be able to change it we use mutable
+auto f = [=]() mutable {};
+
+
+# MEMBER INITIALIZER LIST
+class MyClass {
+...
+	MyClass()
+		: m_1(0), m_2("...")	// must be in order
+	{}
+// 
+if you don't put vars in order, they will still be initialized in order they appear in class, not in list. 
+If we put initialization inside the {} instead, the variable will get initialized twice! first time with default constructor (except for primitives like int, but it's also more readable this way).
+
+
+# IMPLICIT/EXPLICIT CONVERSION
+// if such a constructor exists it will be used (but it won't chain several conversions)
+// these are all valid ways to write the same thing:
+Entity e = Entity(22);
+Entity e(22);
+Entity e = 22;	// <-- implicit conversion
+
+// to turn off this behaviour, use "explicit" on your constructor:
+	explicit Entity(int age) : m_age(age) {}
+
+
+# OPERATOR OVERLOAD
+	MyClass operator+(...) {...}
+	std::ostream& operator<<(std::ostream& stream, const MyClass& other) const {}
+
+
+# THIS
+// python's "self", only it is passed behind the scenes and it is a pointer.
+this->x = x;
+
+
+# COPYING
+int a = 2;
+int b = a;	// implicit copy
+// 
+same with classes/structs (unless on the heap where you have a pointer)
+note, that if your class contains pointers you might get all kinds of weird errors since your objects will be pointing to the same memory block => you need to make sure a deep copy method exists, OR better write a copy-constructor:
+class MyClass {
+...
+	MyClass(const MyClass& other);	// it exists by default and makes a shallow copy
+	MyClass(const MyClass& other) = delete; // if you want to remove this functionality all together
+	MyClass(const MyClass& other)
+		: m_size(other.m_size)
+	{
+		m_buffer = new char[m_size + 1];
+		memcopy(m_buffer, other.m_buffer, m_size);
+	}
+Whenever you pass an object to a function, a copy constructor is called! if your object contains e.g. strings it is better to pass it by const reference
+=====================================================================
+
+
+### CONTAINERS / COLLECTIONS ###
+everything is made up of templates --> you can provide underlying data structure
+
+
+## SEQUENCE CONTAINERS
+# ARRAY
+array<int, 5> arr;
+
+arr.size()	// unlike raw arrays includes bound checking and stores the size variable
+arr.empty()
+
+arr.at()	// safer than [] because it throws an error message if the element does not exist
+aar.front()
+arr.back()
+arr.data()	// pointer to the underlying array
+
+arr.swap(arr2)	// Linear complexity, Does not cause iterators and references to associate with arr2
+swap(arr, arr2)	// same
+arr.fill(value)
+
+constexpr std::size_t xy = 4;
+using Cell = std::array<unsigned char, 8>;
+std::array<Cell, xy * xy> board;
+board.fill({0xE2, 0x96, 0x84, 0xE2, 0x96, 0x80, 0, 0}); // "▄▀";
+for (std::size_t count{}; Cell c : board)
+    std::cout << c.data() << ((++count % xy) ? "" : "\n");
+/*
+▄▀▄▀▄▀▄▀
+▄▀▄▀▄▀▄▀
+▄▀▄▀▄▀▄▀
+▄▀▄▀▄▀▄▀
+*/
+
+
+# VECTOR
+// growing array : overhead!
+// (creates new array of double size --> copy data --> deletes old one)
+vector<string> v = {"Volvo", "BMW", "Ford", "Mazda"};
+v.push_back("Tesla")
+v.pop_back()
+v.insert(itr, value)
+v.erase(v.begin()+1)
+
+v.emplace()
+v.emplace_back(MyClass())
+// v.push_back(MyClass()) will construct object in the current scope, then copy it to the vector's memory
+
+characters.assign(5, 'a')
+const string extra(6, 'b');
+characters.assign(extra.begin(), extra.end());
+characters.assign({'C', '+', '+', '1', '1'});
+
+v.capacity()		// currently allocated space
+v.reserve(30)		// linear, can prevent unnecessary reallocations
+v.shrink_to_fit()	// linear 
+
+vector<int> c = {1, 2, 3};
+c.resize(5);	// 1 2 3 0 0	// Linear 
+c.resize(2);	// 1 2
+c.resize(6, 4);	// 1 2 4 4 4 4
+
+// optimization:
+- storing objects in array/vector makes sence if the data is e.g bunch of ints --> all the date is stored sequentially, if your data contains eg. strings --> better to store pointers to the objects
+
+// in loops like this, the object is being copied
+for(MyClass obj : myVector) {}
+// to avoid this:
+for(MyClass& obj : myVector) {}
+
+void function(const vector<MyClass>& v) {}	// to avoid copying
+
+- don't use reserve() before every push_back() --> capacity grows linearly instead of exponentially, a lot of reallocations
+- When inserting a range, the range version of insert() is generally preferable as it preserves the correct capacity growth behavior, unlike reserve() followed by a series of push_back()s.
+- reserve() cannot be used to reduce the capacity of the container; to that end shrink_to_fit() is provided. 
+
+
+# STRING
+#include <string>
+string firstName = "John";
+string lastName = "Doe";
+string fullName = firstName + " " + lastName;
+string fullName = firstName.append(lastName);
+cout << fullName.length(); 
+
+string some_s = stoi(some_int);
+string s = std::to_string(42);
+
+string s = 07:05:45PM
+s.substr(2, 6) // :05:45
+
+bool contains = s.find("no" != string::npos;
+
+to_string(anInt);
+
+std::ostringstream stringStream;
+stringStream << "Hello";
+std::string copyOfStr = stringStream.str();
+
+// don't pass strings to functions to avoid copying to the stack
+void func(const string& someString) {}
+
+string s = "..." + "..."	// error, since literal doesn't have + operator
+string s = "..."s + "..."	// OK bc. ""s is a function that returns std::string
+string s = R"( this		// raw string
+is a 
+multiline
+text
+or some code)";
+
+
+# DEQUE (double-ended queue)
+
+# FORWARD_LIST (singly-linked)
+
+# LIST (doubly-linked)
+
+
+## ASSOCIATIVE CONTAINERS)
+# SET (sorted)
+A set stores unique elements sorted automatically in ascending order.
+// Sort elements in a set in descending order
+set<int, greater<int>> numbers = {1, 7, 3, 2, 5, 9};
+
+set<string> cars = {"Volvo", "BMW", "Ford", "Mazda"};
+cars.insert("Tesla");
+cars.erase("Volvo");
+cars.clear();
+
+# MULTISET
+
+# UNORDERED_SET
+
+# UNORDERED_MULTISET
+
+# MAP (sorted)
+map<string, int> people = { {"John", 32}, {"Adele", 45}, {"Bo", 29} };
+cout << "John is: " << people["John"] << "\n"; 
+cout << "Adele is: " << people.at("Adele") << "\n"; 
+
+map<string, int> people = { {"John", 32}, {"Adele", 45}, {"Bo", 29} };
+map<string, int, greater<string>> people = { {"John", 32}, {"Adele", 45}, {"Bo", 29} };
+
+for (auto person : people) {
+  cout << person.first << " is: " << person.second << "\n";
+}
+
+// Because all elements in a map container are unique, the function can only return 1 (if the element is found) or 0 (otherwise)
+if people.count("John") {...}
+
+# MULTIMAP
+
+# UNORDERED_MAP (hash + buckets)
+Search, insertion, removal ~ O(const)
+
+# UNORDERED_MULTIMAP
+
+
+## CONTAINER ADAPTORS
+# STACK
+
+# QUEUE
+
+# PRIORITY_QUEUE
+
+
+## ITERATORS
+vector<string> cars = {"Volvo", "BMW", "Ford", "Mazda"};
+vector<string>::iterator it;
+it = cars.begin() + 1;
+for (it = cars.begin(); it != cars.end(); ++it) {
+  cout << *it << "\n";
+}
+
+vector<string> cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (auto it = cars.begin(); it != cars.end(); ) {
+  if (*it == "BMW") {
+    it = cars.erase(it); // Remove the BMW element
+  } else {
+    ++it;
+  }
+}
+for (const string& car : cars) {
+  cout << car << "\n";
+}
+
+for (auto it = cars.rbegin(); it != cars.rend(); ++it) {
+  cout << *it << "\n";
+}
+
+
+## TUPLE / PAIR
+tuple: greate way to return multiple values from a func:
+
+tuple<string, string, int> SomeFunc() {
+  ...
+  return make_pair<string, string, int>(str1, str2, int1);
+}
+auto myTuple = SomeFunc();
+string myStr = get<0>(myTuple); // so ugly :(
+
+//compare to struct:
+return multiple values from func:
+MyStruct someFunc() {
+  ...
+  return {str1, str2, int1};
+}
+auto myStruct = SomeFunc();
+string myStr = myStruct.myStrName;

@@ -1,0 +1,56 @@
+pip install fake-bpy-module
+
+wygodniejsza praca z API blender w Visual Code 
+(wszystko co importujecie można podejrzeć tak samo jak zwykłe paczki, zero podkreśleń)
+
+
+
+BLENDER
+Render engines:
+	Eevee - real time renderer
+	Workbench - for modeling/sculpturing
+	Cycles - physics based
+
+Edit --> Pref --> Keymap --> make sure to enable "Extra Shading Pie Menu Items"
+press Z --> u can c diff views. Now u have "Material Preview"
+
+
+N 		toggle sidebar
+
+Middle MB	rotate view
+mouse wheel	zoom
+Ctrl+MMB	pan zoom
+Shift+MMB	move view sideways
+RMB		cancel changes (e.g. rotating object)
+
+A		select all
+Alt+A / AA	deselect all
+(numpad) . 	zoom on selected object
+(numpad) 1	front view
+(numpad) 3	right side
+Ctrl + (num) 3	left side
+
+S --> drag	scale object
+S --> 3		scale x3 
+R		rotate object (relative to view)
+G		move object around
+G --> y		move along y-axis
+
+TAB		edit mode - access to verteces, edges and faces
+  hold E	extrude face
+
+Shift+A		add object
+
+Animation Timeline: 24 fps is default
+Space		pause/unpause
+Shift + <--	skip to the beginning
+Shift + -->	skip to the end
+I		insert key frame
+
+
+._ Particle system
+|\
+Types:
+- Emitter (has physics)
+- Hair (static simulation)
+	u can switch render as --> object, choose instance object

@@ -1,0 +1,33 @@
+Installing Splash (Linux)
+
+there's no GUI like in Windows & Mac 
+make sure your CPU & including your OS(operating system) are x86_64(also know as 64bit) otherwise you won't be able to use Docker.
+
+sudo apt-get update
+sudo apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
+
+Next, you have to add Docker's official GPG key by executing the following command:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+Now after that you need to add Docker's repository so later you can install it as you install any other package:
+sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+
+After you've added the repository, please make sure to launch the command sudo apt-get update again & then to install Docker just launch the command:
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+Now, after you've installed Docker the next step is to Download & Install Splash, for that please open up a new terminal window and then execute the command:
+docker pull scrapinghub/splash
+
+Just give it a little bit of time to download Splash from Docker Hub & then after that you can launch Splash by using the following command:
+docker run -it -p 8050:8050 scrapinghub/splash
+
+The command above will run Splash instance locally, so after that please don't kill the terminal windows in which you've executed Splash and then open up your browser & navigate to the following address:
+http://127.0.0.1:8050

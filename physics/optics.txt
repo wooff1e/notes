@@ -1,0 +1,85 @@
+Particle theory of light (1637 Descartes)
+
+light reflected from the mirror: angles with respect to mirror's normal are equal bc. it takes least amount of time (Fermat)
+
+Real / virtual images
+real - reflected on surface and thus can be seen by everyone who can see the surface regardless of their position.
+virtual - changes its "position" depending on viewer's position
+
+
+CONCAVE MIRRORS
+center of curvature - point where all normals meet
+
+focal point - beams from far away that are || to the optical axis will be reflected into the same point
+
+focal length - distance from focal point to the surface of the mirror, = 1/2 distance to the curvature center
+
+circle mirror does not have a perfect focal point --> sphercal aberration
+
+perfect curved mirror has a parabolic shape
+
+numerous beams in all directions, we consider the easiest to use:
+- || to optical axis
+- intersecting the optical axis
+- through the focal point
+- through the center of curvature
+
+Image:
+- real
+- inverted
+- smaller
+
+obj_pos     p>2f        p=2f        f<p<2f      p=f         p<f
+            b-*-*-)     -8-*-)      -*8*-)      -*-8-)      -*-*8)
+            
+image       f<i<2f      i=2f        i>2f        no image    i<0
+            real        real        real                    virtual
+            smaller     equal       larger                  larger
+            inverted    inverted    inverted                upright
+
+p=f case: reflected rays are ||, the image is infinitely large
+
+CONVEX MIRRORS
+scattering rays --> no real image, but virtual possible
+extends our field of vision (or rather inverts it bc. we see backwards)
+
+curvature center and focal point are behind the mirror
+
+
+speed of light in vacuum = 299 792 458 m/sec
+
+the more you move away the object, the closer image gets to the focal point and the smaller it gets
+
+since the ray's angle is equal to the reflected angle, we get 2 pairs of similar straight tri:
+# f = focal length, o = object, i = image, h = height, d = distance
+oh / od = ih / id
+oh / ih = od / id
+
+oh / f = ih / (id - f)	
+oh / ih = f / (id - f)
+
+--> 
+od / id = f / (id - f)
+(id - f) / id = f / oh 
+--> 
+1 - f/id = f/od
+1/f - 1/id = 1/od
+1/f = 1/od + 1/id
+
+	if object is placed at the focal point, then f = od  -->  
+	1/f = 1/f + 1/id	--> 1/id = 0 	--> id = infinity
+
+	if object is placed btw mirror focal point, f < od, 
+	then 1/od > 1/f 	--> 1/id must be negative (virtual image)
+
+
+Optical power
+concave mirror collects all || beams in one point, you guide the light by placing several mirrors in a chain, each tilted in front of the previous mirror's focal point. 
+1/f_total = sum(1/f_each) 
+
+for convenience a new unit was invented to get rid of 1/*
+diopter unit: 1dpt = 1m^-1
+a 3-diopter lens brings parallel rays of light to focus at 1⁄3 meter
+
+optical power o = 1/f
+o_total = sum(o_all)

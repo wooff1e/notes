@@ -1,0 +1,86 @@
+distributed training: first move model to device then load checkpoint with map_location !
+
+PATHS
+glob.glob(f'{inputs_dir}*.tif')
+s = "c:/,home,foo,bar,some.txt".split(",")
+os.path.join(*s) # 'c:/home\\foo\\bar\\some.txt'
+os.path.basename(dir1/dir2/file.ext)	# file.ext
+os.path.dirname(dir1/dir2/file.ext)	# dir1/dir2
+
+
+print(next(model_pt.parameters()).device)
+
+print(torch.cuda.memory_summary(device=None, abbreviated=False))
+
+SIZE:
+PIL	W, H
+cv2	H, W, C
+numpy	H, W, C
+tf	H, W, C
+torch	C, H, W
+
+
+numpy:					torch:				tf:
+np.random.rand(1, 1, 4, 4) 		torch.rand((1, 1, 4, 4))	tf.random.uniform((1, 4, 4, 1)) # all: [0, 1)
+.astype(np.float32)
+					t = torch.from_numpy(a)		tf.convert_to_tensor(a)
+np.squeeze(img)				img.squeeze()			tf.squeeze(img)
+np.expand_dims(img, axis = 0)		img.unsqueeze(0)
+img.transpose(0, 3, 1, 2)		img.permute(0, 3, 1, 2)		tf.transpose(img, (0, 2, 3, 1))
+np.clip(img, 0, 1)			img.clamp(0, 1)
+
+
+nn.ModuleList is not considered a module
+
+
+# torch copy a tensor:
+a = b assignment        # creates another reference pointing to same location
+b = a.clone()           # a separate copy, but torch.requires_grad setting is also copied from source tensor.
+c = a.detach().clone()  # to avoid that, we should use detach() on source tensor during copy
+
+
+JSON
+with open(path) as f:
+    content_str = f.read()
+    content_obj = json.load(f)
+
+# string / json object --> python dict
+d = json.loads(obj)
+
+# python --> json
+obj = json.dump(d)
+
+with open(output_path, "w") as handle:
+    json.dump(result, handle, indent=4)
+
+Python 	JSON
+______________
+dict 	Object
+list 	Array
+tuple 	Array
+str 	String
+int 	Number
+float 	Number
+True 	true
+False 	false
+None 	null
+
+
+    if args.dummy:
+        SIZE = 256
+        model_pt = DummyModel().cuda()
+        with torch.no_grad():
+            out_pt = model_pt(img_pt)
+        model_tf = pt2tf.convert_model_auto(model_pt, img_pt, SIZE)
+        # model_pt.cuda()
+        # out_pt = model_pt(img_pt)
+        img_tf = tf.convert_to_tensor(img_pt.cpu())
+        img_tf = tf.transpose(img_tf, (0, 2, 3, 1))
+        out_tf = model_tf(img_tf)
+
+        pt_tf_closeness = compare_tensors(
+            out_pt.cpu().detach().numpy(), 
+            tf.transpose(out_tf, (0, 3, 1, 2))
+            )
+        print('\n\npt/tf output closeness:', pt_tf_closeness)
+        exit()

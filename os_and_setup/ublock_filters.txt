@@ -1,0 +1,18 @@
+/* USE TAB KEY TO ENABLE OR DISABLE A FILTER *//
+
+//* PROMOTED POSTS will be hidden *//
+9gag.com##article:has(header > div > div > a:has-text(Promoted))
+
+//* POSTS from LATEST NEWS section will be hidden *//
+9gag.com##article:has(div > a:has-text(/Latest News/i))
+
+//* ANONYMOUS POSTS from 9GAGGER will be hidden *//
+9gag.com##article:has-text(9GAGGER)
+
+//* POSTS with those TAGS will be hidden *//
+9gag.com##article:has(div > a:has-text(/potato/i))
+9gag.com##article:has(div > a:has-text(potato))
+
+//* POSTS with those words in the TITLE will be hidden *//
+9gag.com##article:has(h1:has-text(/potato/i))
+9gag.com##article:has(h1:has-text(potato))

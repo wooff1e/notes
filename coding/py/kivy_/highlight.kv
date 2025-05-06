@@ -1,0 +1,21 @@
+#:kivy 2.1.0
+#:import utils kivy.utils
+
+
+<ArrowButton>:
+    original_color: utils.get_color_from_hex('#583827')
+    highlight_color: utils.get_color_from_hex('#9C6D54')
+    text: '<<'
+    size_hint_y: .25
+    background_color: (0, 0, 0, 0)
+    font_size: 80
+
+<MyLayout>:
+    canvas.before:
+        Color:
+            rgba: (.8, .8, .8, 1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+    ArrowButton:

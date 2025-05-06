@@ -1,0 +1,135 @@
+git init
+git remote add origin git@github.com:wooff1e/opengl_course.git
+git branch -M main
+git push -u origin main
+
+cd code
+git clone https://github.com/repo/repo.git
+
+git status
+git log
+q				# quit log
+
+
+git pull -p
+git remote prune origin
+
+
+git add file1 file2		# stage
+git add .			# stage everything
+git rm --cached file		# unstage
+# force-add against .gitignore rules:
+git add src/night_vision/dl_framework/utils/isp/ISP_CNN_weights.pth -f
+
+# connect to a remote branch
+git remote add origin https://OPTIONAL_PERSONAL_TOKEN@github.com/repo/repo.git
+git branch -M main		# manually rename master to main :D
+
+git remote rename OLD NEW
+git remote remove NAME
+
+git push -u origin main	# push what you have locally to the main branch
+
+git push --set-upstream origin color_mapping	# indicate that the branch is branching off from origin
+git push
+git pull origin color_mapping
+
+git checkout -b color_mapping	# -b create new branch and switch to it
+git checkout color_mapping	# switch to this branch
+git commit -m "commit message"
+
+git merge --no-ff myfeature
+git merge --abort
+
+git stash
+git stash pop
+git stash apply		# without removing from stash
+
+1. git checkout multi-hdr
+2. git pull
+3. git checkout twoj_branch
+4. git rebase multi-hdr
+
+
+# SQUASH COMMITS
+git rebase -i HEAD~10   # the very frst commit: git rebase -i --root
+pisk first line
+s each of the rest
+Ctrl+S, Ctrl+X
+write message for the combined commit
+Ctrl+S, Ctrl+X
+git push origin main --force
+___________________________
+
+
+### LFS
+sudo apt install git-lfs
+cd path/to/repo
+git lfs install
+git lfs pull
+
+
+### SETUP ###
+
+# check current configuration:
+git config user.name
+git config user.email
+nano ~/.gitconfig
+
+# set global credentials
+git config --global user.email "user@mailfence.com"
+git config --global user.name "Name Surname"
+git config --global user.email "email"
+git config --global user.name "wooff1e"
+
+# Hide email
+- on github go to settings --> emails --> keepe my email private
+- copy the handle
+git config --global user.email 183491914+wooff1e@users.noreply.github.com
+
+### HTTPS vs SSH ###
+- HTTP requires to enter user/password each time you interact with a repo
+- SSH requires to set up SSH key first on local machine and then you can interact automatically
+
+# HTTPS
+- copy link on website
+git clone https://github.com/user/repo.git	# .git is optional
+- do some stuff
+git push origin HEAD
+- HTTPS will prompt to enter username and password
+
+# SSH
+# generate key
+ssh-keygen -t ed25519 -C "wooff1ePC@home"
+-t = The type of the key to generate 
+-C = comment to identify the key (can use placeholder instead of email so it's not publically awailable)
+
+- you will be prompt to choose file where to store the key (enter for default name). 
+- choose passphrase (optional)
+- this will generate 2 files:
+~/.ssh/id_ed25519
+~/.ssh/id_ed25519.pub
+
+# give github your public key contents
+cat ~/.ssh/id_ed25519.pub
+- copy the line, go to github --> settings --> SSH and GPG keys --> add new
+- paste into the key field, give it a title (eg. primary)
+
+# add the keys to your SSH agent:
+eval "$(ssh-agent -s)"
+ssh-add	
+
+# work with a repo:
+cd ~/code
+- copy link on website
+git clone git@github.com:user/repo.git		# .git is optional
+- will prompt you for passphrase if set
+- first time you might get error ED25519 key fingerprint is SHA256... simply say "yes"
+
+
+### LFS ###
+apt install git-lfs
+cd REPO
+git lfs install
+git lfs ls-files
+git lfs migrate import --no-rewrite src/night-vision/.../weights.pth

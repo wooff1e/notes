@@ -1,0 +1,780 @@
+POLYNOMIAL EQUATIONS
+Standard form: terms written in descending order according to degree
+
+The degree of a monomial is the sum of the exponents of the variables the monomial contains: 
+5a^3bc^2, degree = 3 + 1 + 2 = 6
+The degree of a polynomial is the highest degree among its terms, it tells us how many solutions to expect: 
+8x^4 + 4x^3 + 5 = 12, degree = 4
+
+
+Solving polynomials
+- bring it to the form [part1 * part2 = 0] through factoring, 
+- then solve for each [part = 0]
+- check if solution satisfies the equation
+
+
+FACTORING
+1) GCF (greates common factor)
+6ab + 2b - 4cb --> 2b(3a + 1 - 2c)
+
+2) By grouping
+18x + 6y – 3xz – zy = 6(3x + y) – z(3x + y) = (3x + y)(6 - z) 
+
+3) Factoring quadratic polynomials
+x^2 + 4x + 4 --> (...)(...)
+look at the 1st term, factors: x*x --> (x  )(x  )
+look at the last term, factors of +4: 1*4, 2*2, -1*-4, -2*-2
+which can we add together to get the middle term +4?
+--> (x + 2)(x + 2) --> (x + 2)^2 
+(x + 2)^2 = 0 --> x = -2
+
+x^2 + 6x - 16
+factors of -16: -1*16, 1*-16, -2*8, 2*-8, -4*4
+the only way to get +6 is 8-2
+--> (x + 8)(x - 2) = 0 --> x = -8, 2
+
+x^2 - 6x - 16
+the only way to get -6 is -8+2
+--> (x - 8)(x + 2) = 0 --> x = 8, -2
+
+x^2 + x + 1
+factors of +1: 1*1, -1*-1
+1+1=2, -1-1=-2 --> we can't get +1 --> not factorable
+
+3x^2 +16x + 5 --> (3x )(x ) --> (3x + 1)(x + 5)
+
+
+4) Difference of two squares
+	a^2 – b^2 = (a - b)(a + b)	--> a^2 + ab - ba - b^2 
+					(doesn't work with sum)
+
+5) Sum / Difference of two cubes
+	a^3 + b^3 = (a + b)(a^2 – ab + b^2)
+	a^3 – b^3 = (a – b)(a^2 + ab + b^2)
+
+6) Completing the square
+	(a + b)^2 = a^2 + 2ab + b^2
+	(a – b)^2 = a^2 – 2ab + b^2
+
+- make sure a=1			        1x^2 + 6x + 4 = 0
+- add (b/2)^2 to both sides	    x^2 + 6x + 9 + 4 = 9	(6/2)^2=9
+- factor the perfect square	    (x + 3)^2 + 4 = 9
+- solve for x			        (x + 3)^2 = 9 - 4 = 5
+				                x + 3 = ±√5
+				                x = ±√5 - 3
+We can generalize this:
+x^2 + bx +c = 0    -->    x = -b/2 ±√((b/2)^2 - c)
+[(b/2)^2 - c] needs to be >=0 for roots to be defined as real numbers 
+if it's <0 then solution is 2 imaginary numbers:
+e.g. x = ±√-3 - 2 = ±√-1 * √3 - 2 = ±√3 *i - 2
+
+if a != 1:
+ax^2 + bx + c = 0
+x^2 + (b/a)*x + c/a = 0		| + (b/2a)^2
+x^2 + (b/a)*x + (b/2a)^2 + c/a = (b/2a)^2
+x^2 + (b/a)*x + (b/2a)^2 = (b/2a)^2 - c/a
+(x + b/2a)^2 = b^2/4a^2 - c/a*(4a/4a)
+(x + b/2a)^2 = b^2/4a^2 - 4ac/4a^2
+x + b/2a = ±√((b^2 - 4ac)/4a^2)
+x = -b/2a ±√(b^2 - 4ac)/2a
+_________________________________
+x = (-b ±√(b^2 - 4ac))/2a |	Quadratic formula
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+root value	solution
+b^2 - 4ac = 0	1 real number
+b^2 - 4ac > 0	2 real numbers
+b^2 - 4ac < 0 	2 complex numbers
+
+
+Dividing polynomials
+when dividing a number, e.g. 146/13:
+  1/13 -/->
+    14/13 --> 1 	(14-13*1 = 1 --> 16)
+      16/13 --> 1 	(16-13*1 = 3 --> remainder)
+answer: 11 + 3/13
+
+same with polynomials, but:
+	- term degrees are like ones, tens, hundreds etc
+	- for each step the answer is something that will "remove" the term
+(x^2 + 4x + 6) / (x + 3):
+  x^2 / (x + 3) -/->
+    (x^2 + 4x) / (x + 3) --> x 		x^2 + 4x - (x + 3)*x = x --> (x + 6)
+      (x + 6) / (x + 3) --> (+1) 	x + 6 - (x + 3)*1 = 3 --> remainder
+answer: x + 1 + 3/(x+3)
+
+write it in a long-division form:
+	  x	+1
+	______________
+(x + 3)	|(x^2 + 4x + 6)
+	|_____________
+	 -(x^3+3x)
+	 	x  + 6
+		-(x +3)
+		    3
+		    
+just like with numbers, don't forget the zero terms!
+105 = 1*100 + 0*10 + 5*1
+(x^3 - 5) / (x - 2) --> (x^3 + 0x^2 + 0x - 5) / (x - 2)
+
+  (x^3 + 0x^2) / (x - 2) --> x^2 	x^3 + 0x^2 - (x - 2)*x^2 = 2x^2 --> 2x^2 + 0x
+    (2x^2 + 0x) / (x - 2) --> 2x	2x^2 + 0x - (x - 2)*2x = 4x --> 4x - 5
+      (4x - 5) / (x - 2) --> 4		4x - 5 - (x - 2)*4 = 3 --> remainder
+answer: x^2 + 2x + 4 + 3/(x - 2)
+
+Multivariable polynomials
+we arrange divident by degree of the first variable (x^3, x^2...) 
+and by second in reverse (y, y^2, y^3..):
+(2x^3 + 12x^2*y + 15xy^2 - 9y^3) / (x + 3y)
+  (2x^3 + 12x^2*y) / (x + 3y) --> 2x^2 ...
+the answer (2x^2 + 6xy - 3y^2) is the same if choose "y" as your first variable
+
+suplement "missing" terms the same way:
+(x^3 - y^3) / (x - y) --> (x^3 + 0x^2*y + 0xy^2 - y^3) / (x - y)
+note that it is easier to add these zero terms as go - whatever we need for each step
+
+
+The Remainder Theorem
+If a polynomial f(x) is divided by (x-c) then the remainder is f(c)
+
+This means that when you have a polynomial divided by a substraction (eg. x-5), and you are only interested in the remainder, you can jest plug in the value (eg. 5) into the equation and evaluate instead of doing long division or synthetics division.
+This also could be used to check if (x-c) is a factor of a given polynomial (the remainder will be 0)
+Proof: 	f(x) = q(x)(x-c) + r	// polynomial = quotient ∙ denominator + remainder
+		f(c) = q(c)(c-c) + r
+		f(c) = r
+		
+The Factor Theorem
+If f(c) = 0 then (x-c) is a factor of the polynomial f(x)
+
+Rational Zero Theorem
+f(x) = a_n*x^n + a_(n-1)*x^(n-1) + ... + a_1*x + a_0
+If a rational zero exists for the polynomial, then it must be in the form (factors of a_n) / (factors of a_0)
+
+
+
+PARTIAL FRACTIONS
+5/(x-2) - 3/(x-1) <--> (2x+1)/(x^2-3x+2)
+# harder to do in the opposite direction
+
+Partial decomposition
+First factor denominator as much as possible
+(2x+1)/(x^2-3x+2) = (2x+1) / (x-1)(x-2)
+Note: if we have a constant factor in the denominator, 
+we can pull that out in front of the fraction:
+(2x+1) / 2x(x-1)(x-2) = 1/2 * ((2x+1) / x(x-1)(x-2))
+
+Each of these factors will get its own fraction
+
+1) Distinct linear factors
+    (2x+1)/(x^2-3x+2) = (2x+1) / (x-1)(x-2) = A/(x-1) + B/(x-2)
+
+    - to solve for A in A/(x-1) we set x-1 = 0 --> x=1
+    - now we remove this factor from the main fraction:
+        (2x+1) / (x-2)
+    - now evaluate this using x=1:
+        (2*1+1) / (1-2) = 3/-1 = -3     # A = -3
+    - do the same for B:
+        x=2 -->     (2x+1) / (x-1) = (2*2+1) / (2-1) = 5
+    - the answer: (2x+1) / (x-1)(x-2) = -3/(x-1) + 5/(x-2)
+
+2) Repeated linear factors
+    The factors are all the powers up to the given, eg. ^3 --> factors ^3, ^2, ^1
+    (x^2 + 2x - 6) / (x-1)^3 = A/(x-1) + B/(x-1)^2 + C/(x-1)^3
+
+    - add the formulated factors together:
+        A/(x-1) + B/(x-1)^2 + C/(x-1)^3 = A(x-1)^2 / (x-1)^3 + B(x-1) / (x-1)^3 + C / (x-1)^3 =
+        = (A(x-1)^2 + B(x-1) + C) / (x-1)^3
+    - this numerator is equal to the numerator of the original fraction:
+        A(x-1)^2 + B(x-1) + C = x^2 + 2x - 6
+    - now we can solve for C by setting x=1:
+        0 + 0 + C = 1^2 + 2*1 - 6
+        C = -3
+    - plug in this value:
+        A(x-1)^2 + B(x-1) - 3 = x^2 + 2x - 6
+    - open the brackets:
+        A(x^2 - 2x + 1) + Bx - B - 3 = Ax^2 - A2x + A + Bx - B - 3
+    - group like-terms and simplify:
+        Ax^2 - A2x + Bx + A - B - 3 = Ax^2 - x(Ax + B) + (A - B) - 3
+    - equate coefficients (remember 0-terms):
+        Ax^2 - x(Ax + B) + (A - B - 3) = x^2 + 2x - 6
+        A = 1
+        Ax + B = -2
+        A - B - 3 = -6  --> 1 - B - 3 = -6, B = 4
+    - the answer: 
+        (x^2 + 2x - 6) / (x-1)^3 = 1/(x-1) + 4/(x-1)^2 - 3/(x-1)^3
+
+3) Distinct quadratic factors:
+    (x + 4) / (x^2 + 3)(x^2 + 1) = (Ax + B)/(x^2 + 3) + (Cx + D)/(x^2 + 1)
+
+    - add the formulated factors together:
+        ((Ax + B)(x^2 + 1) + (Cx + D)(x^2 + 3)) / (x^2 + 3)(x^2 + 1)
+    - this numerator is equal to the numerator of the original fraction:
+        x + 4 = (Ax + B)(x^2 + 1) + (Cx + D)(x^2 + 3)
+    - open the brackets, and go as before:
+        Ax^3 + Ax + Bx^2 + B + Cx^3 + 3Cx + Dx^2 + 3D = 
+        = (Ax^3 + Cx^3) + (Bx^2 + Dx^2) + (Ax + 3Cx) + (B + 3D) =
+        = x^3(A + C) + x^2(B + D) + x(A + 3C) + (B + 3D)
+
+        0x^3 = x^3(A + C)   0 = A + C
+        0x^2 = x^2(B + D)   0 = B + D
+        x = x(A + 3C)       1 = A + 3C
+        4 = B + 3D
+        In this particular case the system of equations can be split into 2 systems
+        0 = A + C       A = -C
+        1 = A + 3C      1 = -C +3C = 2C
+                        C = 1/2, A = -1/2
+
+        0 = B + D       B = -D
+        4 = B + 3D      4 = -D + 3D = 2D
+                        D = 2, B = -2
+    
+    - the answer:
+        (x + 4) / (x^2 + 3)(x^2 + 1) = (-1/2x - 2)/(x^2 + 3) + (1/2x + 2)/(x^2 + 1) =
+        = (1/2x + 2)/(x^2 + 1) - (1/2x + 2)/(x^2 + 3)
+
+4) Repeated quadratic factors
+    (x^3 - 2x^2) / (x^2 + 1)^2 = (Ax + B)/(x^2 + 1) + (Cx + D)/(x^2 + 1)^2 = 
+    = (Ax + B)*(x^2 + 1)/(x^2 + 1)^2 + (Cx + D)/(x^2 + 1)^2 =
+    = ((Ax + B)*(x^2 + 1) + (Cx + D)) / (x^2 + 1)^2 = 
+    = (Ax^3 + Ax + Bx^2 + B + Cx + D) / (x^2 + 1)^2 = 
+    
+    x^3 - 2x^2 = Ax^3 + Bx^2 + x(A + C) + B + D
+    1 = A
+    -2 = B
+    0 = A + C   C = -1
+    0 = B + D   D = 2
+
+    (x^3 - 2x^2) / (x^2 + 1)^2 = (x - 2)/(x^2 + 1) + (-x + 2)/(x^2 + 1)^2
+
+5) Mixed factors
+    (2x-3) / x(x+2)(x-3)^2(2x^2+5)^2 = 
+    = A/x + B/(x+2) + C/(x-3) + D/(x-3)^2 + (Ex+F)/(2x^2+5) + (Gx+H)/(2x^2+5)^2
+    the rest is the same:
+    - set x=0 and solve for A without the first x in denominator: 
+        -3/(2*(-3)^2*25) = -3/450 = A
+    - plug that back in, bring to common denominator, add together and simplify
+    - equate nominators, bring to standard form, equate coefficients to create system of equations
+    - note: you can use augmented matrix and Gauss-Jordan elimination to solve it
+
+=============================================================
+
+
+
+INEQUALITIES
+(< ≤ ≥ >)
+we find solution set eg. [-3, 2)
+<	----)
+≥	[----
+
+Note: when you multiply/divide both sides by a negative value, 
+the inequality symbol switches direction!
+
+
+Absolute value
+-|2y-x3|-z...
+When we encounter this, we need to isolate it as much as possible and then brunch our soulution into 2 equations.
+If you have two absolute value expressions, you still brunch into to solutions: one where both expressions have the same sign and one where they have the opposite sign.
+
+
+Compound inequalities
+1) AND - find intersection/conjunction of solution sets 
+(no intersection --> solution is an empty set)
+|x| < 5	
+-5 < x < 5	        x(-5, 5)
+
+2) OR - find union/disjunction of solution sets
+|x| > 5
+x < -5, x > 5	    x(-∞, -5) ∪ (5, ∞)
+
+
+Graphing
+We graph the line and shade the area above/below it.
+if the inequality is strict (> <) we exclude the line from the solution (dashed)
+
+
+Non-linear inequalities
+    • rearrange and find the real solutions where f(x)=0 
+    • find values that make f(x) undefined (boundary points)
+    • use a test point to determine the sign of f(x) in each interval
+    • determine whether the boundary points are included in the solution set
+    • write solution set in interval notation
+
+x^2 - 9x + 14 <= 0
+x^2 - 9x + 14 = 0
+(x - 7)(x - 2) = 0
+boundary points:    x = 7, 2
+test points:        x = 0, 4, 8
+f(test_points):     y = 14, -6, 6
+// parabola opens up, has vertex below x-axis at interval (2,7)
+solution:           [2, 7]
+
+
+
+SYSTEMS OF EQUATIONS
+1) solving by Graphing
+    • put both equations into slope-intercept form (solving for y)
+    • graph them
+    • find point where lines intersect each other
+    
+    | x = y + 5     --> y = x - 5           (y-intercept is -5 and slope +1)
+    | 3x + 2y = 5   --> y = -3/2(x) + 5/2   (y-intercept is 5/2 and slope -3/2)
+    
+2) solving by Substitution
+    • solve one of the equations for any of the variable
+    • substitute that variable in the other equation
+    • solve for the other variable and check your answer
+    
+    | 2x - y = 10	--> y = 2x - 10
+    | 4x - 3y = 16 --> 4x - 3*(2x-10) = 16 --> 
+        4x - 6x + 30 = 16
+    	4 = 2x
+    	x=7
+    	y = 2x - 10 = 14 - 10 = 4
+    	
+3) solving by Elimination
+    • put both equations in the same form (typically standard form)
+    • modify equations so that one of the variables gets eliminated under summation of the equations
+    • solve for the remaining variable
+    • substitute that value into one of the equations
+    • solve for the other variable and check your answer
+    
+    | 2x - y = 13 --> *4 --> 8x - 4y = 52
+    | 3x + 4y = 3
+        (8x - 4y) + (3x + 4y) = 52 + 3
+        11x = 55
+        x = 5
+        2x - y = 13
+        10 - y = 13
+        y = -3
+
+
+System of Linear Equations in Three Variables
+    • Put both equations in the same form (typically standard form)
+    • Choose 2 equations and eliminate one of the variables
+    • Choose 2 equations (including the unused one) and eliminate the same variable
+    • What you get is a system of 2 two-variable equations which you can solve using any of the above methods
+    • If you come across a contradiction (eg. 47 = 141) --> no solution
+    • If you end up eliminating variable you are solving for (eg. 0=0) --> infinitely many solutions
+
+Solving systems with >=3 variables this way is tidious --> linear algebra for the win!
+
+Modeling with linear equations in 3 variables
+We can use system of 3-variable linear equations eg. for finding coefficients of a quadratic equation if we are given 3 points that the parabola goes through:
+(1, 9), (-2, -24), (3, -19) 	y=-5x^2+6x+8 
+
+
+
+SYSTEMS OF INEQUALITIES
+when graphing look for shaded areas overlap
+the rest is what you'd expect
+
+=============================================================
+
+
+
+FUNCTIONS
+When the elements in one set are linked to elements in a second set:
+	Relation is any set of ordered pairs.
+	Function is a relation in which each element in the domain corresponds to exactly 1 element in the range (a vertical line cannot intersect more than 1 point of the graph)
+
+domain is all x where y is defined
+range - entire set of y that is possible based on domain
+	eg. f(x) = 1/x
+	domain is x!=0 		(if x=0, f is undefined)
+	range is f(x)!=0 	(can't get 0 with any x)
+
+
+Types of functions
+Injective	2 elemets A can't connect to the same B (one-to-one)
+            (will pass horizontal line test)
+Surjective	elements in set B can't stay unconnected
+Bijective	Injective & Surjective (only clear pairs)
+
+even	f(-x) = f(x)	symmetrical over y-axis
+odd		f(-x) = -f(x)	symmetrical over origin
+neither
+
+
+Inverse functions
+f^-1(x) = x iff f(x) = y   // f^-1 means inverse, NOT negative exponent
+f^-1(x) is a bijection, that basically undoes the effects of the original function
+f^-1(x) is symmetrical to f(x) over y=x line
+we can make a function invertible by restricting its domain
+
+By definition: (f ◦ f^-1)(x) = x and (f^-1 ◦ f)(x) = x 
+Functions f and g are inverse if:
+    • (f ◦ g)(x) = x for all x in the domain of g
+    • (g ◦ f)(x) = x for all x in the domain of f
+
+Finding inverse:
+original        f(x) = x+3
+f(x) --> y      y = x + 3
+x <--> y        x = y + 3
+solve for y     y = x - 3
+y --> f^-1(x)   f^-1(x) = x - 3
+
+
+Combining functions
+f(x) = x + 1
+g(x) = 2x - 2
+    • Addition:		    (f+g)(x) = (x + 1) + (2x - 2) = 3x - 1
+    • Substraction:	    (f–g)(x) = (x + 1) - (2x - 2) = -x + 1
+    • Multiplication:	(f∙g)(x) = (x + 1)(2x - 2) =2x^2 - 1
+    • Division:		    (f/g)(x) = (x + 1)/(2x - 2)
+
+Composing functions
+f◦g(x) = f(g(x)) = (2x - 2) + 1 = 2x – 1
+g◦f(x) = g(f(x)) = 2(x + 1) – 2 = 2x
+composite domain - intersection of both domains
+
+Decomposing functions
+f(x) = √(x^3 - 3) --> f(x) = √x, g(x) = x^3 - 3
+(one of many decompositions)
+
+
+Piecewise functions
+Defined differently depending on a specific x range
+discontinuity is ok
+        | x^2       x<3
+f(x) =  | 1         x=3
+        | 1/2x + 2  x>3
+
+=============================================================
+
+
+
+LINEAR FUNCTIONS
+1) Slope-intercept form (standard form): 
+	y = mx + b,	where m is slope and b is y-intercept
+If the x’s value is a constant, the graph is a vertical line
+If the y’s value is a constant, the graph is a horizontal line
+
+2) Point-slope form: 	
+	m = (y - y1) / (x - x1)
+	y - y1 = m(x - x1)
+When the slope is zero, the line is horizontal (y = b)
+When the slope is undefined, the line is vertical (x-x1 = 0)
+
+
+Linear programming & objective function
+Linear programming is a process of modeling a situation with both constraints (linear inequalities) and an objective function.
+Objective function is the function we want to optimize by finding minimum or maximum value of the function. The values we plug into the function are called corner points and are the points of intersection of our system of inequalities.
+ 
+
+
+QUADRATIC FUNCTIONS
+1) Standard form
+y = ax^2 + bx + c
+
+
+2) Vertex form
+f(x) = a(x - h)^2 + k
+    the vertex (tip of the parabola) is (h, k)
+    the axis of symmetry is x = h
+	the parabola opens upward if a>0, and downward if a<0
+
+Standard --> Vertex form:
+f(x) = 2x^2 + 20x + 42
+f(x) = 2(x^2 + 10x + __) + 42 - __
+		            (b/2)2      ac
+f(x) = 2(x2 + 10x + 25) + 42 – 50
+f(x) = 2(x + 5)2 - 8
+
+vertex of a parabola in standard form: (-b/2a, f(-b/2a))
+
+
+
+FRACTIONS (RATIOS)
+proportions:    2 equal ratios
+reciprocals:	-4/5 and -5/4 (their product is 1)	
+                0 doesn’t have a reciprocal
+
+Cross-product
+x/y = 3/4   --> *4y -->     4x = 3y
+
+Complex proportions:
+1/2 / 1/4 = 1/2 * 4/1 = 4/2 = 2
+(two quarters go into one half)
+
+
+
+FRACTIONAL (RATIONAL) FUNCTIONS
+f(x) = p(x) / q(x)
+Domain: all values that don’t make the denominator equal to zero.
+(or all the denominators if complex fraction)
+
+To simpify rational expressions: 
+- factor everything  
+- restrict the domain  
+    • Set denominator to zero and solve the equation
+    • Exclude solutions from the domain
+- reduce (cancel out)
+
+
+Graph rational functions 
+    • Determine x- and y- intercepts
+    • Graph asymptotes as dashed lines
+    • Determine symmetry
+    • if f(x) = f(-x)  symmetric to the y-axis 
+    • if -f(x) = f(-x)  symmetric to the origin
+    • Plot at least 1 point on each interval to determine the shape of the graph
+
+
+Asymptotes
+1) Vertical Asymptotes
+To locate the vertical asymptotes of f(x), determine the real numbers x where the denominator is zero, but the numerator is nonzero.
+Make sure nothing cancels here (bc. if it does, then that particular x-value makes numerator also zero which means you cannot use it – there is just nothing on the graph at that spot)
+
+2) Horizontal Asymptotes
+To locate the horizontal asymptotes of f(x), compare the degree of the numerator and denominator.
+num deg < denom deg --> asymptote at y=0
+num deg = denom deg --> asymptote at y=a_num/a_denom, where a is the leading coef.
+num deg > denom deg --> no gorizontal asymptote (slant asymptote)
+
+3) Slant Asymptotes
+A rational function will have a slant asymptote if the degree of the numerator is exactly 1 greater than the degree of the nominator. The quotient of the numerator and denominator will be the linear function of the asymptote. Basically you do long division and ignore the remainder.
+f(x) = 3x^3 / (x^2 - 9) --> long division --> -27x (asymptote line)
+ 
+=============================================================
+
+
+
+EXPONENTS
+x^0 = 1
+x^1 = x
+
+(-x)^a 	= (-x)∙(-x)∙(-x)...
+-x^a 	= -(x∙x∙x∙...) 
+
+(x*b)^a = x^a*b^a
+(x/b)^a = x^a/b^a
+x^a * x^b = x^(a+b)
+x^a / x^b = x^(a-b)
+
+(x^a)^b	= x^ab
+
+
+
+EXPONENTIAL FUNCTIONS
+f(x) = a∙r^x
+    a≠0 			initial value
+    r>0 and r≠1 	rate of increase
+
+domain: x = all real numbers
+range:  y > 0
+
+    • if b>1 the graph is increasing (exponential growth), 
+    f(x) approaches zero on the left and +∞ on the right
+    • if 0<r<1 the graph is decreasing (exponential decay),
+    f(x) approaches +∞ on the left and zero on the right
+    • to find initial value we solve for f(0) – y-axis intercept
+    • if a is negative, the graph is flipped over x-axis
+
+m(6)=?
+m(x)=a∙rx
+a=m(0)=9
+m(1)=3
+m(2)=1
+9  3  1
+
+Exponential function base e2.71828182 8
+
+
+Transformations             b^x
+    horizontal
+        1) scale            b^(ax)      // |a|>1 compression, |a|<1 stretch
+        2) shift            b^(x+c)     // +c --> left, -c --> right
+        3) reflection       b^-x
+    vertical
+        4) scale            ab^x        // |a|>1 stretch, |a|<1 compression
+        5) reflection       -b^x
+        6) shift            b^x + c     // +c --> up, -c --> down
+
+
+
+LOGARITHMS
+log_b(x) = y    b^y = x
+
+log_b(1) = 0
+log_b(b) = 1
+log_b(b^x) = x
+b^log_b(x) = x
+
+log(x)      base = 10   "common" log
+ln(x)       base = e    "natural" log   e~2.71828..
+
+log_a(nm) = log_a(n) + log_a(m)
+log_a(n/m) = log_a(n) - log_a(m)
+log_a(n^m) = n*log_a(x)
+
+
+log27(3)
+27^x = 3^1  if we bring to the same base then exponents will be equal
+(3^3)^x = 3^1
+3^3x = 3^1
+3x = 1
+x = 1/3
+
+log2(x+3) - log2(2x) = log2(9)
+log2((x+3)/2x) = log2(9)
+(x+3)/2x = 9 ...
+
+
+Change of base formula
+log_b(a) = log_c(a) / log_c(b)
+
+Proof:		
+log_a(x) = y
+log_b(a^y) = log_b(x)
+y*log_b(a) = log_b(x)
+y = log_b(x)/log_b(a)
+log_a(x) = log_b(x)/log_b(a)
+
+usually we just use log or ln as the new base bc. then we can use calculator to calculate approx. value.
+
+eg. estimate log3(14) to the nearest ten-thousand
+log3(14) = log(14)/log(3) = 2.40217
+
+
+
+LOGARITHMIC FUNCTIONS
+y=log_b(x)
+
+b and x are positive real numbers
+b ≠ 1, otherwise log1(1) = 0, 1, 2, ...
+domain: (0, ∞)
+range:  (-∞, ∞)
+graph:  basically y=b^x flipped over y=x line (== x=b^y)
+
+Transformations             log_b(x)
+    horizontal
+        1) scale            log_b(ax)       // |a|>1 compression, |a|<1 stretch
+        2) shift            log_b(x+c)      // +c --> left, -c --> right
+        3) reflection       log_b(-x)
+    vertical
+        4) scale            a*log_b(x)      // |a|>1 stretch, |a|<1 compression
+        5) reflection       -log_b(x)
+        6) shift            log_b(x) + c    // +c --> up, -c --> down
+
+
+
+RADICALS
+x^-a    = 1/x^a
+1/x^-a  = x^a
+
+√x = x^(1/2)
+x^(a/b) = b_√(x^a)
+
+x^-(1/2) = 1/(x^(1/2)) = 1/√x
+
+rationalize denominator = get rid of roots in it:
+1/(-4+√3) --> *(-4-√3) multiplying by conjugate --> 
+= (-4-√3) / (-4-√3)*(-4+√3) = (-4-√3) / (16 - 4√3 + 4√3 - 3) = (-4-√3) / 13
+
+when solving radical equations, always check solutions to make sure they are ACTUAL solutions!
+
+
+
+RADICAL FUNCTIONS
+Domain			
+t - 4 ≥ 0	(-∞, ∞)
+t ≥ 4	    [4, ∞)
+
+Rational exponents
+
+Adding and substracting like radicals
+Two radicals are like radicals if each radical has the same index and same radicant.
+65√7 + 75√6 ≠
+3√xyz2 + 10√xyz2 - 5√xyz2 = 8√xyz2 = 8z√xy
+Multiplying radicals
+()()= =
+()()= =
+(12a 3)(1/4 3)= 3a 3 = 3a2b
+
+If radicals have different indices, turn the indices into fractions and multiply by adding exponents:
+(4√3)(5√3) = (31/4)(31/5) = (35/20)(34/20) = 39/20 
+(3√2)(√3) = (21/3)(31/2) = (22/6)(33/6) = (6√22)( 6√33) = (6√4)( 6√27) = 6√108
+Rationalizing the denominator
+        
+Solving radical equations
+Isolate one of the radicals, raise each side to power = index of the radical, solve, (repeat)
+It is important to check solutions when raising to an even power!!! Possible to have estraneous solutions (those that don’t work)
+
+Application (example)
+On a certain surface, the speed s(x) (miles/h) of a car before the brakes were applied can be approximated from the length of its skid marks x (in feet) by s(x) = 3.8 √x, where x ≥ 0
+
+
+
+Resulting angle = sum of angles
+Resulting distance = product of distances
+ 
+
+x3 = 1
+x3 - 1 = 0		
+should have 3 answers:
+one is 1 and the other two you can find either algebraically or using complex plane and the Unit Circle going in both directions from the starting point
+ 
+Solving visually is more efficient, especially with higher powers
+
+Closure
+If operation (eg. addition) performed on numbers from a set (eg. natural nambers) can only produce numbers from that set, then that set is said to be closed under that operation.
+Function with imaginary numbers
+if input and output are complex numbers, we can’t fit them on a cartision coordinate system (2D), because each of them requires one  we need two more dimensions!
+
+If we tak the inverse function, it’s not strictly speaking a function (an input maps to 2 outputs)
+
+Domain coloring
+
+To resolve this we can add another plain so one input  one output (branching)
+		
+Z is also an imaginary number so we need to pick either its real part or its imaginary part to represent the axis (in this graph it’s the real part – x)
+
+That’s why we will run into a problem at the intersection:
+
+there’s actually no intersection – it’s an artifact of the way we visualize it.  It is continuous
+Riemann Surfaces
+
+f(x) = x2 + 1
+
+Fundamental Theorem of Algebra
+Every single-variable polynomial with complex coefficients has at least one complex root.
+We also know, that if (a+bi) is a zero of f(x) then its conjugate (a-bi) is also a zero of f(x)
+Absolute value of complex numbers
+Angle of complex numbers
+
+
+
+IMAGINARY NUMBERS
+i = √-1
+i^2 = -1
+
+i^0                     = 1
+i^1                     = i
+i^2                     = -1
+i^3 = i^2 * i = -1*i    = -i
+
+i^4 = (i^2)^2 = (-1)^2  = 1 
+i^5 = i^4 * i = 1 * i   = i
+... the pattern repeats, which means you can reduce large powers:
+i^97 = i*i^96 = i*(i^4)^24 = i*1^24 = i
+
+Note that pattern extends in both directions (eg. i^-1 = 1/i = i/-1 = -i)
+
+Complex numbers:
+z = a + bi      a is real part and bi is imaginary
+z = 0 + bi      pure imaginary number
+z = a + 0*i     pure real number
+
+when adding complex numbers behave the same way as vectors.
+
+Dividing complex numbers If you have a fraction, remember to get rid of i in the denominator (like with any root) 
+it is done the same way as with normal roots (multiply by complex conjugate): 
+(2+3i)/(1-6i) = (2+3i)(1+6i) / (1-6i)(1+6i) = (2 + 12i + 3i + 18i^2) / (1 + 6i - 6i - 36i^2) = 
+= (15i - 16) / 37 = -16/37 + 15i/37
+
+Complex plane: 
+z = x + yi
+x = real part, y = imaginary coef. 
+Unlike XY-plane, dimensions on the complex plane are connected! 
+you can manipulate it (eg. find distance or midpoint, convert to polar form) 
+the same way - forgetting temporally about the i

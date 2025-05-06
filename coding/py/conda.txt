@@ -1,0 +1,64 @@
+conda --version
+conda update conda
+conda info --envs
+conda list
+
+conda create -n <env-name>				
+conda remove -n llm --all
+conda create -n <env-name> python=3.10
+conda create -n <env-name> python numpy pandaspip install 
+
+conda rename -n <env-name> <new-env-name>
+
+conda activate <env-name>				
+conda activate	# return to base
+
+## INSTALL PACKAGES
+conda install --name <env-name> matplotlib
+conda install conda-forge::numpy
+
+conda config --append channels conda-forge
+
+# add the conda-forge channel to avoid "The following packages are not available from current channels" error
+conda config --append channels conda-forge
+
+=====================
+conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+
+# LLMs:
+conda install transformers einops
+
+=====================
+
+
+## REQUIREMENTS
+conda env export > environment.yml
+
+# cross-platform compatible
+conda export --from-history>environment.yml
+conda env create -n ENVNAME --file ENV.yml
+
+# platform + package specific
+conda export ENVNAME>environment.yml
+
+# platform + package + channel specific
+conda list --explicit>requirements.txt
+conda create -n ENVNAME --file ENV.txt
+
+# conda uses an environment.yaml file instead of requirements.txt, but you can include one in the other:
+name: test-env
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.5
+  - anaconda
+  - pip
+  - pip:
+    - -r file:requirements.txt
+
+conda env create -f environment.yml
+---------------------------------------------------
+	once pip has been used conda will be unaware of the changes	
+	to install additional conda packages it is best to recreate the environment
+
+	avoid running pip in the “root” environment

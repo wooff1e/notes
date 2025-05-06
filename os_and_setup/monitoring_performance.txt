@@ -1,0 +1,45 @@
+https://www.brendangregg.com/USEmethod/use-linux.html
+
+sudo apt install sysstat
+
+USE:
+- utilize (how loaded component is)
+- saturation (how overloaded component is)
+- errors
+
+statsD - app metric monitoring
+
+
+free -m		# avail. memory
+sar -B 1	# paging behaviour
+sar -n DEV 1	# network traffic
+iostat 1	# IO statistics (also CPU activity)
+top		# CPU
+vmstat 1	# CPU per step
+
+
+# tools by depth
+- counting tools (how many times) - top, ifconfig
+- latency tools (how long) - iolatency, fileslower, dbslower
+- stack aggregators (where from) - perf, stackcount
+- tracers (all the events) - logs, perf, trace
+
+real-time / saving results
+tracing (all occurances) / sampling (evenly spaced)
+
+# by functionality:
+- simple & easy to use
+	SysDig
+	LTTng
+- mid
+	perf
+	ftrace
+- advanced
+	SystemTap
+	bcc/BPF
+	C/BPF
+	custom .ko
+	
+	
+Kernel tracepoints - linux built-in function calls to use as hooks
+

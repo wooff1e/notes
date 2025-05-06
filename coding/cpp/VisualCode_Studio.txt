@@ -1,0 +1,21 @@
+Debug --> Windows --> Memory --> Memory 1
+
+changing address value to &yourVarName will take you to its place in memory
+to decifer the value go to calculator, change to Programmer mode and paste it.
+cc cc cc .. means uninitialized stack memory
+
+with breaking points you can see it change live (break point is placed at the line which is ABOUT TO execute)
+
+right click on the line with the break point --> Go to Disassembly
+now you can see all the machine instructions
+
+unmess the debug folders in VisualStudio:
+proj prop --> configuration properties --> general --> (for all configurations, all platforms) 
+	output directory --> $(SolutionDir)bin\$(Platform)\$(Configuration)\
+	intermediate Directory --> $(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\
+	
+(you can check the exact value of macros such as $(SolutionDir) just go to edit and expend bottom
+
+
+// when checking in deassembling the address will be stored in reverse order:
+search: 0002f1b8 --> b8 f1 02 00

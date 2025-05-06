@@ -1,0 +1,9 @@
+sudo docker run -i -t ubuntu:bionic /bin/bash
+source /home/user/snpe-2.19.0.240124/bin/envsetup.sh
+
+
+snpe-tflite-to-dlc --input_dim input "1,768,768,3" --output_path nafnet.dlc --input_network _DEBUG/nafnet_hq_cluster_light__naf_block_ca_conv_tlc__noise_dynamic__768.tflite
+snpe-pytorch-to-dlc --input_network nafnet.pt --input_dim input "1,3,768,768" --output_path nafnet_pt.dlc
+snpe-tensorflow-to-dlc --input_network _DEBUG/tf/nafnet_hq_cluster_light__naf_block_ca_conv_tlc__cumsum__768/frozen_graph.pb --input_dim input "1,768,768,3" --out_node "Identity" --output_path nafnet_tf.dlc
+
+snpe-dlc-quantize --input_dlc nafnet_tf.dlc --input_list /home/user/AI-ISP_RefDeblur/SRPOL/raw_list.txt --output_dlc nafnet_tf_quantized.dlc 

@@ -1,0 +1,553 @@
+Quadrants:
+   y
+_2_|_1_x
+ 3 | 4
+
+
+Radians
+pi = C/d = 3.1415926...
+1° = pi/180°
+1 radian = 180°/pi
+pi radians = 180°
+2pi radians = 360°
+
+30° = 30° * pi/180° = pi/6
+pi/6 = pi/6 * 180°/pi = 30°
+
+1° = 60' (minutes)
+1' = 60" (seconds)
+
+90.55° = 90° + 0.55° * 60'/1° = 90°33'
+note that 60'/1° = 1 and we flip it so as to cancel out unwanted units
+55°36'18" = 55 + 36/60 + 18/3600 = 55 + 0,6 + 0.005 = 55,605°
+
+Coterminal angles - terminal sides in the same place
+a = 30°, b = 360° + 30°, c = 360° - (360° - 30°)
+
+
+Trig Functions		Reciprocal		Inverse
+sin(a) = opp/hyp	csc(a) = hyp/opp	arcsin
+cos(a) = adj/hyp	sec(a) = hyp/adj	arccos
+tan(a) = opp/adj 	cot(a) = adj/opp	arctan
+
+Cofunctions:
+sin(a) = cos(90°-a)	csc(a) = sec(90°-a)
+cos(a) = sin(90°-a)	sec(a) = csc(90°-a)
+tan(a) = cot(90°-a)	cot(a) = tan(90°-a)
+
+
+UNIT CIRCLE
+r = hyp = 1
+angle of interest is at the origin
+
+--> 
+sin = opp
+cos = adj
+tan = opp/adj = sin(a)/cos(a) // this holds always (not only for hyp=1)
+
+y = r*sin
+x = r*cos
+
+coords of a = (cos, sin)
+
+The Pythagorean identities
+sin^2 + cos^2 = 1
+1 + cot^2 = csc^2
+1 + tan^2 = sec^2
+
+sin y/r  csc	+ in I, II, - in III, IV
+cos x/r  sec	+ in I, IV, - in II, III
+tan y/x  cot	+ in I, III, - in II, IV
+
+trig func might not be defined on the axes:
+since r = 1, x = cos, y = sin
+angle = 0° --> cos = 1, sin = 0 -->
+cot=cos/sin is undefined
+csc=1/sin is undefined
+
+ 
+equation of circle: 	(x-h)^2 + (y-k)^2 = r^2 where (h,k) is circle's center
+in unit circle: 		x^2 + y^2 = 1
+
+if a = 45°, x=y, then
+x^2 + x^2 = 1
+2x^2 = 1
+x^2 = 1/2
+x = 1/√2
+
+if a = 30° = pi/6, then all the angles are:
+pi/6 + pi/2 + ? = pi
+? = pi/3 or 60°
+now if we mirror this triangle across x,
+we will get a tri where all angles and sides are equal
+--> y = 1/2
+--> (1/2)^2 + x^2 = 1
+x^2 = 1 - 1/4 = 3/4
+x = √3/2
+
+Finding angle in a non-standard interval:
+angle theta 2200° in [500°, 860°)
+let angle alpha = theta + n*360°, where n is an integer and:
+500 <= 2200 + 360n < 860
+-1700 <= 360n < -1340
+-1700/360 <= n < -1340/360
+-4.72 <= n < -3.72
+--> n = -4
+--> alpha = 2200 - 4*360 = 2200 - 1440 = 760°
+
+Non-complete rotation intervals:
+angle theta 13pi/4 in (-11pi/4, -7pi/4]
+let angle alpha = theta + n*2pi
+-11pi/4 < 13pi/4 + n*2pi <= -7pi/4
+-24pi/4 < n*2pi <= -20pi/4
+-6pi < n*2pi <= -5pi
+-6pi/2pi < n <= -5pi/2pi
+-3 < n <= -2.5    // no valid solution!
+
+Reference angle
+positive and acute angle relative to x axis
+
+
+Even-odd identities
+1) even function will have the same output if you switch x for (-x)
+f(x) = x^2	f(-x) = (-x)^2 = x^2
+cos(A) = a 	cos(-A) = a
+
+2) odd function will have the same output except for the sign
+f(x) = x^3	f(-x) = (-x)^3 = -x^3
+sin(A) = b	sin(-A) = -b
+
+sin(-A) = -sin(A)	csc(-A) = -csc(A)
+cos(-A) = cos(A)	sec(-A) = sec(A)
+tan(-A) = -tan(A)	cot(-A) = -cot(A)
+
+
+Points NOT on the unit circle (OVX) - 
+similar tri  with the one on the unit circle (Ovx)
+v = (cos, sin)	V = (X, Y)
+x = (cos, 0)	X = (X, 0)
+
+sin = Y/OV = Y/√(X^2 + Y^2)
+cos = X/OV = X/√(X^2 + Y^2)
+
+Solving right tri
+e.g. tri 90-65-25 a-b-c, where a = 5cm
+sin25° = 5/c --> c = 5/sin25° 
+cos25° = b/c --> c = b/cos25°
+--> 5/sin25° = b/cos25°
+--> b = 5 * cos25° / sin25°
+--> use calculator 
+--> b = 5 * 0.9063 / 0.4236 ~ 10.72
+c = √(25 + 10.72^2) ~ 11.83
+
+
+Angle of elevation:
+ /
+/_*___
+
+Angle of depresion:
+_ _ _ _
+|\*
+|_\
+
+1 radian: arc length = radius!
+whole circle = 2pi radians = 2*3.14 ~ 6.28 radians
+C = 2pi*r = 6.28r
+arch length = r * angle (in radians)
+
+Area of a sector
+since full circle A = pi*r^2, what is pecentage of the sector:
+e.g. angle = pi/6 --> pi/6/2pi = 1/12 --> sector_A = 1/12 * pi*r^2
+
+A = 1/2 * r^2 * angle_rad = pi/360 * r^2 * angle_deg
+
+
+Trig funcs of real nimbers (radians)
+t = -6.2832 	// close o -2pi
+use calculator in radian mode
+sin(t) ~ 0
+
+
+Velocity
+- magnitude
+- direction
+vs speed: only magnitude
+
+In terms of unit circle:
+a sector growing counter-clockwise.
+Linear velocity: 	V = arch_length/time
+Angular velocity:	W = angle/time
+
+rad/sec --> rad/min:		*(60sec/1min)
+rad/min --> revolutions/min:	*(1rev/2pi rad)
+
+since arch_length = r*angle
+V = r*angle/time
+since W = angle/time
+V = r*W
+
+
+
+GRAPHS
+y = sin(angle)
+x axis is the angle (0 - pi - 2pi - etc)
+y axis is sin which is y of the unit circle
+sin: starts at (0,0)
+cos: starts at (0,1)
+
+standard form: y = a*sin(b(x+c)) + d
+
+a value change:
+y = a*sin(x) --> the amplitude will get scaled by a 
+		negative a will flip the curve over x axis
+		AMPLITUDE = |a| = (max-min)/2 for sin,cos (undefined for the rest)
+b value:
+y = sin(b*x) --> the curve will get scaled horizontally 
+		>1 will COMPRESS and <1 will STRETCH the graph
+		negative b will flip the curve over y axis
+		PERIOD = 2pi/|b| for sin,cos,csc,sec
+			= pi/|b| for tan,cot
+c value:
+y = sin(x+c) --> shifts graph horizontally (works the same for all funcs)
+		c>0 will shift graph to the LEFT
+		c<0 will shift graph to the RIGHT
+		NOTE: whenever we have a constant in front of x,
+		we actually have a form (bx + bc): 
+		cot(3x-pi/4)+1 --> cot(3(x-pi/12))+1
+d value:
+y = sin(x)+d --> will shift graph vertically
+
+cosecant will have parabollas at maxima & minima of the sine graph, 
+limited by sine graph's x-axis intersection points (same for cosine and secant)
+tangent has curves that goes through (-pi/4, -1) (0,0) (pi/4, 1) and is limitted by asymptotes at -pi/2, pi/2
+cotangent - the same but horizontally mirrored and the asymptotes are: 0, pi
+all these functions stretch together with sin and cos
+
+when graphing several transformations:
+				y = -3sec(-2x - 2) -1
+- factor b if needed		y = -3sec(-2(x + 1)) -1
+- graph "mother" function	y = cos(x)
+- horizontal scaling (b)	y = cos(2x)
+- horizontal shift (c)		y = cos(2(x + 1))
+- horizontal flip (-b)		y = cos(-2(x + 1))		
+- vertical scaling (a)		y = 3cos(-2(x + 1))
+- vertical flip (-a)		y = -3cos(-2(x + 1))
+- vertical shift (d)		y = -3cos(-2(x + 1)) -1
+- graph "child" graph		y = -3sec(-2(x + 1)) -1
+
+Graph combinations (+,-,*,/)
+y = sin(x) + cos(2x)
+graph them separately first, then just add y's at main x points
+or take list of main x points and subtitute them into equation and then graph
+
+
+
+INVERSE TRIG FUNCS
+y = sin(x)	y = sin^-1(x) | y = arcsin(x)
+		(this is NOT 1/sin(x), ^-1 is NOT an exponent)
+y = sec^-1(x) = 1/cos^-1(x) = 1/arcos(x)
+
+inverse funcs are funcs reflected over the line y=x
+y = sin(x) --> x = sin(y) 
+the wave oscilating around y-axis --> NOT a function but relation
+(because for a value e.g. pi/2 we'll have an infinite series of angles)
+
+if we want to put in a real number and get an angle,
+theta = sin(pi/2) is not very helpfull, so we apply inverse sin to both sides:
+arcsin(theta) = arcsin(sin(y))
+arcsin(theta) = y
+
+to turn relation into a function you need to limit the range
+y = Arcsin(x) [-pi/2, pi/2]	// capital letter is a convention
+
+
+Trig func of inverse trig func
+sin(arcsin(x)) = x  // sin and sin^-1 cancel out
+sin(arctan(x))
+here we can see x as x/1 and since tan = opp/adj,
+opp = x, adj = 1, hyp^2 = x^2 + 1
+hyp = √(x^2 + 1)
+sin = opp/hyp = x/√(x^2 + 1)
+sin(arctan(x)) = x/√(x^2 + 1)
+
+
+
+TRIG IDENTITIES
+sin(-a) = -sin(a)
+sin^2 + cos^2 = 1
+
+sin(a + b) = sin(a)cos(b) + cos(a)sin(b)
+sin(a - b) = sin(a)cos(b) - cos(a)sin(b)
+
+// note the sign
+cos(a + b) = cos(a)cos(b) - sin(a)sin(b)
+cos(a - b) = cos(a)cos(b) + sin(a)sin(b)
+
+tan(a + b) = sin(a + b) / cos(a + b)
+tan(a - b) = sin(a - b) / cos(a - b)
+
+tan(a + b) = (tan(a) + tan(b)) / (1 - tan(a)tan(b))
+tan(a - b) = (tan(a) - tan(b)) / (1 + tan(a)tan(b))
+
+helps to break down angles into those on unit circle easy to solve
+7pi/12 = pi/3 + pi/4
+sin(7pi/12) = sin(pi/3 + pi/4) = 
+= sin(pi/3)cos(pi/4) + cos(pi/3)sin(pi/4) = 
+= √3/2 * √2/2 + 1/2 * √2/2 = (√6 + √2) / 4
+
+
+Function <--> Co-function
+sin(a) = cos(pi/2 - a)
+cos(a) = sin(pi/2 - a)
+
+tan(a) = cot(pi/2 - a)
+cot(a) = tan(pi/2 - a)
+
+csc(a) = sec(pi/2 - a)
+sec(a) = csc(pi/2 - a)
+
+
+Double-angle
+sin(2a) = sin(a + a) = sin(a)cos(a) + cos(a)sin(a) = 2sin(a)cos(a)
+cos(2a) = cos(a + a) = cos^2(a) - sin^2(a)
+tan(2a) = tan(a + a) = 2tan(a) / (1-tan^2(a))
+
+sin^2(a) + cos^2(a) = 1 -->
+cos(2a) = 1 - sin^2(a) - sin^2(a) = 1 - 2sin^2(a)
+OR
+cos(2a) = cos^2(a) - (1 - cos^2(a)) = 2cos^2(a) - 1
+ 
+
+Half-angle
+if we define sin in terms of double angle identity:
+cos(2a) = 1 - 2sin^2(a)
+2sin^2(a) = 1 - cos(2a)
+sin^2(a) = (1 - cos(2a)) / 2
+sin(a) = ±√((1 - cos(2a)) / 2)
+and then assume a = b/2, then
+sin(b/2) = ±√((1 - cos(2*b/2)) / 2) 
+
+sin(b/2) = ±√( (1 - cos(b)) / 2 )
+
+for cos we use this identity:
+cos(2a) = 2cos^2(a) - 1
+2cos^2(a) = 1 + cos(2a)
+cos^2(a) = (1 + cos(2a))/2
+cos(a) = ±√((1 + cos(2a))/2)
+if a = b/2, then
+
+cos(b/2) = ±√( (1 + cos(b)) / 2 )
+
+tan(b/2) = sin(b/2)/cos(b/2) = ±( √(1 - cos(b)) / √(1 + cos(b)) )
+tan(b/2) = sin(b)/(1+cos(b)) = (1-cos(b))/sin(b)
+
+the ± in these formulas depends on the quadrant, eg.
+if      pi/2 < a < pi       II quafrant (-, +)
+then    pi/4 < a/2 < pi/2   I quadrant (+, +)
+
+
+Product-to-sum
+if we sum these 2 identities:
+sin(a + b) = sin(a)cos(b) + cos(a)sin(b)
+sin(a - b) = sin(a)cos(b) - cos(a)sin(b)
+-->
+sin(a + b) + sin(a - b) = sin(a)cos(b) + cos(a)sin(b) + sin(a)cos(b) - cos(a)sin(b)
+sin(a + b) + sin(a - b) = sin(a)cos(b) + sin(a)cos(b) = 2sin(a)cos(b)
+-->
+sin(a)cos(b) = 1/2 * ( sin(a + b) + sin(a - b) )    sum  sin identities
+cos(a)sin(b) = 1/2 * ( sin(a + b) - sin(a - b) )    sunbstract sin identities
+cos(a)cos(b) = 1/2 * ( cos(a + b) + cos(a - b) )    sum cos identities
+sin(a)sin(b) = 1/2 * ( cos(a - b) - cos(a + b) )    sunbstract cos identities
+
+the last 2 can be used eg. to get rid of sin^2 or cos^2 in your calculations
+
+
+Sum-to-product
+sin(a)cos(b) = 1/2 * ( sin(a + b) + sin(a - b) )
+
+if x = a + b, y = a - b, 
+then 
+x + y = a + b + a - b = 2a
+a = (x + y)/2
+x - y = a + b - a + b = 2b
+b = (x - y)/2
+
+now if we substitute into the above identity, we get:
+sin((x + y)/2)cos((x - y)/2) = 1/2 * ( sin(x) + sin(y) )
+sin(x) + sin(y) = 2sin((x + y)/2)cos((x - y)/2)
+
+all resulting identities:
+sin(a) + sin(b) = 2sin((a + b)/2)cos((a - b)/2)
+sin(a) - sin(b) = 2cos((a + b)/2)sin((a - b)/2)
+cos(a) + cos(b) = 2cos((a + b)/2)cos((a - b)/2)
+cos(a) - cos(b) = -2sin((a + b)/2)sin((a - b)/2)
+
+
+THE LAW OF SINES
+if A,B,C are triangle angles and a,b,c are their opposite sides then:
+a/sinA = b/sinB = c/sinC        or sinA/a = sinB/b = sinC/c
+
+if we are give 2 sides and an angle not between them --> ambiguous case,
+because there might be 2 triangles matching this info (or 1, or 0), eg.:
+a = 6   b = 10  c = ?
+A = 33° B = ?   C = ?
+
+sin(33)/6 = sinB/10
+sinB = 10*sin(33)/6 = 0.9077    // positive sin means I and II quadrant
+arcsin(sinB) = arcsin(0.9077)
+
+B = arcsin(0.9077) = 65.19°     // calculator always gives us acute angle !!!, so
+B_2 = 180° - 65.19° = 114,81°
+this gives us to possible C values:
+C_1 = 180 - 33 - 65 = 82
+C_2 = 180 - 33 - 115 = 32
+
+ambiguous case: side-side-angle
+first find the rest of angles (law of sines and 180 sum)
+	1) acute tri
+		- a < h & h = b*sinA	0 tri	eg. if we get sinA ~ 1.45 (sin can't be >1)
+		- a = h (right tri)		1 tri
+		- a > b					1 tri
+		- b > a > h				2 tri
+			eg. sinA ~0.718 (positive sin in I and II quadrants) --> could be 45.9° or 180-45.9 = 134.1°
+			(if neither value overflow 180° after added to known angle)
+
+	2) obtuse tri (A > 90)
+		- a <= b				0 tri
+		- a > b					1 tri
+
+
+Area from the law of sines:
+    B
+  a/|\c
+  / |h\
+C/__|__\A
+	b
+A = 1/2 bh
+sinC = h/a --> h=a*sinC
+sinA = h/c --> h = c*sinA
+A = 1/2 ab*sinC = 1/2 bc*sinA = 1/2 ac*sinB
+
+
+THE LAW OF COSINES
+a^2 = b^2 + c^2 - 2bc*cosA
+a^2 - b^2 - c^2 = -2bc*cosA
+cosA = (-a^2 + b^2 + c^2)/2bc
+
+since now we can solve any oblique tri, we can also get its area using Heron's formula
+
+
+
+POLAR COORDINATE SYSTEM
+point position is found through distance from origin and angle to the x(+) instead of distance to x an y axes as in rectangular coord system
+
+Conversion btw systems:
+(r,A) --> (x,y)
+sinA = opp/hyp = y/r    y = r*sinA
+cosA = adj/hyp = x/r    x = r*cosA
+
+(x,y) --> (r,A)
+tanA = y/x --> tan^-1(equation) -->     A = tan^-1(y/x)
+r^2 = x^2 + y^2                         r = +√(x^2 + y^2)
+
+Convert rectangular equation to polar coords:
+x^2 + (y − 7)^2 = 49
+substitute x = r*cosA and y = r*sinA:
+(r*cosA)^2 + (r*sinA − 7)^2 = 49
+r^2*cos2A + (r^2*sin2A − 14r*sinA + 49) = 49
+r^2(cos^2(A) + sin^2(A)) − 14r*sinA + 49 = 49
+Using the Pythagorean identity cos^2(A) + sin^2(A) = 1, simplify the equation.
+r^2(1) − 14r*sinA + 49 = 49
+r^2 − 14r*sinA + 49 = 49
+r^2 − 14r*sinA = 0
+r(r − 14*sinA) = 0
+| r = 0			# can't be solution bc. x^2 + (y − 7)^2 = 49 is a circle centered at (0,7) with a radius of 7
+| r = 14*sinA	# solution
+
+Graphing polar curves in rectangular system
+rectangular system		polar system
+y = 6cos(x)				r = 6cosA
+(0, 6)					(6, 0)
+(pi/2, 0)				(0, pi/2)	# origin
+(pi, -6)				(-6, pi)	# overlaps with (6, 0)
+...						...
+cos wave				circle
+
+
+Circles:
+r = constant    circle around pole
+r = -7cosA      circle with d (0,pi/2) --> (-7,0) or (7,pi)
+
+r = c*sinA --> circle centered around verticle axis (if below x axis --> negative c)
+r = c*cosA --> circle centered around horizontal axis (if to the left of y axis --> negative c)
+on the graph r = |c|/2
+
+
+Roses:
+                        even n              odd n
+r = c*sin(nA)           X shape             Y shape
+                        +/- --> no change   +/-c or +/-n --> rotate rose
+r = c*cos(nA)           + shape             skewed Y shape
+                        +/- --> no change   +/-c --> rotate rose
+petal length = |c|      |2n| petals         |n| petals
+
+
+Limacons
+r = a +/- b*sinA 
+r = a +/- b*cosA
+
+if a=b we get a cardioid (apple shape)
+r = c + c*sinA  the "v" looks down
+r = c - c*sinA  the "v" looks up
+r = c + c*cosA  the "v" looks left
+r = c - c*cosA  the "v" looks right
+
+the "v" starts at 0 and the apple extands to the value of 2c
+sign of the first c doesn't change graph: c + c*sinA == -c + c*sinA
+
+if (a/b < 1)  then we get a loop at instead of "v" with lines crossing at 0
+if (a/b > 1) then th "v" will smooth out (if >2 then it gets closer to circle)
+
+
+Lemniscates - infinity shapes
+                    angle of the 8:
+r^2 = c^2*sin(2A)       /
+r^2 = -c^2*sin(2A)      \
+r^2 = c^2*cos(2A)       __
+r^2 = -c^2*cos(2A)      |
+
+
+Intersections: set 2 curves to be equal
+r = 2, r = -4sinA
+-4sinA = 2
+sinA = -1/2
+A = 7pi/6, 11pi/6
+now plug in these values -->
+r = 2 in both cases --> 2 points: (2, 7pi/6) and (2, 11pi/6)
+
+Hidden points - coterminal angles:
+(3, 0) = (-3, pi) points equal in space but may not be found by algebra operations
+(see pic.)
+because of this it is very important to sketch the graphs after you find points algebraically.
+
+
+Multiplying polar forms of imaginary numbers
+z1 = r1(cosA1 + sinA1*i)
+z2 = r2(cosA2 + sinA2*i)
+z1 * z2 = r1r2(cosA1 + sinA1*i)*(cosA2 + sinA2*i) = 
+= r1r2(cosA1*cosA2 + cosA1*sinA2*i + sinA1*cosA2*i + sinA1*sinA2*i^2) = 
+= r1r2(cosA1*cosA2 - sinA1*sinA2 + (cosA1*sinA2 + sinA1*cosA2)*i) = 
+_____________________________________
+= r1r2(cos(A1 + A2) + sin(A1 + A2)*i)
+_____________________________________
+
+
+Dividing polar forms of imaginary numbers
+z1 / z2 = r1(cosA1 + sinA1*i) / r2(cosA2 + sinA2*i)		# multiply by complex conjugate of denominator
+= r1(cosA1 + sinA1*i)*(cosA2 - sinA2*i) / r2(cosA2 + sinA2*i)*(cosA2 - sinA2*i) = 
+= r1(cosA1*cosA2 - cosA1*sinA2*i + sinA1*i*cosA2 - sinA1*i*sinA2*i) / r2(cosA2*cosA2 - cosA2*sinA2*i+ sinA2*i*cosA2 - sinA2*i*sinA2*i) = 
+= r1(cosA1*cosA2 + sinA1*sinA2 + (sinA1*cosA2 - cosA1*sinA2)*i) / r2(cos^2(A2) + sin^2(A2)) = 
+= r1(cos(A1 - A2) - sin(A1 - A2)*i) / r2*1 = 
+_____________________________________
+= r1/r2(cos(A1 - A2) - sin(A1 - A2)*i)
+_____________________________________

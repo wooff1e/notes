@@ -1,0 +1,6 @@
+UE 5.0 --> .NET Core 3.1
+>UE 5.1 --> .NET 6.0
+
+UE5.2 	VS2019 16.11.5 or later 	VS2022 17.4 or later (Default)
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine

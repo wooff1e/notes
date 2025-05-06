@@ -1,0 +1,67 @@
+++ has higher precedence than dereferencing!!
+
+ALGORITHMS
+modulo operation serves to make the route circular:
+
+v = 0 1 2 3
+
+steps=2 % size=4 --> v[2]
+steps=5 % size=4 --> v[1]
+--------------
+
+using namespace std;
+#define LOG(x) cout << x << endl
+
+
+typeid(el).name()
+
+to_string(anInt);
+stoi(aString)
+char a = '4';
+int ia = a - '0';
+
+
+for (int i = 0; i < v.size(); i++) {...}
+for (auto it = v.begin(); it < v.end(); it++) {...}
+
+v.size()
+vector<int> zeros(length, 0);
+sum_of_elems = std::accumulate(v.begin(), v.end(), 0);
+sort(v.begin(), v.end(), order_func());	// O(n log n)
+double max = *std::max_element(v.begin(), v.end());
+
+int imin = numeric_limits<int>::min();
+int imax = numeric_limits<int>::max();
+
+distance(ranked_set.rbegin(), it) // linear complexity
+
+std::set<int, std::greater<int>> mySet{}
+
+auto result = ranked_ordered_map.insert({ score, 0 });
+auto el = *(--result.first);
+playerRank.push_back(el.second);
+
+auto result = ranked_ordered_map.upper_bound(score);
+LOG((*result).first);
+LOG((*result).second +1);
+
+
+### containers C++11
+array		// c-array but knows its size and other std features
+vector		// growing array
+forward_list	// singly-linked list => fast insertion/deletion in the middle, size() is linear!
+list		// doubly-linked list => bidirectional iteration
+
+set 		// red-black tree => sorted! log search, removal, and insertion
+map		// red-black tree
+multiset	//
+multimap	//
+
+unordered_set	// hash map
+unordered_multiset
+unordered_map	// hash map
+unordered_multimap
+
+stack		// LIFO (last-in, first-out) adapter
+queue		// FIFO (first-in, first-out) adapter
+priority_queue	// heap adapter - const O(N) lookup of the largest element, log insertion/ extraction

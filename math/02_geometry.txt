@@ -1,0 +1,336 @@
+LINES
+distance = √( (x2 - x1)^2 + (y2 - y1)^2 ) 	// dist. is hypotenuse
+mid_point = ((x1 + x2)/2, (y1 + y2)/2)
+slope = (y2 - y1)/(x2 - x1)
+
+slope of perpendicular lines are negative reciprocals, eg.: 2/3 --> -3/2
+
+
+
+ANGLES
+acute <90°, right =90°, obtuse >90°, straight =180°
+complementary (a+b=90°), supplementrary (a+b=180°)
+
+if 2 lines intersect:
+adjacent angles (next to each other)
+vertical angles (opposite). are congruent
+
+Transversal line - intersects 2 lines. if lines are parallel:
+___*/__          ___/__          __*/__
+   /              */               /
+_*/__           __/*__          __/___
+ /               /               /*
+corresponding   alternate interior/exterior
+(congruent)     (congruent)
+
+Any point that is on an angle bisector is equidistant from the sides of the angle  (and vise versa)
+
+angle bisector, trisector - divides into equal angles
+
+
+
+TRIANGLES
+- right, acute, obtuse
+- equilateral (3 equal sides), isosceles (2 equal sides), scalene (no equal sides)
+
+sum of 2 shorter sides > longest side
+sum of angles = 180° (proof through cont. lines into transversal)
+Sum of angles in a polygon = (# of sides – 2) * 180°
+
+
+the triangles are congruent if:
+- all 3 sides are equal
+- 2 sides and the angle btw them are equal 
+- 2 angles and any side are equal
+- in right triangle: hypotenuse and any leg
+
+the triangles are similar if:
+- 2 angles are equal
+- all 3 sides are scaled by the same factor
+- an angle is equal & 2 adjacent sides are scaled by the same factor
+
+
+45-45-90
+2b^2 = c^2
+hypotenuse = leg*√2
+
+30-60-90
+short leg	long leg	hypotenuse
+x		x*√3	2x
+(if you adhere a mirrored triangle to this one you’ll get a 60-60-60 triangle hence the ratio)
+
+Side splitting theorem: if DE || BC, then AD/DB = AE/EC
+    A
+    /\
+__D/__\E__
+  /    \
+B/______\C
+
+medsegment of a tri is a side splitting line that splits sides into equal seqments
+- each midsegment is 1/2 length of the side it is parallel to
+- all 3 midsegments form a small inner tri dividing big tri into 4 similar triangles
+
+
+Pythagorean Theorem
+c^2 = a^2 + b^2
+
+Pythagorean inequalities:
+acute	c^2 < a^2 + b^2
+right	c^2 = a^2 + b^2
+obtuse	c^2 > a^2 + b^2
+
+Perimeter of a triangle
+for right tri we can use Pythagorean T to find any side. For oblique tri we can split it into 2 right triangles and then use Pythogorean T.
+
+
+median - divides the opposite side into equal segments
+centroid - cross-point of all 3 medians. It's allways 2/3 of the way from any angle.
+
+In the physical world the centroid is also the triangle’s center of mass. If we throw it, the triangle will rotate around its centroid.
+The 6 triangles acquired by dividing a triangle with medians have the same area
+medial triangle - formed by connecting midpoints of each side of a triangle. The resulting 4 triangles are congruent to each other and similar to the “parent” triangle.
+
+altitude - drops to opposite side at 90° angle
+orthocenter - cross-point. It can be outside the triangle.
+If orthocenter of a triangle == its centroid, then the triangle is equilateral
+
+perpendicular bisector - perpendicular line that divides segment into 2 equal parts
+any point on it is equidistant from the endpoints of the bisected segment (and vise versa)
+circumcenter - cross-point. It can be outside the triangle. You can inscribe triangle inside a circle using this point (and vise versa)
+circumcenter of a right triangle is the mid-point of the hypotenuse
+
+In any triangle orthocenter, centroid and circumcenter all lie on the same line – Euler line.
+Also the two segments formed by these points are equal.
+Centroid is the origin of so-called 9-point circle
+
+angle bisector - divides angle into 2 equal angles
+any point on it is equidistant from the angle sides (and vise versa)
+incenter - cross-point, can be used to inscribe circle
+
+
+Area = 1/2 * base * height
+
+Heron's formula:
+s = 1/2 * (a + b + c)
+Area = √( s(s-a)(s-b)(s-c) )
+
+
+
+QUADRILATERALS
+angles sum up to 360°
+
+- concave (angle that goes inside the shape)
+- convex
+	- kite
+	- trapezoid
+		- parallelogram
+			- rhombus
+			- rectangle
+				- square
+sqaure: 
+	diagonal is a hypothenuse --> 
+	d^2 = side^2 + side^2
+	d = side * √2
+
+parallelogram: 
+	diagonals bisect each other
+	Area = b * h
+
+rhombus: 
+	sum of 2 adjacent angles = 180°
+	Area = 1/2 * d1 * d2
+
+kite:
+	Area = 1/2 * d1 * d2
+		
+Trapezoid: 
+	scalene, right, isosceles
+	  ____b1
+	 /____\midsegment = 1/2 * (b1 + b2)
+	/______\b2
+
+	Area = 1/2 * h * (b1 + b2) 
+
+
+
+POLYGONS
+- convex
+	angle sum = (n-2)*180°
+	1 angle in regular poly = (n-2)*180°/2
+	diagonal number = n*(n-3)/2
+- concave
+
+
+
+CIRCLES
+
+Equation of a circle
+    standard form: 	r^2 = (x - center_x)^2 + (y - center_y)^2 
+					center and random point on circumference form right tri 
+					with coord. origin (r is hypothenuse)	
+					r^2 = x^2 + y^2 if circle centered at the origin
+
+    general form:	x^2 + y^2 + ax + by + c = 0
+
+
+	general --> standard:
+	if x^2 or y^2 have coeficients, remove them dividing whole equation by this coef.
+	(circle has equal coefs if it does have them)
+	2x^2 + 4x + 2y^2 = 8 --> x^2 + 2x + y^2 = 4
+
+	add (a/2)^2 and (b/2)^2 to the equation to get perfect squares
+	(x^2 + ax + (a/2)^2) + (y^2 + by + (b/2)^2) = -c + (a/2)^2 + (b/2)^2
+	(x^2 + 2x + 1) + (y^2 + 2*0 + (0/2)^2) = 4 + 1 + 0
+	factor
+	(x + 1)^2 + (y - 0)^2  = 5
+	make sure the signes are "-":
+	(x - (-1))^2 + (y - 0)^2 = 5
+	center = (-1, 0), radius = √5
+
+
+pi is the ratio of a circle’s circumference to its diameter:
+pi = C/d = 3.1415926...
+C = pi*d = 2*pi*r
+
+Radius is perpendicular to its tangent line
+Radius is perpendicular to a chord it bisects (and vice versa)
+
+
+Arcs & Chords
+measure: 	major, minor, semicircular (180°)
+length:		angle/360° = length/(2*pi*r) --> length = m*pi*r/180
+
+inscribed angle = 1/2 its central angle = 1/2 its arch
+	=> inscribed angles with the same arch are congruent
+	=> inscribed angles subtended by the diameter = 90° (the arch is 180°)
+	=> if 2 chords are equal, their central angles are congruent (and vice versa)
+	=> if 2 chords are equal, they are equidistant from the center (and vice versa)
+	
+verticle angles inside a circle = average of the 2 archs they create
+a° = b° = (archA + archB)/2
+
+Intersecting Chords Theorem:
+If we have 2 chords AB and CD intersect at a random point X, 
+then AX * XB = CX * XD
+
+
+Intersecting Tangents and Secants
+in any of the following 3 cases (see pic)
+angle = (biggerInnerArch - smallerInnerArch)/2
+
+1) 2 tangents
+also: if you connect the angle vertex to the circle center, you'll get 2 congruent triangles!
+	
+2) 2 secants
+also: outside1 * whole1 = outside2 * whole2
+
+3) 1 tangent + 1 secant
+also: tangent^2 = secantOutside * secantWhole
+	
+
+Triangle inscribed in a circle
+circumcenter is a cross-point of perpendicular bisectors
+	if acute triangle, its inside it
+	if right tri - on hypothenuse
+	if obtuse - outside
+
+Tangent Chord Theorem (see pic)
+If we draw a tangent line to an angle of inscribed triangle, 
+the angle btw the tangent line and a chord = the angle opposite to the chord
+
+Circle inscribed in a triangle
+incenter is a cross-point of angle bisectors
+
+
+Inscribed quadrilaterals
+The opposite angles are supplementary (their sum = 180°)
+=> the opposite angle = (360°-2x)/2 = 180°-x
+
+
+Area
+If we approximate circles as many rectangles, then we can unravel them and combine to halves into 1 rectangle. 
+________
+\/\/\/\/
+ /\/\/\/\
+Area of this rectangle = radius * 1/2 circumference -->
+A = r * 1/2(2*pi*r) = pi*r^2
+
+A = 1/4(pi*d^2)
+A = C^2 / 4pi
+A_sector = angle/360 * pi*r^2
+
+
+
+TRANSFORMATIONS
+- Rigid transformations
+    • Translation 	
+		T(x,y) = (x+a, y+b)
+		Translation vector = (a, b)
+			length(t.v.) = √(a^2 + b^2)
+			slope(t.v.) = b/a
+		
+    • Rotation around origin
+		90° 	CW 	T(x,y) = (y, -x)	CCW T(x,y) = (-y, x)
+		180° 	CW 	T(x,y) = (-x, -y)	CCW T(x,y) = (-x, -y)
+		270° 	CW 	T(x,y) = (-y, x)	CCW T(x,y) = (y, -x)
+		
+    • Reflection
+    		y axis: T(x,y) = (-x, y)
+    		x axis: T(x,y) = (x, -y)
+    		y=x:	T(x,y) = (y, x)
+    		y=-x: 	T(x,y) = (-y, -x)
+    		y=x-4:	T(x,y) = (y+4, x-4)
+
+- Non-rigid transformations
+    • Dilations		
+		center of dilation (origin)
+		scaling factor = center_newV / center_oldV = new_side / old_side
+			if scale factor is negative --> rotation 180°
+
+
+
+==== 3D ====
+distance = √( (x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2 )
+mid_point = ((x1 + x2)/2, (y1 + y2)/2, (z1 + z2)/2)
+
+Prism - has a pair of parallel congruent faces (bases) with all other faces being parallelograms. Bases can be rect, square, tri, trapezoidal etc. (ANY shape, even irregular)
+V = H * base_A
+A/V = units^2/units^3 = units^-1
+
+	rect
+		A = 2(lw + wh + lh)
+		diagonal = √(w^2 + h^2 + l^2)
+	tri
+		A = H * base_P + 2*base_A
+
+Pyramid - sides are tri, base can be rect/tri
+	Right rect pyramid (hight goes into the center of base): 
+		A = 1/2 * side_H * base_P + base_A
+		V = 1/3 * H * base_A
+
+Right cylinder
+	A = rect + 2 circles = 2pi*r * H + 2 * pi*r^2
+	V = pi*r^2 * H
+
+Right circular cone
+	A = pi*r^2 + pi*r * side_H
+	V = 1/3 * pi*r^2 * H
+	
+Sphere
+	A = 4 * pi*r^2
+	V = 4/3 * pi*r^3
+
+
+
+CONIC SECTIONS
+circles, ellipses, parabolas and hyperbolas (2 parabolas together)
+all aquired by slicing 2 cones with a plane
+
+parabola: only 1 squared variable
+hyperbala: x^2 and y^2 terms have different signs (when on the same side)
+circle: coefficients on x^2 and y^2 terms are equal
+ellipse: coefficients on x^2 and y^2 terms are different
+
+Ellipse has 2 special points inside it: 
+if you connect any point on the edge to them,
+the sum of 2 resulting sections will be the same for any point

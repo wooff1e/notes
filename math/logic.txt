@@ -1,0 +1,69 @@
+PROPOSITIONAL LOGIC
+Proposition is a declarative statement (true or false)
+
+Operators (ordered by precedence)
+¬	not
+∧	and (+ when 1/0 format)
+∨	inclusive or (∙ when 1/0 format)
+⊕	exclusive or
+→	if, then
+↔	if and only if
+
+p↔q ≡ (p→q) ∧ (q→p)
+p	q	p→q	q→p	p↔q
+T	T	T	T	T
+T	F	F	T	F
+F	T	T	F	F
+F	F	T	T	T
+
+conditional	p→q
+converse	q→p
+inverse		¬p→¬q
+contrapositive	¬q→¬p
+
+Logical puzzles
+Planning a party: Jasmine doesn't want Samir to be there. Samir will come only if Kanti does. Kanti will not come unless Jasmine does.
+Possibilities  j→ ¬s  s→k  k→j
+j s k		-	
+j s ¬k		-	-
+j ¬s k	 +
+j ¬s ¬k	 +
+¬j s k			      -
+¬j s ¬k			-
+¬j ¬s k			      -
+¬j ¬s ¬k +
+
+Logical equivalences
+    • tautology – a proposition which is always true (eg. p∨¬p ≡ T)
+    • contradiction – a proposition which is always false (eg. p∧¬p ≡ F)
+    • contingency – a proposition which is neither of the above (eg. p)
+Two compound propositions are logically equivalent (p≡q) if p↔q is a tautology, meaning they have the same truth value in all possible cases
+
+p∨(p∧q) ≡ p
+p∧(p∨q) ≡ p
+p∨(q∧r) ≡ (p∨q)∧(p∨r)
+p∧(q∨r) ≡ (p∧q)∨(p∧r)
+¬(p∧q) ≡ ¬p∨¬q
+¬(p∨q) ≡ ¬p∧¬q
+
+p→q ≡ ¬p∨q
+p→q ≡ ¬q→¬p
+p∨q ≡ ¬p→q
+p∧q ≡ ¬(p→¬q)
+¬(p→q) ≡ p∧¬q
+(p→q) ∧ (p→r) ≡ p→(q∧r)
+(p→r) ∧ (q→r) ≡ (p∨q)→r
+(p→q) ∨ (p→r) ≡ p→(q∨r)
+(p→r) ∨ (q→r) ≡ (p∧q)→r
+p↔q ≡ (p→q) ∧ (q→p)
+p↔q ≡ ¬p ↔ ¬q
+p↔q ≡ (p∧q)∨(¬p∧¬q)
+¬(p↔q) ≡ p ↔ ¬q
+
+Satisfiability – is it possible to find a solution that satisfy the proposition? (unsatisfiable iff its negation is a tautology, so you need to go through all the possibilities to show it’s unsat., but 1 is enough to show it’s sat.)
+
+Proofs
+- direct
+- indirect (prove that the opposite is false)
+	- by contradiction (assume ¬p and show that it contradicts the given)
+	- by contrapositive (if ¬q→¬p then p→q)

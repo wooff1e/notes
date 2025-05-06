@@ -1,0 +1,73 @@
+#:kivy 2.1.0
+
+<FunkyButton>:
+    canvas:
+        Rectangle:
+            #pos: 10, 10     #starting from origin (not parent)
+            pos: self.x + 10, self.y + 10
+            size: 80, 20    # w, h
+
+    Button:
+        #pos: self.x + 105, self.y + 5   # ERROR --> self.x and self.y are not populated
+        pos: root.x + 105, root.y + 5 
+        size_hint: None, None
+        size: 4, 4 
+        background_normal: ''   # otherwise it will be greyish
+        color: (0, 0, 0, 1)
+        on_press: root.do_some_stuff
+
+
+
+<GameScreen>:
+# define variables
+    pizza: pizza
+    name: name
+
+    FloatLayout:
+        pos: 0,0
+        size: root.width, root.height
+
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Button:
+            id: name
+            text: 'button 1'
+            pos_hint: {'x':0.1, 'y':0.1}
+            size_hint: None, None
+            size: 300, 200
+
+        Button:
+            id: pizza
+            text: 'button 2'
+            pos_hint: {'right':1, 'top':1}
+            size_hint: None, None
+            size: 300, 200
+
+<GridScreen>:
+    FloatLayout:
+        pos: 0,0
+        size: root.width, root.height
+
+        GridLayout:
+            pos_hint: {'x':0.1, 'y':0.3}
+            size_hint: None, None
+            size: root.width * 0.5, root.width * 0.5    # we want a square !
+
+            cols: 2
+
+            Button:
+                text: '1'
+
+            Button:
+                text: '2'
+
+            Button:
+                text: '3'
+
+            Button:
+                text: '4'

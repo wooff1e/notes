@@ -1,0 +1,68 @@
+# check PC architecture:
+uname -m
+
+sudo apt-get update	# you can use apt instead of apt-get
+sudo apt-get upgrade
+sudo apt-get install PackageName
+
+tools:
+- btop (CPU)
+- nvtop (GPU)
+- ncdu (disk space manager)
+- imagemagick (pdf, png, etc.)
+
+kill -9 ID
+
+# add to path:
+echo $PATH
+export PATH = "/path/to/dir:$PATH"
+#permanently:
+gedit .bashrc
+
+
+man
+pwd			# print working directory
+clear			# clear terminal
+ls -a           # list with hidden
+ls -l			# list with details
+ls -lSh			# same but ordered by size
+ls -l --block-size=M	# in Mb
+
+--DISK USAGE--
+df -h				# disk file system
+du -h /PATH			# disk usage
+du -hs * 			# only imediate subdirectories
+du -sh ./*/  			# all subdirectories
+du -h . | sort -nr | head -n10	# show the "heaviest"
+
+--ZIP--
+tar --extract --file s2_africa_test.tar.gz
+zip -r data.zip data/
+unzip latest.zip
+unzip filename.zip -d /path/to/directory
+# list contents (dirs) without unpacking:
+unzip -l foo.zip "*/"
+
+mkdir dir_name
+touch file1.txt
+nano file
+
+rm -r dir1 dir2	
+rm -rf dir1 
+rm -rf ./*/
+cp -R folder /new/destination/
+cp -a /source/. /dest/	# advanced copy
+cp -R 23_TM_unpaired_on_hsv_fixed /mnt/groups/GROUP_AI_VI/temp/user
+
+mv myfile new_name
+mv myfile /new_place/
+mv folder1 folder2 /new_place/	
+mv * /new_place
+mv -v folder1 folder2 folder3/		# verbose
+
+find /home/sr5/SAIT_LV/share/AIISP_SRPOL/230427_AWB/ -type f | wc -l
+tree -a <directory>
+
+# create a shortcut:
+cd /distination
+ln -s /path/for/the/shortcut

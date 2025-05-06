@@ -1,0 +1,13 @@
+hub.docker.com:
+N..421
+install docker desktop,
+sign in
+
+terminal:
+docker pull scrapinghub/splash
+docker run -it -p 8050:8050 scrapinghub/splash
+open http://localhost:8050/
+Ctrl+C x2 to stop
+
+OR: in docker desktop --> Dashboard
+

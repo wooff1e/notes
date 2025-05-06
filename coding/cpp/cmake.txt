@@ -1,0 +1,138 @@
+g++ is roughly equivalent to gcc -xc++ -lstdc++ -shared-libgcc (the 1st is a compiler option, the 2nd two are linker options)
+By default (and unlike gcc), g++ also adds linker option -lm -- to link against libm which contains implementations for math.h
+
+g++ main.cpp -o main  // <-- compiling in terminal
+
+
+
+Makefile
+____________________
+# TARGETS
+# target: prerequisites
+#	commands
+
+build:
+	g++ main.cpp -o main
+    
+	g++ main.cc -c main.o 			# compile into an object file first
+	g++ my_lib.cc -c my_lib.o
+	g++ main.o my_lib.o -o main		# use object file to create executable
+
+execute:
+	./main
+    
+clean:
+	rm -f main
+	rm -f *.o
+_____________________
+make
+make execute 	# only the execute part in the file
+make build	
+make clean	# clean target (remove existing files)
+
+
+
+Makefile
+____________________
+build: main.o my_lib.o			# main.o and my_lib.o parts must be executed before executing the build part
+	g++ main.o my_lib.o -o main
+
+main.o:
+	g++ main.o my_lib.o -o main
+
+my_lib.o:
+	g++ my_lib.cc -c my_lib.o
+
+execute:
+	./main
+    
+clean:
+	rm -f main
+	rm -f *.o
+	
+	
+### VARIABLES ###
+variables can only be strings
+single/double quotes have no meaning to cmake
+
+CC			program for compiling c programs (default cc)
+CXX			program for compiling c++ programs (default g++)
+CFLAGS		flags for C compiler
+CXXFLAGS	flags for C++ compiler
+CPPFLAGS	flags for C preprocessor
+LDFLAGS		flags for linker
+
+____________________
+
+DEBUG = 1
+CC = gcc
+CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++17
+LDFLAGS = -lmath
+
+ifeq ($(DEBUG), 1)
+CXXFLAGS = -g -O0
+else
+CXXFLAGS = -O3
+endif
+
+COMPILER_CALL = $(CXX) $(CXXFLAGS)
+
+build: main.o my_lib.o
+	$(COMPILER_CALL) main.o my_lib.o -o main
+
+main.o:
+	$(COMPILER_CALL) main.o my_lib.o -o main
+
+my_lib.o:
+	$(COMPILER_CALL) my_lib.cc -c my_lib.o
+
+____________________
+
+### PATTERNS ###
+# $@: the file name of the target
+# $<: the name of the fist dependency
+# $^: the names of all prerequisites
+
+%.o: %.cc	# target: first dependency
+	$(COMPILER_CALL) -c $< -o $@
+
+
+CXX_OPJECTS = main.o my_lib.o # now thi is the only place you have to maintain
+build: $(CXX_OPJECTS)
+	$(CXX_COMPILER_CALL) $(CXX_OPJECTS) $(LDFLAGS) -o $(EXECUTABLE_NAME)
+
+____________________
+
+CXX_SOURCES = $(wildcard *.cc)
+# patsubst: $(text:pattern=replacement)
+CXX_OPJECTS = $(patsubst %.cc, %.o, $(CXX_SOURCES))
+echo $(CXX_SOURCES)b.o
+build: $(CXX_OPJECTS)
+	$(CXX_COMPILER_CALL) $(CXX_OPJECTS) $(LDFLAGS) -o $(EXECUTABLE_NAME)
+
+_____________________
+# explicitely list targets that do not correspond to files 
+# (so that compiler doesn't get confused eg. if there is a file "clean.cc)
+.PHONY: create build execute clean
+
+# first and default target
+all: create build
+
+create:
+	@mkdir -p build
+	cd build
+	mkdir -p test
+	# this will not work, because the 2 lines are independed, you need to do this:
+	cd build && mkdir -p test
+
+build: ...
+
+
+# ?= only sets variable if the value has not yet been set
+# this can be used for user input
+DEBUG ?= 1
+
+# check if variable is empty
+ifeq($(strip $(VAR)),)
+check if variable is defined
+ifdef VAR
