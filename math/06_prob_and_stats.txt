@@ -1,0 +1,16 @@
+Data
+    - center
+        - mean      = sum(data)/len(data)
+        - median    = sorted_data[middle]
+            (if len(data) is even, take the mean of 2 central elements)
+        - mode      = element_with_max_count
+        
+    - spread
+        - range     = max - min
+        - interquartile range (IQR) = quartile_3 - quartile_1
+            quartile_1 = median of the first half of the data
+            quartile_2 = median of the data
+            quartile_3 = median of the second half of the data
+            quartile_4 = last_element
+        - varience
+        - standard deviation

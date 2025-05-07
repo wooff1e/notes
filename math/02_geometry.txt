@@ -162,8 +162,79 @@ POLYGONS
 
 
 
-CIRCLES
+TRANSFORMATIONS
+- Rigid transformations
+    • Translation 	
+		T(x,y) = (x+a, y+b)
+		Translation vector = (a, b)
+			length(t.v.) = √(a^2 + b^2)
+			slope(t.v.) = b/a
+		
+    • Rotation around origin
+		90° 	CW 	T(x,y) = (y, -x)	CCW T(x,y) = (-y, x)
+		180° 	CW 	T(x,y) = (-x, -y)	CCW T(x,y) = (-x, -y)
+		270° 	CW 	T(x,y) = (-y, x)	CCW T(x,y) = (y, -x)
+		
+    • Reflection
+    		y axis: T(x,y) = (-x, y)
+    		x axis: T(x,y) = (x, -y)
+    		y=x:	T(x,y) = (y, x)
+    		y=-x: 	T(x,y) = (-y, -x)
+    		y=x-4:	T(x,y) = (y+4, x-4)
 
+- Non-rigid transformations
+    • Dilations		
+		center of dilation (origin)
+		scaling factor = center_newV / center_oldV = new_side / old_side
+			if scale factor is negative --> rotation 180°
+
+
+
+==== 3D ====
+distance = √( (x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2 )
+mid_point = ((x1 + x2)/2, (y1 + y2)/2, (z1 + z2)/2)
+
+Prism - has a pair of parallel congruent faces (bases) with all other faces being parallelograms. Bases can be rect, square, tri, trapezoidal etc. (ANY shape, even irregular)
+V = H * base_A
+A/V = units^2/units^3 = units^-1
+
+	rect
+		A = 2(lw + wh + lh)
+		diagonal = √(w^2 + h^2 + l^2)
+	tri
+		A = H * base_P + 2*base_A
+
+Pyramid - sides are tri, base can be rect/tri
+	Right rect pyramid (hight goes into the center of base): 
+		A = 1/2 * side_H * base_P + base_A
+		V = 1/3 * H * base_A
+
+Right cylinder
+	A = rect + 2 circles = 2pi*r * H + 2 * pi*r^2
+	V = pi*r^2 * H
+
+Right circular cone
+	A = pi*r^2 + pi*r * side_H
+	V = 1/3 * pi*r^2 * H
+	
+Sphere
+	A = 4 * pi*r^2
+	V = 4/3 * pi*r^3
+
+
+==================================================================
+
+CONIC SECTIONS
+circles, ellipses, parabolas and hyperbolas (2 parabolas together)
+all aquired by slicing 2 cones with a plane
+
+parabola: only 1 squared variable
+hyperbala: x^2 and y^2 terms have different signs (when on the same side)
+circle: coefficients on x^2 and y^2 terms are equal
+ellipse: coefficients on x^2 and y^2 terms are different
+
+
+CIRCLE
 Equation of a circle
     standard form: 	r^2 = (x - center_x)^2 + (y - center_y)^2 
 					center and random point on circumference form right tri 
@@ -260,77 +331,78 @@ A = C^2 / 4pi
 A_sector = angle/360 * pi*r^2
 
 
+ELLIPSE
+has 2 special points (foci) on the long axis (let's say x-axis):
+F1 (c, 0)
+F2 (-c, 0)
+if you connect any point (P) on the ellipse edge to them,
+P (x, y)
+the sum of 2 resulting sections will be the same for any point:
+|PF1| + |PF2| = 2(OF1) = 2(OF2)		O = center
+if we drop line from point perpendicular to the long axis, 
+we get 2 right tri -->
+PF1 = √((x-c)^2 + y^2)
+PF2 = √((x+c)^2 + y^2)
+if a is the major radius:
 
-TRANSFORMATIONS
-- Rigid transformations
-    • Translation 	
-		T(x,y) = (x+a, y+b)
-		Translation vector = (a, b)
-			length(t.v.) = √(a^2 + b^2)
-			slope(t.v.) = b/a
-		
-    • Rotation around origin
-		90° 	CW 	T(x,y) = (y, -x)	CCW T(x,y) = (-y, x)
-		180° 	CW 	T(x,y) = (-x, -y)	CCW T(x,y) = (-x, -y)
-		270° 	CW 	T(x,y) = (-y, x)	CCW T(x,y) = (y, -x)
-		
-    • Reflection
-    		y axis: T(x,y) = (-x, y)
-    		x axis: T(x,y) = (x, -y)
-    		y=x:	T(x,y) = (y, x)
-    		y=-x: 	T(x,y) = (-y, -x)
-    		y=x-4:	T(x,y) = (y+4, x-4)
-
-- Non-rigid transformations
-    • Dilations		
-		center of dilation (origin)
-		scaling factor = center_newV / center_oldV = new_side / old_side
-			if scale factor is negative --> rotation 180°
-
-
-
-==== 3D ====
-distance = √( (x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2 )
-mid_point = ((x1 + x2)/2, (y1 + y2)/2, (z1 + z2)/2)
-
-Prism - has a pair of parallel congruent faces (bases) with all other faces being parallelograms. Bases can be rect, square, tri, trapezoidal etc. (ANY shape, even irregular)
-V = H * base_A
-A/V = units^2/units^3 = units^-1
-
-	rect
-		A = 2(lw + wh + lh)
-		diagonal = √(w^2 + h^2 + l^2)
-	tri
-		A = H * base_P + 2*base_A
-
-Pyramid - sides are tri, base can be rect/tri
-	Right rect pyramid (hight goes into the center of base): 
-		A = 1/2 * side_H * base_P + base_A
-		V = 1/3 * H * base_A
-
-Right cylinder
-	A = rect + 2 circles = 2pi*r * H + 2 * pi*r^2
-	V = pi*r^2 * H
-
-Right circular cone
-	A = pi*r^2 + pi*r * side_H
-	V = 1/3 * pi*r^2 * H
-	
-Sphere
-	A = 4 * pi*r^2
-	V = 4/3 * pi*r^3
+√((x-c)^2 + y^2) + √((x+c)^2 + y^2) = 2a
+(√((x-c)^2 + y^2))^2 = (2a - √((x+c)^2 + y^2))^2
+(x-c)^2 + y^2 = 4a^2 - 4a√((x+c)^2 + y^2) + (x+c)^2 + y^2
+x^2 - 2cx + c^2 + y^2 = 4a^2 - 4a√((x+c)^2 + y^2) + x^2 + 2cx + c^2 + y^2
+-2cx = 4a^2 - 4a√((x+c)^2 + y^2) + 2cx
+4a√((x+c)^2 + y^2) = 4a^2 + 4cx
+a√((x+c)^2 + y^2) = a^2 + cx
+(a√((x+c)^2 + y^2))^2 = (a^2 + cx)^2
+a^2((x+c)^2 + y^2) = a^4 + 2a^2*cx + c^2x^2
+a^2(x^2 + 2cx + c^2 + y^2) = a^4 + 2a^2*cx + c^2x^2
+a^2*x^2 + a^2c^2 + a^2y^2 = a^4 + c^2x^2
+a^2*x^2 - c^2x^2 + a^2y^2 = a^4 - a^2c^2
+(a^2 - c^2)x^2 + a^2y^2 = a^2(a^2 - c^2)
+lets scy a^2 - c^2 = b^2, then
+b^2x^2 + a^2y^2 = a^2b^2	/b^2
+x^2 + a^2y^2/b^2 = a^2		/a^2
+_______________________________
+x^2/a^2 + y^2/b^2 = 1
+standard equation for ellipse centered at the origin,
+if centered at (x1, y1):
+(x-x1)^2/a^2 + (y-y1)^2/b^2 = 1
+major axis:	y=y1
+minor axis: x=x1
+vertices	(x1±a, y1)
+co-vertices	(x1, y1±b)
+foci		(x1±c, y1)		c^2 = a^2 + b^2
 
 
+if y-axis is the major axis:
+x^2/b^2 + y^2/a^2 = 1
+(x-x1)^2/b^2 + (y-y1)^2/a^2 = 1
+major axis:	x=x1
+minor axis: y=y1
+vertices	(x1, y1±a)
+co-vertices	(x1±b, y1)
+foci		(x1, y1±c)
+_______________________________
 
-CONIC SECTIONS
-circles, ellipses, parabolas and hyperbolas (2 parabolas together)
-all aquired by slicing 2 cones with a plane
+Directrices
+lines || to the minor axis placed outside of the ellipse,
+at a distance equal to the distance of a focus to the edge
 
-parabola: only 1 squared variable
-hyperbala: x^2 and y^2 terms have different signs (when on the same side)
-circle: coefficients on x^2 and y^2 terms are equal
-ellipse: coefficients on x^2 and y^2 terms are different
+Getting all that info from an equation:
+12x + 5y^2 + 28 = -2x^2 + 20y			bring to standard form
+2x^2 + 12x + 5y^2 - 20y = -28			complete the square: 2x^2 --> 1x^2
+x^2 + 6x + 5/2y^2 - 10y = -14			(6/2)^2 = 9 <-- missing member
+x^2 + 6x + 9 + 5/2y^2 - 10y = -14 + 9
+(x + 3)^2 + 5/2y^2 - 10y = -5			same with y1
+2/5(x + 3)^2 + y^2 - 4y = -2			(-4/2)^2 = 4
+2/5(x + 3)^2 + y^2 - 4y + 4 = -2 + 4
+2/5(x + 3)^2 + (y - 2)^2 = 2			/2
 
-Ellipse has 2 special points inside it: 
-if you connect any point on the edge to them,
-the sum of 2 resulting sections will be the same for any point
+((x + 3)^2)/5 + ((y - 2)^2)/2 = 1
+-->
+center 		(-3, 2)
+major axis	y = 2
+vertices	(-3+√5, 2), (-3-√5, 2)
+co-vertices	(-3, 2+√2), (-3, 2-√2)
+c = √(5-2) = √3
+foci		(-3±√3, 2)
+directrices	x = -3±5√3
