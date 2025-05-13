@@ -1,0 +1,8 @@
+PARTICLE SYSTEM
+._ 
+|\
+
+Types:
+- Emitter (has physics)
+- Hair (static simulation)
+	u can switch render as --> object, choose instance object

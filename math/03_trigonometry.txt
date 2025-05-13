@@ -601,3 +601,64 @@ z = 125(cos90° + i*sin90°)
 k=0		z1 = 5[cos(30°) + i*sin(30°)] = 5√3/2 + 5/2 *i
 k=1		z2 = 5[cos(150°) + i*sin(150°)] = -5√3/2 + 5/2 *i
 k=2		z3 = 5[cos(270°) + i*sin(270°)] = -5i
+
+
+
+PARAMETRIC CURVES
+representing a curve with 2 equations instead of 1:
+we introduce a third variable and se how x and y change depending on it (separately from each other)
+|x = f(t)
+|y = g(t)
+
+for each t we have a pair (x,y) which can be geraphed 
+(and will it be the same curve as if we convert to rectangular eqution)
+
+Eliminating parameter (convert to rectangular system):
+|x = t^2
+|y = t + 3
+either solve one and substitute into the other
+t = y - 3
+x = (y - 3)^2
+or asign them both to the same t and then set them equal to each other
+y = t + 3 	--> (y-3)^2 = t^2
+x = t^2 	--> (y-3)^2 = x
+
+if we have trig stuff can get tricky
+|x = cos(t)
+|y = sin(t)
+instead of solving we can use known trig identities:
+cos^2(t) + sin^2(t) = 1 = x^2 + y^2	--> equation of a circle with origin (0,0) and radius 1
+
+Direction of the parameter
+even though the graph is the same, parametric curve additionally has direction of the increasing t
+(direction of tracing and the pace)
+if t -> 2t
+|x = t^2	and 	|x = 2t^2		gives us the same curve, but the pace of tracing doubles
+|y = t + 3			|y = 2t + 3
+if t -> -t direction flips
+
+Convert from rectangular form:
+x^3 - 6x^2 - y + 15 = 0 	substitue x= t or y= t (whichever is easier)
+y = x^3 - 6x^2 + 15
+|x = t
+|y = t^3 - 6t^2 + 15
+
+(x - 2)^2 + (y + 4)^2 = 10	this is not a function --> cannot use substitution
+(x - 2)^2/10 + (y + 4)^2/10 = 1
+(x - 2)^2/√10^2 + (y + 4)^2/√10^2 = 1
+((x-2)/√10)^2 + ((y+4)/√10)^2 = 1
+cos^2t + sin^2t = 1
+cos(t) = (x-2)/√10	--> x = 2 + √10*cos(t)
+sin(t) = (y+4)/√10 	--> y = -4 + √10*sin(t)
+
+
+Polar equations of conics
+excentricity e = distance from point to focus / distance from point to directrix
+e 			0		<1	 		=1			>1
+			circle	ellipse		parabola 	hyperbola		
+		
+place one focus at the origin:
+directrix	x = d				x = -d			y = d			y = -d
+radius		ed/(1+e*cosθ)		ed/(1-e*cosθ)	ed/(1+e*sinθ)	ed/(1-e*sinθ)
+
+if u need to rotate just replace θ with θ - α (where α is the angle of rotation)

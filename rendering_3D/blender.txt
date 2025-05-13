@@ -1,11 +1,90 @@
-pip install fake-bpy-module
+HOT KEYS
+N 			toggle sidebar
+MMB			rotate view
+wheel		zoom
+Ctrl+MMB	pan zoom
+# note: perspective view mode can restrict zooming on some objects
 
-wygodniejsza praca z API blender w Visual Code 
-(wszystko co importujecie można podejrzeć tak samo jak zwykłe paczki, zero podkreśleń)
+Shift+MMB	move view sideways
+RMB			cancel changes (e.g. rotating object)
+A			select all
+Alt+A / AA	deselect all
+(num) . 	zoom on selected object
+(num) 1		front view
+(num) 3		right side
+Ctrl+(num)3	left side
+S --> drag	scale object
+S --> 3		scale x3 
+R			rotate object (relative to view)
+G			move object around
+G --> y		move along y-axis
+TAB			edit mode - access to verteces, edges and faces
+hold E		extrude face
+Shift+A		add object
+Alt+H		hide selected
+
+Fly mode: 
+Shift + Tab + tilda key
+use W,S,A,D to move around
+
+Object --> Transform --> align objects --> choose "relative to 3d cursor" 
+and chose one or more (shift) axes
+Shift+S - selection menu (eg. snap to cursor)
+pivot button (second in the upper bar) --> rotate around 3d cursor, active element etc.
+
+EDIT MODE
+when moving whole object, the origin does NOT move with it like in object mode!
+1,2,3	toggle btw vertices/edges/faces (unlike in object mode - hide all collections except the chosen)
+
+MESH
+Choose vertex, go Mesh -->Separate --> selection
+now this vertex is an object in scene collection with origin matching the parent's origin
+(you can set it to geometry)
+go to edit mode, select the vertex, press E, X, input 2, Enter 
+(created second vertex connected to the first one)
+choose this edge, press E, Z, input -2, Enter to create second edge forming a face
+
+Note: when extruding a face and then canceling, only the movement of duplicated vertices is canceled, 
+but not the duplicationm so you end up with more vertices then it seems!
+Check Statistics in Viewport Overlays menu to see this
+Press M and choose Merge by distance to get rid of overlapping vertices
 
 
+ANIMATION
+Animation Timeline: 24 fps is default
+Space		pause/unpause
+Shift + <--	skip to the beginning
+Shift + -->	skip to the end
+I		insert key frame
 
-BLENDER
+Be carefull with autokeying (the "circle" button)
+
+Interpolation curves:
+RMB on frame --> 
+	interpolation mode --> constant / linear / bezier
+	easing mode --> sinusoidal / quadratic / ...
+Manual change:
+click on clock icon above the animation panel --> Animation section -->
+--> Graph editor
+
+bpy.types.Keyframe.interpolation
+    Interpolation method to use for segment of the F-Curve from this Keyframe until the next Keyframe
+        CONSTANT Constant – No interpolation, value of A gets held until B is encountered.
+        LINEAR Linear – Straight-line interpolation between A and B (i.e. no ease in/out).
+        BEZIER Bezier – Smooth interpolation between A and B, with some control over curve shape.
+        SINE Sinusoidal – Sinusoidal easing (weakest, almost linear but with a slight curvature).
+        QUAD Quadratic – Quadratic easing.
+        CUBIC Cubic – Cubic easing.
+        QUART Quartic – Quartic easing.
+        QUINT Quintic – Quintic easing.
+        EXPO Exponential – Exponential easing (dramatic).
+        CIRC Circular – Circular easing (strongest and most dynamic).
+        BACK Back – Cubic easing with overshoot and settle.
+        BOUNCE Bounce – Exponentially decaying parabolic bounce, like when objects collide.
+        ELASTIC Elastic – Exponentially decaying sine wave, like an elastic band.
+
+
+RENDERING
 Render engines:
 	Eevee - real time renderer
 	Workbench - for modeling/sculpturing
@@ -15,42 +94,166 @@ Edit --> Pref --> Keymap --> make sure to enable "Extra Shading Pie Menu Items"
 press Z --> u can c diff views. Now u have "Material Preview"
 
 
-N 		toggle sidebar
-
-Middle MB	rotate view
-mouse wheel	zoom
-Ctrl+MMB	pan zoom
-Shift+MMB	move view sideways
-RMB		cancel changes (e.g. rotating object)
-
-A		select all
-Alt+A / AA	deselect all
-(numpad) . 	zoom on selected object
-(numpad) 1	front view
-(numpad) 3	right side
-Ctrl + (num) 3	left side
-
-S --> drag	scale object
-S --> 3		scale x3 
-R		rotate object (relative to view)
-G		move object around
-G --> y		move along y-axis
-
-TAB		edit mode - access to verteces, edges and faces
-  hold E	extrude face
-
-Shift+A		add object
-
-Animation Timeline: 24 fps is default
-Space		pause/unpause
-Shift + <--	skip to the beginning
-Shift + -->	skip to the end
-I		insert key frame
+SCRIPTING
+Built-in console
+press tab after bpy. to see autocompete suggestions
+Convenience variables: C = bpy.context, D = bpy.data
+operations performed by code (with a check mark in front of it) can be copied Ctrl+c
 
 
-._ Particle system
-|\
-Types:
-- Emitter (has physics)
-- Hair (static simulation)
-	u can switch render as --> object, choose instance object
+Built-in text editor
+Ctrl + Space --> maximize editor / toggle back
+View --> sidebar
+Text 	--> Register (to run script on loading file)
+		--> Live Edit
+Alt+S	save script
+Ctrl+backslash	comment out a line
+
+in data window press Ctrl+space to maximise, change view mode to Data API
+--> all objects and their properties
+
+Note that whatever u do in editor you get described in code commands in the bottom left corner,
+u can copy that and use in your code
+u can also copy from parameters window: hover over parameter and press Alt+Ctrl+Shift+C
+
+Blender API
+# make bpy behave as installed module
+pip install fake-bpy-module
+
+bpy.
+	app			info about blender app (eg. version)
+	context		current state (eg. active_object, selected_objects)
+	data		eg. all objects in the scene
+	msgbus		
+	ops			eg. mesh.primitive_cube_add()
+	path		
+	props		
+	types		
+	utils		
+
+Adding new object:
+bpy.ops.mesh.primitive_cube_add()
+# does not return newly created instance, but it will be current object:
+bpy.context.object.name = "My Cube"
+cube_obj = bpy.context.object.data
+
+cursor_loc = bpy.context.scene.cursor.location
+bpy.ops.mesh.primitive_cube_add(
+	size=2,					# meters
+	scale=(1,1,1),			# relative to size
+	location=cursor_loc, 
+	enter_editmode=True		# to work with mesh
+	)
+
+Rotation should be in radians
+bpy.context.object.rotation_euler = [math.pi/4, math.radians(90), math.pi/4]
+
+all_objects = bpy.context.scene.objects
+for obj in all_objects:
+	obj.name = 'some_name'			# onject, blender will add .001 .002 ... to the names
+	obj.data.name = 'some_name'		# mesh
+# f-string
+obj.name = (f'{var1} aomething {var2}')		# note th parenthesis
+
+
+Working with mesh
+bpy.ops.mesh.subdivide(number_cuts=2)
+bpy.ops.object.subdivision_set(level=2)
+bpy.ops.object.shade_smooth()
+
+
+BMESH module
+bmesh_obj = bmesh.new()					# empty bmesh
+bmesh_obj.from_mesh(cube_obj)			# fill with data
+bmesh_obj.verts.ensure_lookup_table()
+bmesh_obj.verts[0].co.x += 1			# modify
+bmesh_obj.to_mesh(cube_obj)				# write back to mesh
+bmesh_obj.free()						# release memory
+
+go to edit mode and turn on indeces to see the change (overlays menu)
+note: developer's extras need to be enabled in the preferences-->interface
+
+
+Camera
+bpy.ops.object.camera_add(location=(0,5,0), align='VIEW')
+
+Light
+bpy.ops.object.light_add(type='SUN', location=(0,5,0))
+bpy.context.object.data.energy = 10
+
+Curve
+curve_obj = bpy.data.curves.new(name='CurveObject', type='CURVE')
+curve_obj.dimensions = '3D
+spline_obj = curve_obj.splines.new(type='POLY')
+spline_obj.points.add(len(graph_points)-1)
+for point in range(len(graph_points)):
+	y = graph_points[point]
+	x = graph_x[point]
+	spline_obj.points[point].co = (x,y,0,1)
+curve_line = bpy.data.objects.new('crv_line', curve_obj)
+bpy.context.scene.collection.objects.link(curve_line)
+bpy.context.view_layer.objects.active = curve_line
+curve_list = []
+curve_list.append(curve_line)
+# the 'End' property of the curve clips it at chosen point, we can use it for animation
+for obj in curve_list:
+	bpy.context.object.data.bevel_depth = 10
+	bpy.context.scene.frame_set(1)
+	curve_obj.bevel_factor_end = 0	# End property
+	curve_obj.keyframe_insert(data_path='bevel_factor_end')
+	bpy.context.scene.frame_set(250)
+	curve_obj.bevel_factor_end = 1	# entire line
+	curve_obj.keyframe_insert(data_path='bevel_factor_end')
+	bpy.context.scene.frame_end = 250
+
+
+Material
+curve_obj = bpy.context.active object
+curve_mat = bpy.data.materials.new(name='CurveMat')
+curve_mat.use_nodes = True
+nodes = curve_mat.node_tree.nodes
+curve_obj.active_material = curve_mat
+mat_output = nodes.get('Material Output')
+node_type = node.new(type='ShaderNodeEmission')
+some_color = [0.8, 0.0, 0.6, 1.0]
+node_type.inputs[0].default_value = (some_color)
+node_type.inputs[1].default_value = 20
+link = curve_mat.node_tree.links.new
+link(mat_output.inputs[0], node_type.outputs[0])
+
+
+EDITOR PANELS
+
+class MyStudio(bpy.types.Panel):
+	bl_label = 'my Studio Panel'
+	bl_idname = 'OBJECT_PT_MyStudio'
+	bl_space_type = 'VIEW_3D'
+	bl_region_type = 'UI'
+	bl_category = 'Quick Studio'
+
+	def draw(self, context):
+		layout = self.layout
+		row = layout.row()
+		row.operator('studio.creation_operator')
+
+class STUDIO_OT_CREATION(bpy.types.Operator):
+	bl_label = 'Create Studio'
+	bl_idname = 'studio.creation_operator'
+
+	def execute(self, context):
+		# some setup, eg. camera, light, basic objects etc.
+		return {'FINISHED'}
+
+def register():
+	bpy.utils.register_class(MyStudio)
+	bpy.utils.register_class(STUDIO_OT_CREATION)
+
+def unregister():
+	bpy.utils.unregister_class(MyStudio)
+	bpy.utils.unregister_class(STUDIO_OT_CREATION)
+
+if __name__ == '__main__':
+	register()
+
+# this will create 'Quick Studio' tab which has a 'Create Studio' button to set up scene
+

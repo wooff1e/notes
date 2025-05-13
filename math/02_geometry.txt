@@ -406,3 +406,65 @@ co-vertices	(-3, 2+√2), (-3, 2-√2)
 c = √(5-2) = √3
 foci		(-3±√3, 2)
 directrices	x = -3±5√3
+
+
+PARABOLA
+also has a focus point and directrix line (equaly distant from vertex)
+any point on parabola is equaly distant from focus and directrix
+
+Forms of parabola equation:
+- standard form:	y = ax^2 + bx + c
+
+- vertex form:		y = a(x - x1)^2 + y1		
+					(x = a(y - y1)^2 + x1 if parabola opens left/right)
+					vertex 		(x1, y1)
+					axis		x = x1
+					focus		(x1, y1+ 1/4a)
+					directrix	y = y1 - 1/4a
+
+- conics form:		4p(y-y1) = (x-x1)^2
+					p is distance btw vertex and focus
+					(4p(x-x1) = (y-y1)^2 if parabola opens left/right)
+					vertex 		(x1, y1)
+					axis		x = x1
+					focus		(x1, y1+ p)
+					directrix	y = y1 - p
+
+tandard form --> vertex form:
+y = x^2 - 1 		-->	y = 1(x-0)^2 + (-1)
+
+vertex form --> standard form:
+y = 3(x - 1)^2 - 2	-->	3(x^2 - 2x + 1) - 2
+						3x^2 - 6x + 1
+
+vertex form --> conics form:
+y = 3(x - 1)^2 - 2	-->	y + 2 = 3(x-1)^2
+						1/3(y+2) = (x-1)^2
+						4/4 * 1/*3(y+2) = (x-1)^2
+						4(1/12)(y+2) = (x-1)^2
+
+HYPERBOLA
+(y - y1)^2/a^2 - (x - x1)^2/b^2 = 1
+or (x - x1)^2/a^2 - (y - y1)^2/b^2 = 1 if hyperbala opens horizontally
+	center		(x1, y1)
+	major axis 	x=x1
+	minor axis	y=y1
+	vertices	(x1, y1±a)
+	foci		(x1, y1±c)
+	asymptotes	y = ±a/b *(x-x1) + y1
+	directrices	y = y1 ± a^2/c
+
+
+Rotating axes
+any conic section can be represented as:
+ax^2 + bxy + cy^2 + dx + ey + f = 0
+discriminant (b^2 - 4ac)	= 0	--> Parabola
+							< 0 --> ellipse
+							> 0 --> hyperbala
+
+rotating axes by θ degrees:
+cot(2θ) = (a-c)/b = cos(2θ)/sin(2θ)
+x = x'cosθ - y'sinθ		x' = x*cosθ + y*sinθ
+y = x'sinθ + y'cosθ		y' = -x*sinθ + y*cosθ
+
+(u might end up using half-angle trig identities)
