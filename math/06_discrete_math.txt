@@ -1,0 +1,130 @@
+SETS
+cardinality     number of distinct elements of a set, 
+                eg. A = {0, 1, 1, 3, 2, 2} 	|A| = 4
+power set       The set of all subsets of a set
+tuple           an ordered collection, most common – ordered pairs (a1, a2)
+
+Cardinality of Power set of a set with n elements is 2n
+A = {0, 1, 2}
+P(A) = {∅, {0}, {1}, {2}, {0,1}, {0,2}, {1,2}, {0,1,2}}
+|P(A)| = 8
+
+truth set of P is the set of elements x in D (domain) such that P(x) is true	{x∈D | P(x)}
+D: 		    Z
+P(x):       |x|=3
+truth set:	{-3, 3}
+
+
+Cartesian Product
+A∙B = {(a,b) | a∈A, b∈B}
+eg. A = {0,1} 	B = {2,3,4}
+A∙B = {(0,2), (0,3), (0,4), (1,2), (1,3), (1,4)}
+
+
+Operations on sets
+Union           A∪B = {x | x∈A ∨ x∈B}
+Intersection    A∩B = {x | x∈A ∧ x∈B}
+                If A∩B = ∅ then A and be are disjoint
+Difference      A-B = {x | x∈A ∧ x∉B} = A∩Bc
+Complement      Ac = {x∈U | x∉A} 
+                the rest of the universe outside the set
+
+
+Set Identities
+Identity laws       A∪0 = A			        A∩U = A
+Domination laws		A∪U = U			        A∩∅ = ∅
+Idempotent laws		A∪A = A                 A∩A = A
+Complementation law (Ac)c = A
+Commutative law     A∪B = B∪A               A∩B = B∩A
+Associative laws    A∪(B∪C) = (A∪B)∪C       A∩(B∩C) = (A∩B)∩C
+Distributive laws   A∪(B∩C) = (A∪B)∩(A∪C)	A∩(B∪C) = (A∩B)∪(A∩C)
+De Morgan’s laws    (A∪B)c = Ac∩Bc		    (A∩B)c = Ac∪Bc
+Absorption laws		A∪(A∩B) = A			    A∩(A∪B) = A	
+Complement laws		A∪Ac = U			    A∩Ac = ∅
+
+
+Inclusion-Exclusion formula 
+|A∪B| = |A|+|B|-|A∩B| 
+(we add everything and substruct duplicates) 
+
+for 3 sets:
+|A∪B∪C| = |A|+|B|+|C| - (|A∩B|+|B∩C|+|C∩A|) + |A∩B∩C|
+
+
+
+COMBINATORICS
+
+Factorial notation:
+5! = 5∙4∙3∙2∙1 = 120
+0! = 1 (so that formulas also work for n=r)
+
+a sequence of tasks/objects (we have n1 ways and one of n2 ways..), 
+then total is n1*n2*n3 ... *nk 
+    eg. a licence plate must begin with 3 letter and end with 3 digits, 
+    count all possibilities: 26*26*26*10*10*10 = 17 576 000
+
+If a task can be performed in one of n1 ways or one of n2 ways... 
+and ther’s no overlap, then total is n1+n2+...+nk
+    eg. I can travel to one of 37 international beaches or 14 domestic beaches, 
+    i have 51 choices
+
+if there’s an overlap, you need to remove the duplicates:
+n1+n2+...+nk - n_duplicates		
+|A∪B| = |A|+|B|-|A∩B|
+    eg. How many bitstrings of length 7 either start with 1 or end with 000?
+    1??????, ????000, 1???000
+    2^6+2^4-2^3=72
+
+if the opposite is easier to find: 
+total count = sample space – opposite count 
+
+if a task can be done using a procedure that can be carried out in n ways, 
+and there are d corresponding outcomes per group, 
+then there’re n!/d ways to do a task 
+    eg. how many ways can i sit 6 ppl around a circular table where 2 seatings 
+    are considered the same when each person has the same neighbours?
+    6!/6
+
+
+Permutations 
+arrangement of n distinct objects where order matters
+If we don’t have duplicates and we are not limited by number of spots (spots=objects)
+number of permutations P(n) = n!
+
+If spots are limited: 
+nPr = n!/(n-r)!   # r is the number of spots. 
+    eg. 3 ppl out of 10 winning 1st,2nd and 3rd prizes:
+    10*9*8 to get this we take 10! and cancel out everything after 8: 
+    10!/7! = 720
+
+If some elements are the same, then we need to divide all permutations by duplicates of each kind:
+n! / r1!*r2!...
+    eg. permutations of "oobe" string: there are 24 options, 
+    but only 12 of them (4!/2! = 12) are unique ("Oboe" = "obOe")
+
+
+Combinations 
+arrangement of n distinct objects where order doesn’t matter
+(eg. COW, WOC, OCW are considered to be duplicates)
+“n choose k”: nCk = C(n,k) = n! / r!(n-r)!
+    eg. 3 ppl out of 20 winning the same prize: 
+    C(20,3) = 20!/(3!17!) = 1140
+
+Note:   C(n,0) = C(n,n) = 1     # n>=0
+        C(n,1) = C(n,n-1) = n   # n>=1
+
+
+Pigeonhole Principle
+If there are more pigeons than pigeonholes, then there must be 
+at least 1 pigeonhole that has more than 1 pigeon in it.
+
+N objects in k spots --> at least 1 spot containing ceiling(n/k) objects
+
+Among 100 ppl, what is the number of ppl that must be born on the same month?
+ceiling(100/12) = 9
+
+How many balls must be selected from a bowl with 10 red and 10 yellow balls 
+to ensure 3 balls of the same color?  
+ceiling(N/2) = 3N = 5
+There are 38 different time periods during which classes at a university can be scheduled. 
+If there sre 677 different classes, how many different rooms will be needed? = 18

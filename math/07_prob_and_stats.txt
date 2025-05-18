@@ -1,0 +1,337 @@
+Data
+    - center
+        - mean      = sum(data)/len(data)
+        - median    = sorted_data[middle]
+            (if len(data) is even, take the mean of 2 central elements)
+        - mode      = element_with_max_count
+        
+    - spread
+        - range     = max - min
+        - interquartile range (IQR) = quartile_3 - quartile_1
+            quartile_1 = median of the first half of the data
+            quartile_2 = median of the data
+            quartile_3 = median of the second half of the data
+            quartile_4 = last_element
+        - varience
+        - standard deviation
+
+
+Changing data
+shifting (+constant):   change center but not spread
+scaling:                change both
+
+box-and-whisker plots:
+median (line in the box), quartiles (box ends), min, max (dots)
+
+
+
+DATA DISTRIBUTION
+mean        μ = sum(x) / N              /(n-1)
+variance    σ^2 = sum((x-μ)^2) / N      /(n-1)
+std dev.    σ = √variance 
+
+variance is basically mean of distances from the population's mean to each point squared 
+squaring converts distance --> area,  which gives more weight to the bigger elements
+(--> when minimizing variance, we minimize the effect of outliers)
+
+Note: this formula is for whole population. In case of sample N --> (n-1)
+because it gives us more reliable value !
+(also notation is a bit different but i don't care)
+
+Frequency histogram can be converted to frequency polygon (line connecting bar tops)
+or dencity curve (frequency polygon smoothed out)
+shading area under this curve gives uas % of the population
+
+
+in symmetric distribution mean~median,
+in left-tailed distribution mean is pulled by outliers to the left,
+while median splits the area perfectly in half and is between mean and mode.
+median and IQR are μch better measure of center/spread for skewed distributions than mean and STD
+
+Finding outliers
+1.5 IRQ rule
+    low outliers:   below Q1 - 1.5(IQR)
+    high outliers:  above Q3 + 1.5(IQR)
+
+
+Normal distribution
+Empirical rule: 68-95-99.7
+68%     area within 1 std from mean [-1std, +1std]
+95%     area within 2 std from mean
+99.7%   area within 3 std from mean
+
+Percentile: eg. 95th percentile => 95% area is below this point
+Z-score:    z = (x - μ)/σ  (find distance from the mean in terms of std)
+
+
+Chebyshev's Theorem (also skewed data)
+at least 75% data within 2 std from mean
+at least 89% data within 3 std from mean
+at least 94% data within 4 std from mean
+k = 1 - 1/std^2
+
+
+
+VARIABLES RELATIONSHIP
+
+Covariance
+how much a change in one variable predicts a change in another variable
+σ_xy = sum((x - μ_x)(y - μ_y)) / N
+(remember N-->(n-1) in case of sample)
+
+covariance is insensitive to units!
+(eg. conversion to different unit could blow up numbers while actual variable dependencies in the dataset stayed the same)
+
+
+Correlation coefficient
+how closely point stick to the trend line 
+(note correlation ≠ causation)
+r = [-1, 1]
+    values close to 0 indicate weak correlation
+    values close to -1/1 indicate strong negative/positive correlation
+
+r = σ_xy / (σ_x * σ_y)
+
+
+Weighted mean
+μ = sum(wx) / sum(w)        w = weight
+
+Grouped mean
+μ = sum(n_group*μ_group) / N
+σ^2 = sum(n_group * (μ_group - μ)^2) / N
+
+
+
+PROBABILITY
+
+Random experiment   roll a fair die and record the result
+Outcome             the rolled die is ‘2’ 
+Sample space (S)    set of all possible outcomes is: {1,2,3,4,5,6}
+Event (subset of S) a “type” of outcomes we are interested in, the rolled die is even {2,4,6}
+Power set           set of all possible events: { }, {1},{2}...{1,2},{1,3}...{1,2,3},{1,2,4}...
+Probability         assigned to events, P(A) = len(A)/len(S),
+                    eg. P(rolled die is even) = 3/6 = 1/2
+    Empirical P     based on actual data gathered in the past
+    Theoretical P   "true" probability (infinite number of experiments)
+
+Axioms of Probability
+    • P(S) = 1
+    • 0 ≤ P(A) ≤ 1
+    • P(∅) = 0
+    • P(Ac) = 1 - P(A)
+
+
+INDEPENDENT EVENTS
+    if and only if P(A and B) = P(A)P(B)
+    if P(A) = P(A|B) and P(B) = P(B|A)
+
+Always check! Sometimes the vents seem related, but are actually independent!
+Ex.: 
+A = {3,4}   P(A) = 1/3
+B = {2,4,6} P(B) = 1/2
+A∩B {4}     P(A∩B) = 1/6 = 1/2 * 1/3
+
+if we are talking about a set of independent events, 
+not only events are independent with respect to each other, 
+but also their combinations!
+
+P(A or B) "OR" = P(A) + P(B) - P(A∩B)
+exclusive "OR" --> P(A∩B)=0    
+
+
+The famous Birthday problem
+    1. What is the probability that at least 2 ppl share a common birthday?
+    2. How many ppl we must have in a room to ensure it is more likely than not that 2 ppl share a birthday? 
+    (the answer to the first question exceeds 50%) 
+We assume there are 365 days and all are equally likely, all ppl are independent
+P(all n birthdays are distinct) = 365/365 * 364/365 * 363/365 ... (366-n)/365
+P(2 ppl share a birthday) = 1- P(all birthdays are distinct) 
+for 23 ppl it will be >0.5
+ 
+    3. If we fixed a date P(all ppl not having birthday on that date) =(364/365)^n
+	now we need at least 253 ppl to satisfy P≥50%
+
+
+Complement
+sometimes its easier to solve for the opposite problem
+eg. a sequence of 10 bits is randomly generated. P(at least 1 bit = 0) = ?
+P(at least 1 bit = 0) = 1 - P(no zeros) = 1 - 1/2^10 = 1023/1024
+
+Monte Hall puzzle
+prize behind 1 of 3 doors. choose a door. after host opens 
+one of non-winner doors, should u change the door u've chosen? YES
+first time u choose P(win) = 1/3, if u change the door,
+then you bet against your 1st choice: 1 - 1/2 = 2/3
+
+
+DEPENDENT EVENTS
+eg. drawing cards from a deck (without putting them back)
+    P(A and B) = P(A)P(B|A)
+        P(B|A) means "B given A" (conditional probability)
+
+Conditional probability
+our universe basically shrinks to B and we want the intersection relative to it:
+P(A|B) = P(A∩B) / P(B)
+
+Bayer's Theorem
+P(A∩B) = P(A|B)*P(B)
+P(A∩B) = P(B|A)*P(A)
+-->
+P(A|B)*P(B) = P(B|A)*P(A)
+-->
+_____________________________
+P(A|B) = P(B|A) * P(A) / P(B)
+_____________________________
+    • If there is no intersection btw A and B --> observation of B happening immediately rules out A.
+    • If B is a subset of A, then B happening means A will happen with 100% certainty.
+    • If both A and B are rare events, but they mostly overlap, then happening of one of them will significantly boost probability of the other!
+    • Sometimes observation of one event doesn’t give us any new information for the other:
+    |.-.-|....|A    P(A|B) = intersection (1/4) / P(B)=1/2 = 1/2 = P(A)
+    |----|    |
+      B
+
+- P(intersection) cannot be larger than probability of either one of the events. 
+    Eg. A person being both a bank teller and a feminist is smaller than that person being either one of those things. 
+    Failure to see that is called the conjunction fallacy.
+- The Prosecutor's Fallacy: P(innocence|matching evidence) ≠ (P(matching evidence|innocence) !!!
+
+Ex.:
+P(test+|disease) = 0.99
+P(test-|disease) = 0.01
+P(test+|no disease) = 0.05
+P(test-|no disease) = 0.95
+P(disease) = 0.001
+
+P(disease|test+) = P(test+|disease) * P(disease) / P(test+)
+P(test+) = P(test+|disease)*P(disease) + P(test+|no disease)*P(no disease)
+P(disease|test+) = 0.99 * 0.001 / (0.99*0.001 + 0.05*0.999) = 0.019 !! 
+bad test for such rare disease (eg. if P(disease) = 0.1, then P(disease|test+) ~ 0,69)
+
+
+The Total Probability Theorem
+Partition: events are mutually exclusive and totally exhaustive
+(no intersections, no "unasigned" space)
+Sample space is partitioned into set of events {B1, B2,...}
+There is event A that overlaps some of the Bs
+P(A) = sum(P(A∩B)) = sum(P(A|Bi)*P(Bi))
+
+Eg. You have statistics available to you: 
+1) market share for major email clients (including “other” position to cover the whole market) 
+2) how often cat pictures show up in these clients.
+Now you can calculate general probability of cat pictures across all email clients 
+by summing up products (market share * cat pic for this client)
+
+
+RANDOM VARIABLE
+a function that maps sample space to real numbers X(S)-->R, 
+assigns a single numerical value to each basic outcome in the sample space. 
+    • The random variable NUMBER OF HEADS when tossing 2 coins always has a value in { 0, 1, 2}.
+    • The random variable BOUNCE always has a value in {1,2,3,…}.
+    • when rolling 2 dice the SUM is {2,...,12}
+    • In Quick sort, size of subarray passed to 1st recursive call.
+
+Expected value 
+(mean of a random variable)
+μ(x) = E(x) = sum(x*P(x))
+
+Variance
+σ^2(x) = sum( (x-μ)^2 * P(x) )
+
+Shift/scale random variable goes the same way as for data distribution
+
+Combination of random variables:
+        X + Y               X - Y
+μ       μ_x + μ_y           μ_x - μ_y
+σ       √(σ_x^2 + σ_y^2)    √(σ_x^2 + σ_y^2)
+
+Ex.: 
+box divided into 3 parts for 3 different flavours of sweets.
+each flavour = 100g ± 2g
+--> μ = 100, σ = 2
+whole box: μ = 300, σ = √12 = 2√3 ~ 3,46
+what is P(box contains < 304g)?
+this is outside first std
+1) find z-score:     (304 - 300)/ 3,46 ~ 1,16 
+2) look it up in the z-table (1.1 vert and 0.06 horiz): 0.8770 
+--> P(weight < 304g) = P(Z < 1,16) ~ 87.7%
+(for normal distributions only)
+
+
+Continuous sample space
+Pick any real number [0,1]. What is P(X=1/2)? it’s close to 0. 
+So instead of assigning probabilities to exact outcomes, 
+we assign probabilities to ranges of outcomes, eg.: P(X≤1/2) = 1/2
+We can often graph this as 2D areas (with 2 random variables as axis).
+eg. pick 2 numbers [0,1]:
+    P(x<=1/2, y<= 1/2) --> 1/4 of a 1x1 square
+    P(x >= y) --> 1/2 of a 1x1 square (area under the line x=y)
+
+
+
+PROBABILITY DISTRIBUTIONS
+
+Bernoulli Trials
+Sequence of independent trials (series of independent events) 
+where the sample space is binary.
+
+Binomial random variable
+- independent trials
+- fixed number of trials 
+- 2 possible outcomes (success / failure)
+- P(success) is constant for each trial
+
+Exactly
+P(k success in n trials) = nCk * p^k * (1-p)^(n-k)
+    p^k = P of success to the power of number of successes
+    (1-p)^(n-k) = P of failure to the power of number of failures
+    p^k * (1-p)^(n-k) = P of any specific sequence
+    nCk - binomial coefficient
+
+Ex.: 1 good, 2 bad marbles, choose one 5 times (with replacement),
+P(3 out of 5) = ?
+    P(success) = 1/3
+    5C3 = 5*4 / 2*1 = 20/2 = 10
+    P(3 out of 5) = 10 * (1/3)^3 * (2/3)^2 ~ 16.5%
+
+If we calculate for all possibilities we get binomial distribution:
+P(0 in 5)   13%
+P(1 in 5)   33%
+P(2 in 5)   33%
+P(3 in 5)   16%
+P(4 in 5)   4%
+P(5 in 5)   0%
+
+
+At least
+P(at least 3 out of 5) = P(3 in 5) + P(4 in 5) + P(5 in 5)
+
+First success on k-th trial
+k-1 fails, then success
+P = (1-p)^(k-1) * p
+
+
+Geometric probability distribution
+- Infinite sample space
+Roll a die until current number matches the previous number. 
+Let X be that roll.
+P(X=1) = 0
+P(X=2) = 6 double outcomes / 36 possible outcomes = 1/6
+P(X=3) means that we failed on roll 2 but succeeded on roll 3 = 30/36 * 1/6 = 5/36
+P(X=n) = 5/6 * 5/6 * 5/6 ... * 1/6
+sum(a^n) = 1/(1-a)  for 0<a<1
+
+
+Poisson distribution
+- number of events (x) over period_of_time/distance/area/etc.
+- same mean (λ) for every interval
+- count is independent for each interval
+- intervals do not overlap
+
+P(x) = (λ^x * e^-λ) / x!
+the further x is from λ, the lower the P
+
+Distribution for x=1,2,3,... 
+- has mode at λ withering down on both sides
+- P for smaller numbers (to the left of the λ) is slightly higher
+    (the reason is abscence of negative numbers)
+- long tail to the right
