@@ -267,14 +267,15 @@ eg. pick 2 numbers [0,1]:
     P(x >= y) --> 1/2 of a 1x1 square (area under the line x=y)
 
 
-
-PROBABILITY DISTRIBUTIONS
-
 Bernoulli Trials
 Sequence of independent trials (series of independent events) 
 where the sample space is binary.
 
-Binomial random variable
+
+
+PROBABILITY DISTRIBUTIONS
+
+BINOMIAL
 - independent trials
 - fixed number of trials 
 - 2 possible outcomes (success / failure)
@@ -301,7 +302,6 @@ P(3 in 5)   16%
 P(4 in 5)   4%
 P(5 in 5)   0%
 
-
 At least
 P(at least 3 out of 5) = P(3 in 5) + P(4 in 5) + P(5 in 5)
 
@@ -310,7 +310,7 @@ k-1 fails, then success
 P = (1-p)^(k-1) * p
 
 
-Geometric probability distribution
+GEOMETRIC
 - Infinite sample space
 Roll a die until current number matches the previous number. 
 Let X be that roll.
@@ -321,7 +321,7 @@ P(X=n) = 5/6 * 5/6 * 5/6 ... * 1/6
 sum(a^n) = 1/(1-a)  for 0<a<1
 
 
-Poisson distribution
+POISSON
 - number of events (x) over period_of_time/distance/area/etc.
 - same mean (λ) for every interval
 - count is independent for each interval
@@ -335,3 +335,6 @@ Distribution for x=1,2,3,...
 - P for smaller numbers (to the left of the λ) is slightly higher
     (the reason is abscence of negative numbers)
 - long tail to the right
+
+At least:
+P(x≥3) = 1 - P(x<3)
