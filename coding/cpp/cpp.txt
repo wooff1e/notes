@@ -6,8 +6,10 @@
 #include "file.h" 	// for everything but usually used for relative paths
 
 			
-// replaces a peace of code with whatever you specify
+// MACROS: replaces a peace of code with whatever you specify
 #define	SEARCH_FOR REPLACE_WITH	
+#define LOG(x) std::cout << x \     // "\" to wrap the line
+<< std::endl
 
 #if 1
 ...
@@ -22,6 +24,36 @@
 #define _LOG_H
 // ... contents of the file
 #endif
+
+
+# TEMPLATES
+when the same function should be available for diferent types.
+
+void print(int value) {
+    std::cout << value << std::endl;
+}
+-->
+template<typename T>    // doesn't have to be "T"
+void print(T value) {
+    std::cout << value << std::endl;
+}
+print(5);
+print("hello");
+// you can specify type explicitly
+print<int>(5); 
+
+template is NOT a function, the actual function is created when it is being called:
+since at the moment of calling the function we know the actual type --> 
+concrete version of function is created and compiled
+
+template<typename T, int N>
+class Array {
+    T m_data[N];
+public:
+    int getSize() const { return N;}
+};
+
+Array<int, 5> array;
 
 --------------------------
 
@@ -79,8 +111,24 @@ you need to copy the .DLL file alongside your .EXE
 =====================================================================
 
 
+### NAMESPACES ###
+
 using namespace std;
+using namespace std::vector;
 using String = std::string;
+namespace a = std;
+
+namespace custom {
+    void someFuc() {}
+}
+custom::someFuc();
+
+never use namespaces in header files (you might end up using namespace where you don't intend to)
+generally use it in the smallest scope possible (eg. inside a function)
+can be nested
+
+=====================================================================
+
 
 # VARIABLES
 // size depends on the compiler (use sizeof(int) to check
@@ -158,6 +206,74 @@ snprintf(buff, sizeof(buff), "%s", "Hello");
 std::string buffAsStdStr = buff;
 
 
+# POINTERS
+int* x, y; 	// x is a pointer but y is an int!
+int* x, *y;	// both pointers
+
+// pointer is an integer variable that stores a memory address
+string food = "Pizza"; 
+string* ptr = &food;
+cout << ptr << "\n";	// 0x6dfed4
+cout << *ptr << "\n"; 	// Pizza (dereferencing)
+*ptr = "burger";
+
+// typeless pointer. 0 is not a valid memory address. Same as NULL or nullptr
+void* ptr = 0; 
+
+*ptr++;	// this will increment the pointer and then dereference!!
+(*ptr)++;
+
+// pointer to a pointer (e.g. array of c-strings)
+char** ptr
+
+
+# REFERENCES
+// reference is not a variable, it does not occupy space in memory, it's an alias
+// it cannot be changed to reference a different variable
+string& ref = food; 
+ref = "apple"; // now variable food has a value "apple"
+
+int a = 5;
+int b = 4;
+
+void swapNums(int& x, int& y) {
+  int z = x;
+  x = y;
+  y = z;
+}
+swapNums(a, b)
+
+//if we didn't have references we would have to write this function like this (which is ugly):
+void swapNums(int* x, int* y) {
+  int z = *x;
+  *x = *y;
+  *y = z;
+}
+swapNums(&a, &b);
+// internally these 2 versions will be compiled into the same thing
+
+
+# ENUMS
+// way to group values and give them names. 
+// If not specified the values will be 32bit integers 0,1,2...
+enum Level { LOW, MEDIUM, HIGH }; 
+Level myVar = MEDIUM; 	
+cout << myVar; 	// 1
+// if this enum were a class member, you'd have to access it outside of the class as:
+log.setLevel(MyClass::MEDIUM); 
+
+enum Level : unsigned char { LOW, MEDIUM, HIGH }; 
+// cannot be floats though (enumeration does not use floating points)
+
+enum Level {
+  LOW = 5,
+  MEDIUM, 	// Now 6
+  HIGH 		// Now 7
+}; 
+
+// enums are good with switch statement
+
+
 # C ARRAYS
 int myNum[3] = {10, 20, 30};
 string cars[] = {"Volvo", "BMW", "Ford"}; // don't have to specify the size, although it's a good practice
@@ -201,17 +317,7 @@ static const char* vShader = R"END(
 ...
 )END"
 
-
-# INPUT/OUTPUT
-int x; 
-cout << "Type a number: ";
-cin >> x;
-cout << "Your number is: " << x;
-// note that cin can only store a single word (white space == termination)
-string fullName;
-cout << "Type your full name: ";
-getline (cin, fullName);
-cout << "Your name is: " << fullName;
+=====================================================================
 
 
 # LOGIC FLOW
@@ -270,32 +376,66 @@ for (int i : myNumbers) {
 
 for (int count=0; Cell c : board) {...}
 
-# ENUMS
-// way to group values and give them names. 
-// If not specified the values will be 32bit integers 0,1,2...
-enum Level { LOW, MEDIUM, HIGH }; 
-Level myVar = MEDIUM; 	
-cout << myVar; 	// 1
-// if this enum were a class member, you'd have to access it outside of the class as:
-log.setLevel(MyClass::MEDIUM); 
-
-enum Level : unsigned char { LOW, MEDIUM, HIGH }; 
-// cannot be floats though (enumeration does not use floating points)
-
-enum Level {
-  LOW = 5,
-  MEDIUM, 	// Now 6
-  HIGH 		// Now 7
-}; 
-
-// enums are good with switch statement
-
 
 # FUNCTIONS
-// function overloading
+Default arguments
+// myfile.h
+void myfunc(int blah, int mode = 0);  	// <--- here
+
+// myfile.cpp
+void myfunc(int blah, int mode) {	// not here
+    if (mode == 0)
+        do_something();
+     else
+        do_something_else();
+}
+
+Function overloading
 int myFunction(int x)
 float myFunction(float x)
 double myFunction(double x, double y)
+
+
+Function pointers
+void helloWorld(int someArg) {...}
+void(*function)(int) = &helloWorld;
+auto function = &helloWorld;  // same
+auto function = helloWorld;   // same bc. implicit conversion
+function(5);
+
+void somFunc(std::vector<int>& data, void(*funcToUse)(int)) {
+  for (int value : data)
+    funcToUse(value);
+}
+someFunc(data, helloWorld);
+
+
+Lambdas
+someFunc(data, [](int value) {std::cout << "Value: " << value << std::endl;});
+
+auto lambda = [](int value) {std::cout << "Value: " << value << std::endl;};
+someFunc(data, lambda);
+
+[](int var)
+[=](int var)  // pass everything by value
+[&](int var)  // pass everything by reference
+[a](int var)  // pass a by value (note that a is now an "outside" var, you can use it without passing as an arg)
+[&a](int var) // pass a by reference
+auto lambda = [](int value) {std::cout << a << " " << value << std::endl;};
+
+=====================================================================
+
+
+# INPUT/OUTPUT
+int x; 
+cout << "Type a number: ";
+cin >> x;
+cout << "Your number is: " << x;
+// note that cin can only store a single word (white space == termination)
+string fullName;
+cout << "Type your full name: ";
+getline (cin, fullName);
+cout << "Your name is: " << fullName;
 
 
 # FILES
@@ -327,53 +467,6 @@ catch (int myNum) {
   cout << "Access denied - You must be at least 18 years old.\n";
   cout << "Error number: " << myNum;
 } 
-
-
-# POINTERS
-int* x, y; 	// x is a pointer but y is an int!
-int* x, *y;	// both pointers
-
-// pointer is an integer variable that stores a memory address
-string food = "Pizza"; 
-string* ptr = &food;
-cout << ptr << "\n";	// 0x6dfed4
-cout << *ptr << "\n"; 	// Pizza (dereferencing)
-*ptr = "burger";
-
-// typeless pointer. 0 is not a valid memory address. Same as NULL or nullptr
-void* ptr = 0; 
-
-*ptr++;	// this will increment the pointer and then dereference!!
-(*ptr)++;
-
-// pointer to a pointer (e.g. array of c-strings)
-char** ptr
-
-
-# REFERENCES
-// reference is not a variable, it does not occupy space in memory, it's an alias
-// it cannot be changed to reference a different variable
-string& ref = food; 
-ref = "apple"; // now variable food has a value "apple"
-
-int a = 5;
-int b = 4;
-
-void swapNums(int& x, int& y) {
-  int z = x;
-  x = y;
-  y = z;
-}
-swapNums(a, b)
-
-//if we didn't have references we would have to write this function like this (which is ugly):
-void swapNums(int* x, int* y) {
-  int z = *x;
-  *x = *y;
-  *y = z;
-}
-swapNums(&a, &b);
-// internally these 2 versions will be compiled into the same thing
 
 
 # MEMORY MANAGEMENT: STACK vs HEAP
@@ -683,7 +776,8 @@ class MyClass {
 	{}
 // 
 if you don't put vars in order, they will still be initialized in order they appear in class, not in list. 
-If we put initialization inside the {} instead, the variable will get initialized twice! first time with default constructor (except for primitives like int, but it's also more readable this way).
+If we put initialization inside the {} instead, the variable will get initialized twice! first time with default constructor 
+(except for primitives like int, but it's also more readable this way).
 
 
 # IMPLICIT/EXPLICIT CONVERSION
@@ -691,8 +785,12 @@ If we put initialization inside the {} instead, the variable will get initialize
 // these are all valid ways to write the same thing:
 Entity e = Entity(22);
 Entity e(22);
-Entity e = 22;	// <-- implicit conversion
+Entity e = 22;	// <-- implicit conversion 
+OR:
+void printEntity(const Entity& entity) {...}
+printEntity(22) // <-- implicit conversion
 
+// This only works if there exist a constructor that takes an int
 // to turn off this behaviour, use "explicit" on your constructor:
 	explicit Entity(int age) : m_age(age) {}
 
@@ -762,6 +860,7 @@ for (std::size_t count{}; Cell c : board)
 
 
 # VECTOR
+array is created on the stack, but vectors allocate underlying storage on the heap!
 // growing array : overhead!
 // (creates new array of double size --> copy data --> deletes old one)
 vector<string> v = {"Volvo", "BMW", "Ford", "Mazda"};
@@ -918,11 +1017,11 @@ for (auto it = cars.rbegin(); it != cars.rend(); ++it) {
 
 
 ## TUPLE / PAIR
-tuple: greate way to return multiple values from a func:
+tuple: great way to return multiple values from a func:
 
 tuple<string, string, int> SomeFunc() {
   ...
-  return make_pair<string, string, int>(str1, str2, int1);
+  return make_pair(str1, str2, int1);
 }
 auto myTuple = SomeFunc();
 string myStr = get<0>(myTuple); // so ugly :(
@@ -935,3 +1034,8 @@ MyStruct someFunc() {
 }
 auto myStruct = SomeFunc();
 string myStr = myStruct.myStrName;
+
+=====================================================================
+
+
+### MULTITHREADING ###
