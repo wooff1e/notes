@@ -58,6 +58,7 @@ Factorial notation:
 5! = 5∙4∙3∙2∙1 = 120
 0! = 1 (so that formulas also work for n=r)
 
+Choose with replacement (we can "reuse" an object)
 a sequence of tasks/objects (we have n1 ways and one of n2 ways..), 
 then total is n1*n2*n3 ... *nk 
     eg. a licence plate must begin with 3 letter and end with 3 digits, 
@@ -104,6 +105,7 @@ n! / r1!*r2!...
 
 
 Combinations 
+(Choose without replacement)
 arrangement of n distinct objects where order doesn’t matter
 (eg. COW, WOC, OCW are considered to be duplicates)
 “n choose k”: nCk = C(n,k) = n! / r!(n-r)!

@@ -43,6 +43,7 @@ unzip filename.zip -d /path/to/directory
 # list contents (dirs) without unpacking:
 unzip -l foo.zip "*/"
 
+--FILES--
 mkdir dir_name
 touch file1.txt
 nano file

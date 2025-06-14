@@ -1,0 +1,17 @@
+LIMITS
+
+f(x) = (x^3 - 1) / (x-1)
+this function has a gap at (1,3)
+--> as x approaches 1 from either left or right, f(x) approaches 3
+--> lim(x->1) f(x) = 3
+
+Limits fail to exist when:
+    1. f(x) approaches a different number from the right side of c than it approaches from the left side 
+    (although we can talk about one-sided limits (eg. x-->6+, x-->6-)
+    2. f(x) increase/decrease without bound as x approaches c
+    3. f(x) oscillates between two fixed values as x approaches c
+
+lim c*f(x) = c*lim f(x)
+lim (f(x) +/-/*// g(x)) = lim f(x)  +/-/*// lim g(x)
+lim (f(x))^n = (lim f(x))^n
+lim f(g(x)) = f(lim g(x))

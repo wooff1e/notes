@@ -1,0 +1,82 @@
+GLEW (or OpenGL Extension Wrangler) is pretty much a loader, that helps you to manage OpenGl in an "easy" way. In general, functions of the OpenGL library are already on your computer, contained in binary form (.dll) inside your graphics drivers, and GLEW is a portal between you and OpenGl that already lives there. It provides the functionality of OpenGL in such a way, that is convenient for you to use. 
+
+GLFW (or Graphics Library Framework) is a library that helps you to manage such things as window, its size, params, basic input and events-stuff. GLEW needs a window and a valid OpenGL context to be setup, and that's exactly where GLFW comes in handy.
+
+GLUT and GLFW are basically the same, but what you need to know is that the original GLUT has been unsupported for 20 years, and there is a free open-source alternative for it called freeglut. 
+
+GLM - math
+___________________________
+
+homogen. coords:
+(-1,-1)_________ (1,-1)
+      |    _    |
+      |  (0,0)  |
+      |_________|
+(1, 1)          (-1,1)
+
+    v0
+   / \
+v2/___\v1
+
+
+/// SHADER
+#version 450
+layout(location = 0) out vec3 fragColor;
+
+vec2 positions[3] = vec2[](
+    vec2(0.0, -0.5),
+    vec2(0.5, 0.5),
+    vec2(-0.5, 0.5)
+);
+vec3 colors[3] = vec3[](
+    vec3(1.0, 0.0, 0.0),
+    vec3(0.0, 1.0, 0.0),
+    vec3(0.0, 0.0, 1.0)
+);
+
+// invoked for every vertex (with gl_VertexIndex being its id)
+void main() {
+    gl_Position = vec4(positions[gl_VertexIndex], 0.0, 1.0);
+    fragColor = colors[gl_VertexIndex];
+}
+
+
+___________________________
+
+### SETUP ###
+
+// LINUX ubuntu 22.04
+wget -qO- https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo tee /etc/apt/trusted.gpg.d/lunarg.asc
+sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-jammy.list http://packages.lunarg.com/vulkan/lunarg-vulkan-jammy.list
+sudo apt update
+sudo apt install vulkan-sdk
+vkcube  # to check if ok
+
+sudo apt install libglfw3-dev
+sudo apt install libglm-dev
+
+
+// WINDOWS, Visual Studio
+https://www.glfw.org/download --> pre-compiled binaries 64 bit (glfw-3.4.bin.WIN64.zip)
+unpack, rename to GLFW, put int new "External Libs" folder, move it to 
+C:\Users\hamster\Documents\Visual Studio 2022
+(or where your projects are)
+-----------------------------------------------------
+create C++ windows console app
+right-click on project name --> properties --> 
+
+All Configurations, All platforms
+--> C/C++ --> precompiled headers --> not using
+--> C/C++ --> general --> additional include directories --> 
+	$(SolutionDir)/../externals/GLFW/include
+	$(SolutionDir)/../externals/GLM // <preinstalled by vulkan tools
+	C:/VulkanSDK/1.3.290.0/Include
+	
+--> linker --> general --> additional library directories --> 
+	$(SolutionDir)/../externals/GLFW/lib-vc2022
+	C:/VulkanSDK/1.3.290.0/Lib	// <---- x64 platform
+	C:/VulkanSDK/1.3.290.0/Lib32	// <---- x84 platform
+	
+--> linker --> input --> additional dependencies --> Edit -->
+glfw3.lib
+vulkan-1.lib

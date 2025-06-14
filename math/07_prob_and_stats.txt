@@ -36,7 +36,7 @@ squaring converts distance --> area,  which gives more weight to the bigger elem
 
 Note: this formula is for whole population. In case of sample N --> (n-1)
 because it gives us more reliable value !
-(also notation is a bit different but i don't care)
+(also notation is a bit different)
 
 Frequency histogram can be converted to frequency polygon (line connecting bar tops)
 or dencity curve (frequency polygon smoothed out)
@@ -267,19 +267,15 @@ eg. pick 2 numbers [0,1]:
     P(x >= y) --> 1/2 of a 1x1 square (area under the line x=y)
 
 
-Bernoulli Trials
-Sequence of independent trials (series of independent events) 
-where the sample space is binary.
-
-
 
 PROBABILITY DISTRIBUTIONS
 
 BINOMIAL
-- independent trials
-- fixed number of trials 
+- series of independent events/trials
 - 2 possible outcomes (success / failure)
 - P(success) is constant for each trial
+- fixed number of trials 
+
 
 Exactly
 P(k success in n trials) = nCk * p^k * (1-p)^(n-k)
@@ -303,22 +299,46 @@ P(4 in 5)   4%
 P(5 in 5)   0%
 
 At least
-P(at least 3 out of 5) = P(3 in 5) + P(4 in 5) + P(5 in 5)
+P(S≥3) = P(S=3) + P(S=4) + P(S=5) = 1 - P(S≤2)
 
-First success on k-th trial
-k-1 fails, then success
-P = (1-p)^(k-1) * p
+At most
+P(S≤2) = P(S=0) + P(S=1) + P(S=2) = 1 - P(S≥3)
+
+Distribution
+E(x) = n*p
+    n = number of trials
+    p = probability of success
+σ^2(x) = np(1-p)
+
+
+BERNOULLI
+success = 1
+failure = 0
+
+E(x) = P(F)*0 + P(S)*1 = P(S)
+σ^2(x) = p(1-p) = P(S) * P(F)
+    (1-p)(0-p)^2 + p(1-p)^2 = (1-p)p^2 + p(1 - p - p + p^2) = 
+    = p^2 - p^3 + p - 2p^2 + p^3 = p - p^2 = p(1-p)
+
+eg. brown hair in population P(S) = 60%
+distribution: 0.4|0.6
 
 
 GEOMETRIC
-- Infinite sample space
-Roll a die until current number matches the previous number. 
-Let X be that roll.
-P(X=1) = 0
-P(X=2) = 6 double outcomes / 36 possible outcomes = 1/6
-P(X=3) means that we failed on roll 2 but succeeded on roll 3 = 30/36 * 1/6 = 5/36
-P(X=n) = 5/6 * 5/6 * 5/6 ... * 1/6
-sum(a^n) = 1/(1-a)  for 0<a<1
+- Binomial but infinite trials
+- 1st success on k-th trial (--> k-1 fails, then success)
+
+P(S=k) = p * (1-p)^(k-1)
+E(x) = 1/p
+σ^2(x) = (1-p)/p^2
+
+At most:
+P(S<=3) = P(S=1) + P(S=2) + P(S=3)
+eg. p= 0.7, then
+P(S<=3) = 0.7^1 * 0.3^0 + 0.7^1 * 0.3^1 + 0.7^1 * 0.3^2 = 0.973
+
+At least:
+since we have infinite tries, P(S>=3) = 1 - P(S<=2)
 
 
 POISSON
@@ -338,3 +358,62 @@ Distribution for x=1,2,3,...
 
 At least:
 P(x≥3) = 1 - P(x<3)
+
+
+
+INFERENCIAL STATISTICS
+Bias
+    - response bias (eg. broken measuring tool, embarrassing question)
+    - undercoverage (sampling problems)
+
+Population vs sample
+if we take samples of 3 out of population of 30,
+the total number of possible samples (choosing with replacement) is 
+N^n = 30^3 = 27 000
+
+if we calculate mean of each sample and plot their distribution
+(SDSM - Sampling Distribution of the Sample Mean)
+the mean of this distribution = mean of population 
+if the original distribution is not normal, we need to use n>=30 for this to work
+
+σ^2(x) = σ^2/n
+SE (standard error) = σ/√n, where σ comes from sampling distribution
+the bigger SE, the less acurate each sample's mean compared to population
+
+Final Population Correction (FPC) factor
+- sampling w/o replacement
+- samples of >5% of population
+
+FPC = (N-n)/(N-1)
+σ^2(x) = σ^2/n * FPC
+σ(x) = σ/√n * √FPC
+
+Conditions for inference with the SDSM
+- random
+- normal
+- large counts (n>=30)
+- independent (if sample size is >10% of population, samples start to affect each other)
+
+z_x = (sample_μ - μ) / σ/√n
+
+Sampling distribution of the sample proportion
+Conditions for inference with the SDSP
+The student's t-distribution
+Confidence interval for the mean
+Confidence interval for the proportion
+Introduction to hypothesis testing
+Inferential statistics and hypotheses
+Significance level and type I and II errors
+Test statistics for one- and two-tailed tests
+The p-value and rejecting the null
+Hypothesis testing for the population proportion
+Confidence interval for the difference of means
+Hypothesis testing for the difference of means
+Matched-pair hypothesis testing
+Confidence interval for the difference of proportions
+Hypothesis testing for the difference of proportions
+Introduction to regression
+Scatterplots and regression
+Correlation coefficient and the residual
+Coefficient of determination and RMSE
+Chi-square tests
